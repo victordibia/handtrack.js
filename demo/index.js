@@ -108,7 +108,7 @@ async function getPredictions() {
         boxes2,
         scores,
         20, // maxNumBoxes
-        0.6, // iou_threshold
+        0.4, // iou_threshold
         0.2 // score_threshold
       )
     })
@@ -143,7 +143,11 @@ async function getPredictions() {
 function renderPredictions(result) {
   // context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-  context.drawImage(video, 0, 0);
+  // context.drawImage(video, 0, 0);
+
+
+
+  context.clearRect(0, 0, canvas.width, canvas.height);
   context.font = '10px Arial';
 
   // console.log('number of detections: ', result.length);
