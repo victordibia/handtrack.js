@@ -67,14 +67,26 @@ async function loadModel() {
 
 async function getPredictions() {
   let timeBegin = Date.now()
+  let flipHorizontal = true
+  let outputStride = 16
+  let imageScaleFactor = 1 
 
+  const [height, width] = getInputTensorDimensions(video);
+  const resizedHeight = getValidResolution(imageScaleFactor, height, outputStride);
+  const resizedWidth = getValidResolution(imageScaleFactor, width, outputStride);
+  
   const batched = tf.tidy(() => {
-    const img = tf.fromPixels(video) 
-    return img.expandDims(0)
+    const imageTensor = tf.fromPixels(video) 
+    if (flipHorizontal) {
+      return imageTensor.reverse(1).resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
+    } else {
+      return imageTensor.resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
+    }
+    // return imageTensor.reverse(1).expandDims(0)
   })
 
-  const height = batched.shape[1]
-  const width = batched.shape[2]
+  // const height = batched.shape[1]
+  // const width = batched.shape[2]
 
 
 
@@ -146,11 +158,11 @@ function renderPredictions(result) {
   canvas.height = video.height;
 
   context.save();
-//   context.scale(-1, 1);
-//   context.translate(-video.width, 0);
+  context.scale(-1, 1);
+  context.translate(-video.width, 0);
   context.drawImage(video, 0, 0, video.width, video.height);
   context.restore();
-  context.drawImage(video, 0, 0);
+  // context.drawImage(video, 0, 0);
   context.font = '10px Arial';
 
   // console.log('number of detections: ', result.length);
@@ -191,3 +203,16 @@ function buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
   }
   return objects
 }
+
+
+function getValidResolution(imageScaleFactor, inputDimension,outputStride) {
+  const evenResolution = inputDimension * imageScaleFactor - 1;
+  return evenResolution - (evenResolution % outputStride) + 1;
+}
+
+function getInputTensorDimensions(input){
+  return input instanceof tf.Tensor ? [input.shape[0], input.shape[1]] :
+                                      [input.height, input.width];
+}
+
+
