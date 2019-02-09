@@ -1,0 +1,15 @@
+body{
+    padding: 20px;
+}
+
+.border{
+    border: solid 1px #000;
+}
+
+.videobox{
+    display: block;
+}
+
+.iblock{
+    display: inline-block;
+}

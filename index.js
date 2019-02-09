@@ -1,28 +1,13 @@
-/**
- * @license
- * Copyright 2018 Google LLC. All Rights Reserved.
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * =============================================================================
- */
+import 'carbon-components/css/carbon-components.css'
+// import 'carbon-components/script/carbon-components.css'
+import * as tf from '@tensorflow/tfjs';
+import './main.css'
+import 'babel-polyfill';
+import "jquery"
+import { update } from '@tensorflow/tfjs-layers/dist/variables';
 
-import * as cocoSsd from '@tensorflow-models/coco-ssd'
-import * as tf from "@tensorflow/tfjs"
 
-import imageURL from './hand3.jpg';
-import image2URL from './image2.jpg';
-
-let modelPromise;
-let baseModel = 'lite_mobilenet_v2';
+let modelPromise; 
 let model = null
 let video = null
 
@@ -30,8 +15,8 @@ const c = document.getElementById('canvas');
 const context = c.getContext('2d');
 
 video = document.getElementById("myvideo")
-video.width = 600;
-video.height = 600;
+video.width = 500 ;
+video.height = 400 ;
 
 // window.onload = () => modelPromise = cocoSsd.load();
 
@@ -40,7 +25,6 @@ const WEIGHTS_URL = 'hand/weights_manifest.json';
 
 
 function startVideo() {
-
   navigator.mediaDevices
     .getUserMedia({
       audio: false,
@@ -51,7 +35,7 @@ function startVideo() {
       }
     })
     .then(stream => {
-      console.log(video)
+      // console.log(video)
       video.srcObject = stream
       video.onloadedmetadata = () => {
         // video.play()
@@ -60,6 +44,9 @@ function startVideo() {
 }
 
 startVideo()
+setTimeout(function () {
+//   loadModel()
+}, 2000)
 
 async function loadModel() {
 
@@ -72,10 +59,9 @@ async function loadModel() {
 
 async function getPredictions() {
   let timeBegin = Date.now()
+
   const batched = tf.tidy(() => {
-    const img = tf.fromPixels(video)
-    // console.log(img)
-    // Reshape to a single-element batch so we can pass it to executeAsync.
+    const img = tf.fromPixels(video) 
     return img.expandDims(0)
   })
 
@@ -108,8 +94,8 @@ async function getPredictions() {
         boxes2,
         scores,
         20, // maxNumBoxes
-        0.6, // iou_threshold
-        0.2 // score_threshold
+        0.4, // iou_threshold
+        0.7 // score_threshold
       )
     })
     const indexes = indexTensor.dataSync()
@@ -118,7 +104,7 @@ async function getPredictions() {
     tf.setBackend(prevBackend)
 
     // console.log(indexes, result[0].shape)
-    console.log(scores.length, boxes.length)
+    // console.log(scores.length, boxes.length)
 
     const predictions = buildDetectedObjects(
       width,
@@ -129,20 +115,33 @@ async function getPredictions() {
       labels
     )
 
-    console.log("Objects found", predictions.length, predictions)
+    // console.log("Objects found", predictions.length, predictions)
     renderPredictions(predictions)
     let timeEnd = Date.now()
     let timeElapsed = timeEnd - timeBegin
-    console.log("Frame rate time", timeElapsed, 1000 / timeElapsed)
+    updateFPS(timeElapsed)
+    // console.log("Frame rate time", timeElapsed, 1000 / timeElapsed)
     requestAnimationFrame(getPredictions)
 
   })
 
 }
 
+function updateFPS(fps){
+    $("#fps").text("FPS: " + Math.round(1000 /fps) + "")
+}
+
 function renderPredictions(result) {
   // context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  canvas.width = video.width;
+  canvas.height = video.height;
 
+  context.save();
+//   context.scale(-1, 1);
+//   context.translate(-video.width, 0);
+  context.drawImage(video, 0, 0, video.width, video.height);
+  context.restore();
   context.drawImage(video, 0, 0);
   context.font = '10px Arial';
 
@@ -151,7 +150,7 @@ function renderPredictions(result) {
     context.beginPath();
     context.rect(...result[i].bbox);
     context.lineWidth = 1;
-    context.strokeStyle = 'green';
+    context.strokeStyle = 'red';
     context.fillStyle = 'green';
     context.stroke();
     context.fillText(
@@ -184,10 +183,3 @@ function buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
   }
   return objects
 }
-
-
-
-setTimeout(function () {
-  loadModel()
-
-}, 2000)
