@@ -69,12 +69,12 @@ async function getPredictions() {
   let timeBegin = Date.now()
   let flipHorizontal = true
   let outputStride = 16
-  let imageScaleFactor = 1 
+  let imageScaleFactor = 0.7
 
   const [height, width] = getInputTensorDimensions(video);
   const resizedHeight = getValidResolution(imageScaleFactor, height, outputStride);
   const resizedWidth = getValidResolution(imageScaleFactor, width, outputStride);
-  
+  // console.log(height, width, resizedHeight, resizedWidth)
   const batched = tf.tidy(() => {
     const imageTensor = tf.fromPixels(video) 
     if (flipHorizontal) {
