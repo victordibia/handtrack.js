@@ -1,4 +1,3 @@
-
 /**
  * @license
  * Copyright 2019 Victor Dibia.
@@ -12,7 +11,7 @@ import 'carbon-components/css/carbon-components.css'
 // import 'carbon-components/script/carbon-components.css'
 import * as tf from '@tensorflow/tfjs';
 import './main.css'
-import 'babel-polyfill'; 
+import 'babel-polyfill';
 // import { update } from '@tensorflow/tfjs-layers/dist/variables';
 
 
@@ -24,9 +23,9 @@ const c = document.getElementById('canvas');
 const context = c.getContext('2d');
 
 video = document.getElementById("myvideo")
-video.width = 500 ;
-video.height = 400 ;
- 
+video.width = 500;
+video.height = 400;
+
 
 const MODEL_URL = 'hand/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'hand/weights_manifest.json';
@@ -76,7 +75,7 @@ async function getPredictions() {
   const resizedWidth = getValidResolution(imageScaleFactor, width, outputStride);
   // console.log(height, width, resizedHeight, resizedWidth)
   const batched = tf.tidy(() => {
-    const imageTensor = tf.fromPixels(video) 
+    const imageTensor = tf.fromPixels(video)
     if (flipHorizontal) {
       return imageTensor.reverse(1).resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
     } else {
@@ -92,23 +91,28 @@ async function getPredictions() {
 
   model.executeAsync(batched).then(result => {
 
-    const boxes = result[0].dataSync()
-    const scores = result[1].dataSync()
-    const labels = result[2].dataSync()
-    const last = result[3].dataSync()
+    const scores = result[0].dataSync()
+    const boxes = result[1].dataSync()
+    // const labels = result[2].dataSync()
+    // const last = result[3].dataSync()
+
+
 
     // console.log(boxes.length, scores.length, labels.length)
     // clean the webgl tensors
     batched.dispose()
     tf.dispose(result)
 
+    const [maxScores, classes] = calculateMaxScores(scores, result[0].shape[1], result[0].shape[2]);
+
+
     const prevBackend = tf.getBackend()
     // run post process in cpu
     tf.setBackend('cpu')
     const indexTensor = tf.tidy(() => {
       const boxes2 = tf.tensor2d(boxes, [
-        result[0].shape[1],
-        result[0].shape[2]
+        result[1].shape[1],
+        result[1].shape[3]
       ])
       return tf.image.nonMaxSuppression(
         boxes2,
@@ -124,7 +128,7 @@ async function getPredictions() {
     tf.setBackend(prevBackend)
 
     // console.log(indexes, result[0].shape)
-    // console.log(scores.length, boxes.length)
+
 
     const predictions = buildDetectedObjects(
       width,
@@ -132,7 +136,7 @@ async function getPredictions() {
       boxes,
       scores,
       indexes,
-      labels
+      classes
     )
 
     // console.log("Objects found", predictions.length, predictions)
@@ -147,8 +151,8 @@ async function getPredictions() {
 
 }
 
-function updateFPS(fps){
-    $("#fps").text("FPS: " + Math.round(1000 /fps) + "")
+function updateFPS(fps) {
+  $("#fps").text("FPS: " + Math.round(1000 / fps) + "")
 }
 
 function renderPredictions(result) {
@@ -205,14 +209,29 @@ function buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
 }
 
 
-function getValidResolution(imageScaleFactor, inputDimension,outputStride) {
+function getValidResolution(imageScaleFactor, inputDimension, outputStride) {
   const evenResolution = inputDimension * imageScaleFactor - 1;
   return evenResolution - (evenResolution % outputStride) + 1;
 }
 
-function getInputTensorDimensions(input){
-  return input instanceof tf.Tensor ? [input.shape[0], input.shape[1]] :
-                                      [input.height, input.width];
+function getInputTensorDimensions(input) {
+  return input instanceof tf.Tensor ? [input.shape[0], input.shape[1]] : [input.height, input.width];
 }
 
-
+function calculateMaxScores(scores, numBoxes, numClasses) {
+  const maxes = [];
+  const classes = [];
+  for (let i = 0; i < numBoxes; i++) {
+    let max = Number.MIN_VALUE;
+    let index = -1;
+    for (let j = 0; j < numClasses; j++) {
+      if (scores[i * numClasses + j] > max) {
+        max = scores[i * numClasses + j];
+        index = j;
+      }
+    }
+    maxes[i] = max;
+    classes[i] = index;
+  }
+  return [maxes, classes];
+}
