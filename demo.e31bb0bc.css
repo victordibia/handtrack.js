@@ -11886,7 +11886,7 @@ body{
 }
 
 .videobox{
-    display: block;
+    display: none;
 }
 
 .iblock{
