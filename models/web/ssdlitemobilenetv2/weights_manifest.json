@@ -1,0 +1,740 @@
+[{
+    "paths": ["group1-shard1of5.bin", "group1-shard2of5.bin", "group1-shard3of5.bin", "group1-shard4of5.bin", "group1-shard5of5.bin"],
+    "weights": [{
+        "name": "ConstantFolding/Postprocessor/Decode/div_recip",
+        "shape": [],
+        "dtype": "float32"
+    }, {
+        "name": "Postprocessor/ExpandDims",
+        "shape": [1, 1917, 4],
+        "dtype": "float32"
+    }, {
+        "name": "ConstantFolding/Postprocessor/Decode/div_4_recip",
+        "shape": [],
+        "dtype": "float32"
+    }, {
+        "name": "Postprocessor/Reshape_1/shape",
+        "shape": [2],
+        "dtype": "int32"
+    }, {
+        "name": "ConstantFolding/Postprocessor/Decode/div_2_recip",
+        "shape": [],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_0/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 576, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_0/BoxEncodingPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_1/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 1280, 24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_1/BoxEncodingPredictor/biases",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_2/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 512, 24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_2/BoxEncodingPredictor/biases",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_3/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 256, 24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_3/BoxEncodingPredictor/biases",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_4/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 256, 24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_4/BoxEncodingPredictor/biases",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_5/BoxEncodingPredictor/weights",
+        "shape": [1, 1, 128, 24],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_5/BoxEncodingPredictor/biases",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "Postprocessor/strided_slice_1/stack_1",
+        "shape": [1],
+        "dtype": "int32"
+    }, {
+        "name": "BoxPredictor_0/Reshape/shape/3",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "BoxPredictor_0/ClassPredictor/weights",
+        "shape": [1, 1, 576, 6],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_0/ClassPredictor/biases",
+        "shape": [6],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_1/ClassPredictor/weights",
+        "shape": [1, 1, 1280, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_1/ClassPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_2/ClassPredictor/weights",
+        "shape": [1, 1, 512, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_2/ClassPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_3/ClassPredictor/weights",
+        "shape": [1, 1, 256, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_3/ClassPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_4/ClassPredictor/weights",
+        "shape": [1, 1, 256, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_4/ClassPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_5/ClassPredictor/weights",
+        "shape": [1, 1, 128, 12],
+        "dtype": "float32"
+    }, {
+        "name": "BoxPredictor_5/ClassPredictor/biases",
+        "shape": [12],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/expand/Conv2D/merged_input",
+        "shape": [1, 1, 160, 960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/depthwise/depthwise_weights",
+        "shape": [3, 3, 960, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_15/project/Conv2D/merged_input",
+        "shape": [1, 1, 960, 160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/expand/Conv2D/merged_input",
+        "shape": [1, 1, 160, 960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/depthwise/depthwise_weights",
+        "shape": [3, 3, 960, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_14/project/Conv2D/merged_input",
+        "shape": [1, 1, 960, 160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/expand/Conv2D/merged_input",
+        "shape": [1, 1, 96, 576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/depthwise/depthwise_weights",
+        "shape": [3, 3, 576, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_12/project/Conv2D/merged_input",
+        "shape": [1, 1, 576, 96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/expand/Conv2D/merged_input",
+        "shape": [1, 1, 96, 576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/depthwise/depthwise_weights",
+        "shape": [3, 3, 576, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_11/project/Conv2D/merged_input",
+        "shape": [1, 1, 576, 96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/expand/Conv2D/merged_input",
+        "shape": [1, 1, 64, 384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/depthwise/depthwise_weights",
+        "shape": [3, 3, 384, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_9/project/Conv2D/merged_input",
+        "shape": [1, 1, 384, 64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/expand/Conv2D/merged_input",
+        "shape": [1, 1, 64, 384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/depthwise/depthwise_weights",
+        "shape": [3, 3, 384, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_8/project/Conv2D/merged_input",
+        "shape": [1, 1, 384, 64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/expand/Conv2D/merged_input",
+        "shape": [1, 1, 64, 384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/depthwise/depthwise_weights",
+        "shape": [3, 3, 384, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_7/project/Conv2D/merged_input",
+        "shape": [1, 1, 384, 64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/expand/Conv2D/merged_input",
+        "shape": [1, 1, 32, 192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/depthwise/depthwise_weights",
+        "shape": [3, 3, 192, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_5/project/Conv2D/merged_input",
+        "shape": [1, 1, 192, 32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/expand/Conv2D/merged_input",
+        "shape": [1, 1, 32, 192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/depthwise/depthwise_weights",
+        "shape": [3, 3, 192, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_4/project/Conv2D/merged_input",
+        "shape": [1, 1, 192, 32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/expand/Conv2D/merged_input",
+        "shape": [1, 1, 24, 144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/depthwise/depthwise_weights",
+        "shape": [3, 3, 144, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_2/project/Conv2D/merged_input",
+        "shape": [1, 1, 144, 24],
+        "dtype": "float32"
+    }, {
+        "name": "Preprocessor/mul/x",
+        "shape": [],
+        "dtype": "float32"
+    }, {
+        "name": "Preprocessor/map/TensorArrayStack/range/start",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Preprocessor/sub/y",
+        "shape": [],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/Conv/Conv2D/merged_input",
+        "shape": [3, 3, 3, 32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/Conv/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv/depthwise/depthwise_weights",
+        "shape": [3, 3, 32, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv/project/Conv2D/merged_input",
+        "shape": [1, 1, 32, 16],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [16],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/expand/Conv2D/merged_input",
+        "shape": [1, 1, 16, 96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/depthwise/depthwise_weights",
+        "shape": [3, 3, 96, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/project/Conv2D/merged_input",
+        "shape": [1, 1, 96, 24],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_1/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [24],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/expand/Conv2D/merged_input",
+        "shape": [1, 1, 24, 144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/depthwise/depthwise_weights",
+        "shape": [3, 3, 144, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [144],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/project/Conv2D/merged_input",
+        "shape": [1, 1, 144, 32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_3/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [32],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/expand/Conv2D/merged_input",
+        "shape": [1, 1, 32, 192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/depthwise/depthwise_weights",
+        "shape": [3, 3, 192, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [192],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/project/Conv2D/merged_input",
+        "shape": [1, 1, 192, 64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_6/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/expand/Conv2D/merged_input",
+        "shape": [1, 1, 64, 384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/depthwise/depthwise_weights",
+        "shape": [3, 3, 384, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [384],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/project/Conv2D/merged_input",
+        "shape": [1, 1, 384, 96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_10/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [96],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/expand/Conv2D/merged_input",
+        "shape": [1, 1, 96, 576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/depthwise/depthwise_weights",
+        "shape": [3, 3, 576, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [576],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/project/Conv2D/merged_input",
+        "shape": [1, 1, 576, 160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_13/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [160],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/expand/Conv2D/merged_input",
+        "shape": [1, 1, 160, 960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/expand/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/depthwise/depthwise_weights",
+        "shape": [3, 3, 960, 1],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/depthwise/BatchNorm/FusedBatchNorm/Scaled",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/depthwise/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [960],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/project/Conv2D/merged_input",
+        "shape": [1, 1, 960, 320],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/expanded_conv_16/project/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [320],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/Conv_1/Conv2D/merged_input",
+        "shape": [1, 1, 320, 1280],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/Conv_1/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [1280],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_2_1x1_256/Conv2D/merged_input",
+        "shape": [1, 1, 1280, 256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_2_1x1_256/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_2_3x3_s2_512/Conv2D/merged_input",
+        "shape": [3, 3, 256, 512],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_2_3x3_s2_512/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [512],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_3_1x1_128/Conv2D/merged_input",
+        "shape": [1, 1, 512, 128],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_3_1x1_128/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [128],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_3_3x3_s2_256/Conv2D/merged_input",
+        "shape": [3, 3, 128, 256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_3_3x3_s2_256/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_4_1x1_128/Conv2D/merged_input",
+        "shape": [1, 1, 256, 128],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_4_1x1_128/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [128],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_4_3x3_s2_256/Conv2D/merged_input",
+        "shape": [3, 3, 128, 256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_4_3x3_s2_256/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [256],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_5_1x1_64/Conv2D/merged_input",
+        "shape": [1, 1, 256, 64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_1_Conv2d_5_1x1_64/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [64],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_5_3x3_s2_128/Conv2D/merged_input",
+        "shape": [3, 3, 64, 128],
+        "dtype": "float32"
+    }, {
+        "name": "FeatureExtractor/MobilenetV2/layer_19_2_Conv2d_5_3x3_s2_128/BatchNorm/FusedBatchNorm/Offset",
+        "shape": [128],
+        "dtype": "float32"
+    }, {
+        "name": "Postprocessor/strided_slice/stack",
+        "shape": [1],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/strided_slice/stack_1",
+        "shape": [1],
+        "dtype": "int32"
+    }, {
+        "name": "BoxPredictor_0/Reshape/shape/1",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/ExpandDims_1/dim",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Tile/multiples/1",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Slice/begin",
+        "shape": [3],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Slice/size",
+        "shape": [3],
+        "dtype": "int32"
+    }, {
+        "name": "Preprocessor/map/while/ResizeImage/resize_images/ExpandDims/dim",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Preprocessor/map/while/ResizeImage/stack",
+        "shape": [2],
+        "dtype": "int32"
+    }, {
+        "name": "Preprocessor/map/while/add/y",
+        "shape": [],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Decode/transpose/sub_1",
+        "shape": [2],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Decode/get_center_coordinates_and_sizes/transpose/sub_1",
+        "shape": [2],
+        "dtype": "int32"
+    }, {
+        "name": "Postprocessor/Decode/transpose_1/sub_1",
+        "shape": [2],
+        "dtype": "int32"
+    }]
+}]
