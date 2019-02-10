@@ -1,4 +1,5 @@
 dist 
+srcdist
 .cache
 .DS_Store
 

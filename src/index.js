@@ -9,75 +9,84 @@
 
 
 import * as tf from '@tensorflow/tfjs';
-import 'babel-polyfill';  
 
 let model = null
-let video = null
-
-const c = document.getElementById('canvas');
-const context = c.getContext('2d');
-
-video = document.getElementById("myvideo")
-video.width = 500 ;
-video.height = 400 ;
- 
 
 const MODEL_URL = 'hand/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'hand/weights_manifest.json';
+const basePath = "hand/"
 
+export async function load(base = basePath) {
+  // return new Promise(function (resolve, reject) {
+  const objectDetection = new ObjectDetection(base);
+  await objectDetection.load();
+  return (objectDetection);
+  // });
 
-
-
-async function loadModel() {
-  model = await tf.loadFrozenModel(MODEL_URL, WEIGHTS_URL);
-  const cat = document.getElementById('image');
-  console.log("Model loaded")
 }
 
+export class ObjectDetection {
+  // modelPathinput;
+  // weightPathinput;
+  // model;
 
-/*
-* Generate bounding box data for each hand.
-* Code adapted from cocos-ssd tensorflow model: https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd 
-*/
-async function detect(video, modelParams) { 
-  modelParams.maxNumBoxes = modelParams.maxNumBoxes || 20
-  modelParams.iouThreshold = modelParams.iouThreshold || 0.5
-  modelParams.scoreThreshold = modelParams.scoreThreshold || 0.6
+  constructor(base) {
+    this.modelPath = basePath + "tensorflowjs_model.pb";
+    this.weightPath = basePath + "weights_manifest.json";
+  }
 
+  async load() {
+    this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
 
-  const batched = tf.tidy(() => {
-    const img = tf.fromPixels(video) 
-    return img.expandDims(0)
-  })
+    // Warmup the model.
+    const result = await this.model.executeAsync(tf.zeros([1, 300, 300, 3]));
+    result.map(async (t) => await t.data());
+    result.map(async (t) => t.dispose());
+    console.log("model loaded and warmed up")
+  }
 
-  const height = batched.shape[1]
-  const width = batched.shape[2]
+  async detect(input) {
+    let flipHorizontal = true
+    let outputStride = 16
+    let imageScaleFactor = 0.7
 
-  model.executeAsync(batched).then(result => {
+    const [height, width] = getInputTensorDimensions(input);
+    const resizedHeight = getValidResolution(imageScaleFactor, height, outputStride);
+    const resizedWidth = getValidResolution(imageScaleFactor, width, outputStride);
 
-    const boxes = result[0].dataSync()
-    const scores = result[1].dataSync()
-    const labels = result[2].dataSync()
-    const last = result[3].dataSync()
+    const batched = tf.tidy(() => {
+      const imageTensor = tf.fromPixels(input)
+      if (flipHorizontal) {
+        return imageTensor.reverse(1).resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
+      } else {
+        return imageTensor.resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
+      }
+    })
+
+    const result = await this.model.executeAsync(batched);
+
+    const scores = result[0].dataSync()
+    const boxes = result[1].dataSync()
 
     // clean the webgl tensors
     batched.dispose()
     tf.dispose(result)
 
+    const [maxScores, classes] = calculateMaxScores(scores, result[0].shape[1], result[0].shape[2]);
     const prevBackend = tf.getBackend()
     // run post process in cpu
     tf.setBackend('cpu')
     const indexTensor = tf.tidy(() => {
       const boxes2 = tf.tensor2d(boxes, [
-        result[0].shape[1],
-        result[0].shape[2]
+        result[1].shape[1],
+        result[1].shape[3]
       ])
       return tf.image.nonMaxSuppression(
         boxes2,
         scores,
-        modelParams.maxNumBoxes, // maxNumBoxes
-        modelParams.iouThreshold, // iou_threshold
-        modelParams.scoreThreshold// score_threshold
+        20, // maxNumBoxes
+        0.4, // iou_threshold
+        0.7 // score_threshold
       )
     })
     const indexes = indexTensor.dataSync()
@@ -85,68 +94,73 @@ async function detect(video, modelParams) {
     // restore previous backend
     tf.setBackend(prevBackend)
 
-    const predictions = buildDetectedObjects(
+    const predictions = this.buildDetectedObjects(
       width,
       height,
       boxes,
       scores,
       indexes,
-      labels
-    ) 
+      classes
+    )
+
+    console.log(predictions)
     return predictions
-  })
-
-}
- 
-function renderPredictions(result) {
-  // context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  canvas.width = video.width;
-  canvas.height = video.height;
-
-  context.save();
-//   context.scale(-1, 1);
-//   context.translate(-video.width, 0);
-  context.drawImage(video, 0, 0, video.width, video.height);
-  context.restore();
-  context.drawImage(video, 0, 0);
-  context.font = '10px Arial';
-
-  // console.log('number of detections: ', result.length);
-  for (let i = 0; i < result.length; i++) {
-    context.beginPath();
-    context.rect(...result[i].bbox);
-    context.lineWidth = 1;
-    context.strokeStyle = 'red';
-    context.fillStyle = 'green';
-    context.stroke();
-    context.fillText(
-      result[i].score.toFixed(3) + ' ' + result[i].class, result[i].bbox[0],
-      result[i].bbox[1] > 10 ? result[i].bbox[1] - 5 : 10);
+    
   }
-}
 
-function buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
-  const count = indexes.length
-  const objects = []
-  for (let i = 0; i < count; i++) {
-    const bbox = []
-    for (let j = 0; j < 4; j++) {
-      bbox[j] = boxes[indexes[i] * 4 + j]
+  buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
+    const count = indexes.length
+    const objects = []
+    for (let i = 0; i < count; i++) {
+      const bbox = []
+      for (let j = 0; j < 4; j++) {
+        bbox[j] = boxes[indexes[i] * 4 + j]
+      }
+      const minY = bbox[0] * height
+      const minX = bbox[1] * width
+      const maxY = bbox[2] * height
+      const maxX = bbox[3] * width
+      bbox[0] = minX
+      bbox[1] = minY
+      bbox[2] = maxX - minX
+      bbox[3] = maxY - minY
+      objects.push({
+        bbox: bbox,
+        class: classes[indexes[i]],
+        score: scores[indexes[i]]
+      })
     }
-    const minY = bbox[0] * height
-    const minX = bbox[1] * width
-    const maxY = bbox[2] * height
-    const maxX = bbox[3] * width
-    bbox[0] = minX
-    bbox[1] = minY
-    bbox[2] = maxX - minX
-    bbox[3] = maxY - minY
-    objects.push({
-      bbox: bbox,
-      class: classes[indexes[i]],
-      score: scores[indexes[i]]
-    })
+    return objects
   }
-  return objects
+
+
+}
+
+
+
+function getValidResolution(imageScaleFactor, inputDimension, outputStride) {
+  const evenResolution = inputDimension * imageScaleFactor - 1;
+  return evenResolution - (evenResolution % outputStride) + 1;
+}
+
+function getInputTensorDimensions(input) {
+  return input instanceof tf.Tensor ? [input.shape[0], input.shape[1]] : [input.height, input.width];
+}
+
+function calculateMaxScores(scores, numBoxes, numClasses) {
+  const maxes = [];
+  const classes = [];
+  for (let i = 0; i < numBoxes; i++) {
+    let max = Number.MIN_VALUE;
+    let index = -1;
+    for (let j = 0; j < numClasses; j++) {
+      if (scores[i * numClasses + j] > max) {
+        max = scores[i * numClasses + j];
+        index = j;
+      }
+    }
+    maxes[i] = max;
+    classes[i] = index;
+  }
+  return [maxes, classes];
 }
