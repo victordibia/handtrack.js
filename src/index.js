@@ -30,6 +30,27 @@ export async function load(params) {
   return (objectDetection);
 }
 
+export function startVideo(video){
+  video.height = video.height || 400
+  video.width = video.width || 500
+  navigator.mediaDevices
+        .getUserMedia({
+            audio: false,
+            video: {
+                facingMode: "user",
+                width: 600,
+                height: 500
+            }
+        })
+        .then(stream => {
+            // console.log(video)
+            video.srcObject = stream
+            video.onloadedmetadata = () => {
+                // video.play()
+            }
+        })
+}
+
 export class ObjectDetection {
   // modelPathinput;
   // weightPathinput;

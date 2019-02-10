@@ -1,38 +1,17 @@
-let video = document.getElementById("myvideo")
-video.width = 500
-video.height = 400
+let model
+let video = document.getElementById("myvideo") 
 const canvas = document.getElementById('canvas');
 const context = canvas.getContext('2d');
 
-function startVideo() {
-    navigator.mediaDevices
-        .getUserMedia({
-            audio: false,
-            video: {
-                facingMode: "user",
-                width: 600,
-                height: 500
-            }
-        })
-        .then(stream => {
-            // console.log(video)
-            video.srcObject = stream
-            video.onloadedmetadata = () => {
-                // video.play()
-            }
-        })
-}
+handTrack.startVideo(video) 
 
-startVideo()
-
-let model
 const modelParams = {
-    scoreThreshold: 0.5,
+    scoreThreshold: 0.8,
     modelType: "ssdlitemobilenetv2",
     flipHorizontal: true,
 }
 
-function runDetection(){
+function runDetection() {
     model.detect(video).then(predictions => {
         // console.log('Predictions: ', predictions);
         model.renderPredictions(predictions, canvas, context, video)
@@ -41,9 +20,7 @@ function runDetection(){
         requestAnimationFrame(runDetection)
     });
 }
-handTrack.load(modelParams).then(md => {
-    model = md
-    console.log(video)
+handTrack.load(modelParams).then(loadedModel => {
+    model = loadedModel
     runDetection()
-    
 });

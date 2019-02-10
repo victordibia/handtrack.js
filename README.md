@@ -1,6 +1,6 @@
 ## Handtrack.js
  
-> This wrapper is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. If you are interested in detecting/tracking any of the 90 classes in the coco dataset.
+> This wrapper is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. Definitely check it out if you are interested in detecting/tracking any of the 90 classes in the coco dataset.
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
 
@@ -20,7 +20,8 @@ You can use the library by including it in a javacript script tag.
 <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"> </script>
 
 <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
-<img id="img" src="hand.jpg"/>
+<img id="img" src="hand.jpg"/> 
+<canvas id="canvas" class="border"></canvas>
 
 <!-- Place your code in the script tag below. You can also use an external .js file -->
 <script>
@@ -74,7 +75,7 @@ Once you include the js module, it is available as `handTrack`. You can then loa
 
 ```js
 
-const defaultParams = {
+const modelParams = {
   flipHorizontal: true,   // flip e.g for video 
   imageScaleFactor: 0.7,  // reduce input image size for gains in speed.
   maxNumBoxes: 20,        // maximum number of boxes to detect
