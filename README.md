@@ -85,3 +85,7 @@ Returns an array of classes and confidence scores that looks like:
   score: 0.74644153267145157
 }]
 ```
+
+## How was this built?
+
+The object detection model used in this project was trained using annotated images and converted to the tensorflow.js format. Guidelines and some code from [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample were adopted in creating this wrapper.
