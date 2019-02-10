@@ -1,6 +1,7 @@
 /**
  * @license
  * Copyright 2019 Victor Dibia.
+ * Handtrack.js - A library for prototyping realtime hand tracking using neural networks.
  * Licensed under the MIT License (the "License"); 
  * 
  * =============================================================================
@@ -14,27 +15,24 @@ let model = null
 
 const MODEL_URL = 'hand/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'hand/weights_manifest.json';
-const basePath = "hand/"
+const basePath = "https://victordibia.github.io/handtrackjs/models/web/"
 
 const defaultParams = {
-   flipHorizontal: true,
-   outputStride: 16,
-   imageScaleFactor: 0.7,
-   maxNumBoxes: 20,
-   iouThreshold: 0.5,
-   scoreThreshold: 0.99,
-   modelType :"ssdlitemobilenetv2"
+  flipHorizontal: true,
+  outputStride: 16,
+  imageScaleFactor: 0.7,
+  maxNumBoxes: 20,
+  iouThreshold: 0.5,
+  scoreThreshold: 0.99,
+  modelType: "ssdlitemobilenetv2"
 }
 
 export async function load(params) {
   let modelParams = Object.assign({}, defaultParams, params);
-  console.log(modelParams)
-  // return new Promise(function (resolve, reject) {
+  // console.log(modelParams) 
   const objectDetection = new ObjectDetection(modelParams);
   await objectDetection.load();
   return (objectDetection);
-  // });
-
 }
 
 export class ObjectDetection {
@@ -44,10 +42,9 @@ export class ObjectDetection {
 
 
   constructor(modelParams) {
-    this.modelPath = basePath + "tensorflowjs_model.pb";
-    this.weightPath = basePath + "weights_manifest.json";
+    this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
+    this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
     this.modelParams = modelParams
-
   }
 
   async load() {
@@ -58,11 +55,11 @@ export class ObjectDetection {
     const result = await this.model.executeAsync(tf.zeros([1, 300, 300, 3]));
     result.map(async (t) => await t.data());
     result.map(async (t) => t.dispose());
-    console.log("model loaded and warmed up")
+    // console.log("model loaded and warmed up")
   }
 
   async detect(input) {
-    
+
     let timeBegin = Date.now()
     const [height, width] = getInputTensorDimensions(input);
     const resizedHeight = getValidResolution(this.modelParams.imageScaleFactor, height, this.modelParams.outputStride);
@@ -77,6 +74,8 @@ export class ObjectDetection {
       }
     })
 
+    
+
     const result = await this.model.executeAsync(batched);
 
     const scores = result[0].dataSync()
@@ -85,6 +84,8 @@ export class ObjectDetection {
     // clean the webgl tensors
     batched.dispose()
     tf.dispose(result)
+
+    // console.log("scores result",scores, boxes)
 
     const [maxScores, classes] = calculateMaxScores(scores, result[0].shape[1], result[0].shape[2]);
     const prevBackend = tf.getBackend()
@@ -118,7 +119,7 @@ export class ObjectDetection {
     )
     let timeEnd = Date.now()
     this.fps = Math.round(1000 / (timeEnd - timeBegin))
-    // console.log(this.fps, "fps", timeBegin, timeEnd)
+    
     return predictions
 
   }
@@ -152,17 +153,18 @@ export class ObjectDetection {
     return this.fps;
   }
 
-  renderPredictions(predictions, canvas, context) {
+  renderPredictions(predictions, canvas, context, mediasource) {
     context.clearRect(0, 0, canvas.width, canvas.height);
-    canvas.width = video.width;
-    canvas.height = video.height;
+    canvas.width = mediasource.width;
+    canvas.height = mediasource.height;
 
     context.save();
-    context.scale(-1, 1);
-    context.translate(-video.width, 0);
-    context.drawImage(video, 0, 0, video.width, video.height);
-    context.restore();
-    // context.drawImage(video, 0, 0);
+    if (this.modelParams.flipHorizontal) {
+      context.scale(-1, 1);
+      context.translate(-mediasource.width, 0);
+    }
+    context.drawImage(mediasource, 0, 0, mediasource.width, mediasource.height);
+    context.restore(); 
     context.font = '10px Arial';
 
     // console.log('number of detections: ', predictions.length);
