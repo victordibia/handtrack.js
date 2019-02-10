@@ -8,13 +8,8 @@
  */
 
 
-
 import * as tf from '@tensorflow/tfjs';
 
-let model = null
-
-const MODEL_URL = 'hand/tensorflowjs_model.pb';
-const WEIGHTS_URL = 'hand/weights_manifest.json';
 const basePath = "https://victordibia.github.io/handtrackjs/models/web/"
 
 const defaultParams = {

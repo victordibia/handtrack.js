@@ -1,14 +1,16 @@
 ## Handtrack.js
  
+> This wrapper is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. If you are interested in detecting/tracking any of the 90 classes in the coco dataset.
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
 
-The library is provided as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications. without the need to understand. It takes in a html image element (<img>, <video>, <canvas> elements, for example) and returns an array of bounding boxes, class names and confidence scores.
+The library is provided as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications. without the need to understand. It takes in a html image element (`img`, `video`, `canvas` elements, for example) and returns an array of bounding boxes, class names and confidence scores.
 
 The library also provides some useful functions (e.g `getFPS` to get FPS, `renderPredictions` to draw bounding boxes on a canvas element), and customizable model parameters.
 
 ## Usage
  
+### via Script Tag
 
 You can use the library by including it in a javacript script tag.
 
@@ -39,6 +41,31 @@ You can use the library by including it in a javacript script tag.
   });
 </script>
 ```
+
+### via NPM
+
+```shell
+npm install handtrackjs
+```
+
+```js
+import * as handTrack from 'handtrackjs';
+
+const img = document.getElementById('img');
+
+// Load the model.
+handTrack.load().then(model => {
+  // detect objects in the image.
+  console.log("model loaded")
+  model.detect(img).then(predictions => {
+    console.log('Predictions: ', predictions);
+    model.renderPredictions(predictions, canvas, context, img)
+  });
+});
+```
+
+
+
 
 ## API
 

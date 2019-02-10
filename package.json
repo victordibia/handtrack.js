@@ -3,24 +3,27 @@
   "version": "0.0.1",
   "description": "Handtrackjs: A library for prototyping realtime hand tracking using neural networks (tensorflowjs)",
   "main": "src/index.js",
+  "unpkg": "dist/handtrack.min.js",
+  "jsdelivr": "dist/handtrack.min.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victordibia/handtrackjs.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development parcel demo/index.html --open",
     "build": "cross-env NODE_ENV=production parcel build demo/index.html --public-url https://victordibia.github.io/handtrackjs/",
-    "deploy": "gh-pages -d dist",
+    "deploy": "gh-pages -d demo",
     "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html"
   },
+  "files": [
+    "dist/**/*", "src/**/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tensorflow/tfjs": "0.13.5",
-    "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.2.1",
-    "jquery": "^3.3.1",
-    "main.css": "^1.0.0",
-    "popper.js": "^1.14.7",
-    "gh-pages": "^1.1.0"
+    "@tensorflow/tfjs": "0.13.5"
   },
   "devDependencies": {
     "@tensorflow/tfjs": "^0.13.5",
@@ -29,8 +32,8 @@
     "babel-plugin-transform-runtime": "~6.23.0",
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.1.1",
-    "carbon-components": "^9.73.1",
     "cssnano": "^4.1.8",
-    "rollup-plugin-node-resolve": "^4.0.0"
+    "rollup-plugin-node-resolve": "^4.0.0",
+    "gh-pages": "^1.1.0"
   }
 }
