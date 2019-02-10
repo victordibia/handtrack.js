@@ -10,7 +10,7 @@
 
 import * as tf from '@tensorflow/tfjs';
 
-const basePath = "https://victordibia.github.io/handtrackjs/models/web/"
+const basePath = "https://cdn.jsdelivr.net/npm/handtrackjs/models/web/"
 
 const defaultParams = {
   flipHorizontal: true,

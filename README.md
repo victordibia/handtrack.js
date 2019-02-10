@@ -17,7 +17,7 @@ You can use the library by including it in a javacript script tag.
 ```html
 
 <!-- Load the handtrackjs model. -->
-<script src="https://cdn.jsdelivr.net/npm/handtrackjs"> </script>
+<script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"> </script>
 
 <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
 <img id="img" src="hand.jpg"/>
