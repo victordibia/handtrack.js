@@ -16,9 +16,21 @@ const MODEL_URL = 'hand/tensorflowjs_model.pb';
 const WEIGHTS_URL = 'hand/weights_manifest.json';
 const basePath = "hand/"
 
-export async function load(base = basePath) {
+const defaultParams = {
+   flipHorizontal: true,
+   outputStride: 16,
+   imageScaleFactor: 0.7,
+   maxNumBoxes: 20,
+   iouThreshold: 0.5,
+   scoreThreshold: 0.99,
+   modelType :"ssdlitemobilenetv2"
+}
+
+export async function load(params) {
+  let modelParams = Object.assign({}, defaultParams, params);
+  console.log(modelParams)
   // return new Promise(function (resolve, reject) {
-  const objectDetection = new ObjectDetection(base);
+  const objectDetection = new ObjectDetection(modelParams);
   await objectDetection.load();
   return (objectDetection);
   // });
@@ -30,12 +42,16 @@ export class ObjectDetection {
   // weightPathinput;
   // model;
 
-  constructor(base) {
+
+  constructor(modelParams) {
     this.modelPath = basePath + "tensorflowjs_model.pb";
     this.weightPath = basePath + "weights_manifest.json";
+    this.modelParams = modelParams
+
   }
 
   async load() {
+    this.fps = 0
     this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
 
     // Warmup the model.
@@ -46,17 +62,15 @@ export class ObjectDetection {
   }
 
   async detect(input) {
-    let flipHorizontal = true
-    let outputStride = 16
-    let imageScaleFactor = 0.7
-
+    
+    let timeBegin = Date.now()
     const [height, width] = getInputTensorDimensions(input);
-    const resizedHeight = getValidResolution(imageScaleFactor, height, outputStride);
-    const resizedWidth = getValidResolution(imageScaleFactor, width, outputStride);
+    const resizedHeight = getValidResolution(this.modelParams.imageScaleFactor, height, this.modelParams.outputStride);
+    const resizedWidth = getValidResolution(this.modelParams.imageScaleFactor, width, this.modelParams.outputStride);
 
     const batched = tf.tidy(() => {
       const imageTensor = tf.fromPixels(input)
-      if (flipHorizontal) {
+      if (this.modelParams.flipHorizontal) {
         return imageTensor.reverse(1).resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
       } else {
         return imageTensor.resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
@@ -84,9 +98,9 @@ export class ObjectDetection {
       return tf.image.nonMaxSuppression(
         boxes2,
         scores,
-        20, // maxNumBoxes
-        0.4, // iou_threshold
-        0.7 // score_threshold
+        this.modelParams.maxNumBoxes, // maxNumBoxes
+        this.modelParams.iouThreshold, // iou_threshold
+        this.modelParams.scoreThreshold // score_threshold
       )
     })
     const indexes = indexTensor.dataSync()
@@ -102,10 +116,11 @@ export class ObjectDetection {
       indexes,
       classes
     )
-
-    console.log(predictions)
+    let timeEnd = Date.now()
+    this.fps = Math.round(1000 / (timeEnd - timeBegin))
+    // console.log(this.fps, "fps", timeBegin, timeEnd)
     return predictions
-    
+
   }
 
   buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
@@ -133,6 +148,36 @@ export class ObjectDetection {
     return objects
   }
 
+  getFPS() {
+    return this.fps;
+  }
+
+  renderPredictions(predictions, canvas, context) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.width = video.width;
+    canvas.height = video.height;
+
+    context.save();
+    context.scale(-1, 1);
+    context.translate(-video.width, 0);
+    context.drawImage(video, 0, 0, video.width, video.height);
+    context.restore();
+    // context.drawImage(video, 0, 0);
+    context.font = '10px Arial';
+
+    // console.log('number of detections: ', predictions.length);
+    for (let i = 0; i < predictions.length; i++) {
+      context.beginPath();
+      context.rect(...predictions[i].bbox);
+      context.lineWidth = 1;
+      context.strokeStyle = 'red';
+      context.fillStyle = 'green';
+      context.stroke();
+      context.fillText(
+        predictions[i].score.toFixed(3) + ' ' + predictions[i].class, predictions[i].bbox[0],
+        predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
+    }
+  }
 
 }
 
@@ -162,5 +207,6 @@ function calculateMaxScores(scores, numBoxes, numClasses) {
     maxes[i] = max;
     classes[i] = index;
   }
+  // console.log([maxes, classes])
   return [maxes, classes];
 }
