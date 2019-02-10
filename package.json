@@ -1,6 +1,6 @@
 {
   "name": "handtrackjs",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Handtrackjs: A library for prototyping realtime hand tracking using neural networks (tensorflowjs)",
   "main": "src/index.js",
   "unpkg": "dist/handtrack.min.js",
@@ -17,7 +17,8 @@
     "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html"
   },
   "files": [
-    "dist/**/*", "src/**/*"
+    "dist/**/*",
+    "src/**/*"
   ],
   "keywords": [],
   "author": "",
@@ -33,7 +34,8 @@
     "babel-preset-env": "^1.7.0",
     "cross-env": "^5.1.1",
     "cssnano": "^4.1.8",
-    "rollup-plugin-node-resolve": "^4.0.0",
-    "gh-pages": "^1.1.0"
+    "gh-pages": "^1.1.0",
+    "rollup-plugin-babel-minify": "^7.0.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
   }
 }

@@ -3,7 +3,7 @@
  * Copyright 2019 Victor Dibia.
  * Handtrack.js - A library for prototyping realtime hand tracking using neural networks.
  * Licensed under the MIT License (the "License"); 
- * 
+ * Code snippets from the tensorflow coco-ssd example are reused here - https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd
  * =============================================================================
  */
 
@@ -68,8 +68,6 @@ export class ObjectDetection {
         return imageTensor.resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
       }
     })
-
-    
 
     const result = await this.model.executeAsync(batched);
 
