@@ -51,12 +51,7 @@ export function startVideo(video){
         })
 }
 
-export class ObjectDetection {
-  // modelPathinput;
-  // weightPathinput;
-  // model;
-
-
+export class ObjectDetection { 
   constructor(modelParams) {
     this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
     this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
@@ -171,6 +166,7 @@ export class ObjectDetection {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
     canvas.height = mediasource.height;
+    // console.log(mediasource.width,mediasource.height)
 
     context.save();
     if (this.modelParams.flipHorizontal) {
@@ -192,6 +188,16 @@ export class ObjectDetection {
       context.fillText(
         predictions[i].score.toFixed(3) + ' ' + predictions[i].class, predictions[i].bbox[0],
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
+    }
+
+    // Write FPS to top left
+    context.font = "bold 15px Arial"
+    context.fillText( "FPS: " + this.fps , 10, 20)
+  }
+
+  dispose() {
+    if (this.model) {
+      this.model.dispose();
     }
   }
 

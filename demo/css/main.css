@@ -1,15 +1,105 @@
-body{
-    padding: 20px;
+body {
+    background: #fff;
 }
 
-.border{
+.maincontainer {
+    padding: 20px 10px 10px 20px
+}
+
+.headerblock {
+    background: #f4f7fb;
+    padding: 25px 10px 10px 20px
+}
+
+.border {
     border: solid 1px #000;
 }
 
-.videobox{
-    /* display: none; */
+.lighttext {
+    font-weight: 200;
+    font-size: 0.9rem;
 }
 
-.iblock{
+.scrollholdbox {
+    height: 160px;
+    width: 100%;
+    overflow-y:hidden;
+    overflow-x: scroll;
+    white-space:nowrap ;
+}
+.handimagebox{
+    width: 150px;
+    height: 150px;
+    border-radius: 2px;
+    margin-right: 10px;
     display: inline-block;
+    z-index: 0;
+    transition: transform .2s;
+    border-bottom: 4px solid #fff;
+}
+.videoboxes{
+    z-index: -100;
+    min-width: 920px;
+}
+.handimagebox:hover{
+    cursor: pointer;
+    border-bottom: 4px solid #0063FF;
+    /* transform: scale(1.4); */
+  z-index: 1000;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mt5 {
+    margin-top: 5px;
+}
+
+.lightborderbottom {
+    display: none;
+    border-bottom: 1px solid #f4f7fb;
+    margin-bottom: 10px;
+}
+
+.pt5 {
+    padding: 5px 0px 0px 0px;
+}
+
+.buttonbar {
+    display: none
+}
+
+
+.videobox {
+    border-radius: 2px;
+    margin: 0px 6px 0px 0px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.canvasbox {
+    border-radius: 2px;
+}
+
+.iblock {
+    display: inline-block;
+}
+
+.handtracktitle {
+    font-weight: bold;
+    font-size: 2rem
+}
+
+.boldtitle {
+    font-weight: bold;
+}
+
+.pb10 {
+    padding: 0px 10px 10px 0px;
+}
+
+.imgholder{
+    height: 380px;
+    display: none;
 }
