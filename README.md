@@ -74,6 +74,16 @@ handTrack.load().then(model => {
 
 ## API
 
+## List of Methods
+
+- load(params) : load model
+- detect(input) : get predictions given input
+- startVideo(video) : start video stream on given video element
+- getFPS() : get FPS calculated as 
+- renderPredictions(predictions, canvas, context, mediasource): draw bounding box on canvas.
+- dispose() : delete model instance
+
+
 ####  Loading the model
 Once you include the js module, it is available as `handTrack`. You can then load a model with a some optional parameters.
 
@@ -117,6 +127,7 @@ Returns an array of classes and confidence scores that looks like:
   score: 0.74644153267145157
 }]
 ```
+
 
 ## How was this built?
 
