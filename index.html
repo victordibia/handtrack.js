@@ -36,24 +36,29 @@
                 Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
             </div> -->
         </div>
-        <div class="videoboxes">
-            <div class="iblock">
-                <video class="videobox" autoplay="autoplay" id="myvideo"></video>
-                <!-- <img id="handpic" src="hand.jpg" alt=""> -->
-            </div>
-            <div class="iblock">
-                <canvas id="canvas" class="canvasbox"></canvas>
+        <div class="videoboxes ">
+            <canvas id="canvas" class="canvasbox"></canvas>
+
+            <div>
+                <div id="instruction" class="lighttext pb10 lightborderbottom">
+                    Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
+                </div>
+                <!-- Scolling horizontal box -->
+                <div class="scrollholdbox ">
+                    <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
+                </div>
             </div>
 
         </div>
 
 
-        <!-- Scolling horizontal box -->
-        <div class="scrollholdbox mt10">
-            <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
-        </div>
+
         <img id="imgholder" class="imgholder" src="" alt="">
     </div>
+
+    <!-- video element -->
+    <video class="videobox" autoplay="autoplay" id="myvideo"></video>
+
 
     <!-- beginning of sample graph loading overlay -->
     <div class="bx--loading-overlay" id="loading_overlay">
@@ -67,7 +72,8 @@
     </div>
     <!-- end of loading overlay -->
 
-    <div id="footer" class="lighttext">Made with <span style="color:red">&#9829;</span> by <a href="https://twitter.com/vykthur" target="blank">Victor
+    <div id="footer" class="lighttext">Made with <span style="color:red">&#9829;</span> by <a href="https://twitter.com/vykthur"
+            target="blank">Victor
             Dibia</a>. Designed using
         <a href="http://carbondesignsystem.com" target="blank">Carbon Design System.</a>
     </div>

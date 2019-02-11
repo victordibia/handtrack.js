@@ -38,7 +38,18 @@ function detectImage(img) {
 $(".handimagebox").click(function () {
     $(".handimagebox").removeClass("handimageselected")
     $(this).addClass("handimageselected")
-    detectImage($(this)[0])
+    self = $(this)[0]
+
+    if (trackStatus) {
+        trackStatus = false;
+        setTimeout(function () {
+            detectImage(self)
+        }, 200)
+    } else {
+        detectImage(self)
+    }
+
+
 })
 
 function runDetection(inputsource) {
@@ -61,9 +72,9 @@ handTrack.load(modelParams).then(loadedModel => {
     hideLoading("#loading_overlay")
     $("#modelloadinttext").fadeOut()
     $(".buttonbar").fadeIn()
-    $("#instruction").fadeIn()
+    // $("#instruction").fadeIn()
     // runDetection()
-    detectImage(document.getElementById("imagesample1"))
+    $("#imagesample1").click()
 });
 
 

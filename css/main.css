@@ -20,32 +20,32 @@ body {
     font-size: 0.9rem;
 }
 
-.scrollholdbox {
-    height: 160px;
-    width: 920px;
-    overflow-y: hidden;
+.scrollholdbox { 
+    /* overflow-y: hidden;
     overflow-x: scroll;
-    white-space: nowrap;
+    white-space: nowrap; */ 
+    /* width: 100%; */
+    margin:  0px 10px 0px 0px;
 }
 
 .handimagebox {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 2px;
-    margin-right: 10px;
+    margin: 0px 10px 5px 0px ;
     display: inline-block;
     z-index: 0;
     transition: transform .2s;
-    border-top: 6px solid #fff;
+    border-bottom: 6px solid #fff;
 }
 
 .handimageselected {
-    border-top: 6px solid #0063FF;
+    border-bottom: 6px solid #0063FF;
 }
 
 .handimagebox:hover {
     cursor: pointer;
-    border-top: 6px solid #0063FF;
+    border-bottom: 6px solid #0063FF;
     /* transform: scale(1.4); */
     z-index: 1000;
 }
@@ -62,7 +62,7 @@ body {
 }
 
 .lightborderbottom {
-    display: none;
+    /* display: none; */
     border-bottom: 1px solid #f4f7fb;
     margin-bottom: 10px;
 }
@@ -77,6 +77,7 @@ body {
 
 
 .videobox {
+    display: none;
     border-radius: 2px;
     margin: 0px 6px 0px 0px;
     object-fit: cover;
@@ -85,6 +86,9 @@ body {
 
 .canvasbox {
     border-radius: 2px;
+    float: right;
+    margin-right: 10px;
+    width: 450px;
 }
 
 .iblock {
