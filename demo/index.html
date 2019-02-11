@@ -14,10 +14,10 @@
         </div>
     </div>
     <div class="maincontainer">
-        <div class="boldtitle pb10" id="modelloadinttext"> Loading Handtrack.js model ... </div>
+        <!-- <div class="boldtitle pb10 iblock" id="modelloadinttext"> Loading Handtrack.js model ... </div> -->
 
-        <div class="buttonbar pb10 lightborderbottom">
-
+        <div class="buttonbar pb10 lightborderbottom ">
+            
             <button id="trackbutton" class="bx--btn bx--btn--primary iblock" type="button">
                 Video Tracking : Start >
             </button>
@@ -33,18 +33,41 @@
                 Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
             </div> -->
         </div>
-        <div class="videoboxes ">
-            <canvas id="canvas" class="canvasbox"></canvas>
 
-            <div>
-                <div id="instruction" class="lighttext pb10 lightborderbottom">
-                    Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
-                </div>
-                <!-- Scolling horizontal box -->
-                <div class="scrollholdbox ">
-                    <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
-                </div>
+        <section class="containerflex">
+            <div class="left-half">
+                <article>
+
+                    <div>
+                        <div id="instruction" class="lighttext pb10 ">
+                            Modify confidence score threshold.
+                        </div>
+                        <div>
+
+                            <div class="slidecontainer iblock">
+                                <input type="range" min="1" max="100" value="80" class="slider" id="confidencerange">
+                            </div>
+                            <div class="iblock confidencethreshold"> 0.80 </div>
+
+                        </div>
+
+                        <!-- Scolling horizontal box -->
+                        <div class="scrollholdbox ">
+                            <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
+                        </div>
+                    </div>
+                </article>
             </div>
+            <div class="right-half">
+                <article>
+
+                    <canvas id="canvas" class="canvasbox"></canvas>
+                </article>
+            </div>
+        </section>
+
+        <div class="videoboxes ">
+
 
         </div>
 

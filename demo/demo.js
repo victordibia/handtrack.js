@@ -20,7 +20,7 @@ let modelParams = {
 }
 
 function addStaticImages() {
-    for (let index = 1; index <= 10; index++) {
+    for (let index = 1; index <= 15; index++) {
         $imagebox = $("<img class='handimagebox' src= 'images/" + index + ".jpg" + "' data-title= '" + index + "'id='imagesample" + index + "'  />");
         // console.log($imagebox)
         $(".scrollholdbox").append($imagebox)
@@ -77,8 +77,15 @@ handTrack.load(modelParams).then(loadedModel => {
     // $("#instruction").fadeIn()
     // runDetection()
     $("#imagesample1").click()
-    console.log(model.getModelParameters())
+    // console.log(model.getModelParameters())
 });
+
+$('#confidencerange').on('input', function() {
+    score = ($('#confidencerange').val()/100).toFixed(2);
+    $('.confidencethreshold').html(score);
+    modelParams.scoreThreshold = score
+    model.setModelParameters(modelParams)
+  });
 
 $('#flipimagecheckbox').change(function () {
     if ($(this).is(":checked")) {
