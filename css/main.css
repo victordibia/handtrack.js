@@ -22,12 +22,13 @@ body {
 
 .scrollholdbox {
     height: 160px;
-    width: 100%;
-    overflow-y:hidden;
+    width: 920px;
+    overflow-y: hidden;
     overflow-x: scroll;
-    white-space:nowrap ;
+    white-space: nowrap;
 }
-.handimagebox{
+
+.handimagebox {
     width: 150px;
     height: 150px;
     border-radius: 2px;
@@ -35,19 +36,23 @@ body {
     display: inline-block;
     z-index: 0;
     transition: transform .2s;
-    border-bottom: 4px solid #fff;
+    border-top: 6px solid #fff;
 }
-.videoboxes{
+
+.handimageselected {
+    border-top: 6px solid #0063FF;
+}
+
+.handimagebox:hover {
+    cursor: pointer;
+    border-top: 6px solid #0063FF;
+    /* transform: scale(1.4); */
+    z-index: 1000;
+}
+.videoboxes {
     z-index: -100;
     min-width: 920px;
 }
-.handimagebox:hover{
-    cursor: pointer;
-    border-bottom: 4px solid #0063FF;
-    /* transform: scale(1.4); */
-  z-index: 1000;
-}
-
 .mt10 {
     margin-top: 10px;
 }
@@ -99,7 +104,20 @@ body {
     padding: 0px 10px 10px 0px;
 }
 
-.imgholder{
+.imgholder {
     height: 380px;
     display: none;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #f0f3f6;
+    padding: 14px;
+    background: #fff;
+}
+
+#footer a {
+    text-decoration: none;
 }

@@ -36,6 +36,8 @@ function detectImage(img) {
 }
 
 $(".handimagebox").click(function () {
+    $(".handimagebox").removeClass("handimageselected")
+    $(this).addClass("handimageselected")
     detectImage($(this)[0])
 })
 
