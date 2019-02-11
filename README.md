@@ -2,7 +2,7 @@
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
-<img src="demo/images/banner.gif" style="width:100%">
+<img src="demo/images/banner.jpg" style="width:100%">
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
 
