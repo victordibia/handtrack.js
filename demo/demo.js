@@ -85,6 +85,11 @@ $('#confidencerange').on('input', function() {
     $('.confidencethreshold').html(score);
     modelParams.scoreThreshold = score
     model.setModelParameters(modelParams)
+    // console.log(trackStatus)
+    if(!trackStatus){
+        $(".handimageselected").click()
+        // console.log("hey", $(".handimageselected"))
+    }
   });
 
 $('#flipimagecheckbox').change(function () {

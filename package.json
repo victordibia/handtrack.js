@@ -1,6 +1,6 @@
 {
   "name": "handtrackjs",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Handtrackjs: A library for prototyping realtime hand tracking using neural networks (tensorflowjs)",
   "main": "src/index.js",
   "unpkg": "dist/handtrack.min.js",

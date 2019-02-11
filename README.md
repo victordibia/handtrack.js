@@ -74,17 +74,21 @@ handTrack.load().then(model => {
 
 ## API
 
-## List of Methods
-
-- load(params) : load model
-- detect(input) : get predictions given input
-- startVideo(video) : start video stream on given video element
-- getFPS() : get FPS calculated as 
-- renderPredictions(predictions, canvas, context, mediasource): draw bounding box on canvas.
-- dispose() : delete model instance
+#### List of Methods
 
 
-####  Loading the model
+- `startVideo(video)` : start video stream on given video element
+- `load(params)` : load model
+- `model.detect(input)` : get predictions given input
+- `model.getFPS()` : get FPS calculated as 
+- `model.renderPredictions(predictions, canvas, context, mediasource)`: 
+draw bounding box on canvas.
+- `model.getModelParameters()`: returns model parameters
+- `model.setModelParameters()`: updates model parameters
+- `dispose()` : delete model instance
+
+
+####  Loading the model (load)
 Once you include the js module, it is available as `handTrack`. You can then load a model with a some optional parameters.
 
 ```js
