@@ -9,16 +9,18 @@ const context = canvas.getContext('2d');
 
 let imgHolder = document.getElementById("imgholder")
 
+// flipCheckbox = document.querySelector("[data-dropdown]")
+// layerModal = CarbonComponents.Dropdown.create(layerModalSelector)
+
 handTrack.startVideo(video)
 
-const modelParams = {
-    scoreThreshold: 0.8,
-    modelType: "ssdlitemobilenetv2",
+let modelParams = {
+    scoreThreshold: 0.8, 
     flipHorizontal: false,
 }
 
 function addStaticImages() {
-    for (let index = 1; index <= 10; index++) {
+    for (let index = 1; index <= 15; index++) {
         $imagebox = $("<img class='handimagebox' src= 'images/" + index + ".jpg" + "' data-title= '" + index + "'id='imagesample" + index + "'  />");
         // console.log($imagebox)
         $(".scrollholdbox").append($imagebox)
@@ -75,8 +77,25 @@ handTrack.load(modelParams).then(loadedModel => {
     // $("#instruction").fadeIn()
     // runDetection()
     $("#imagesample1").click()
+    // console.log(model.getModelParameters())
 });
 
+$('#confidencerange').on('input', function() {
+    score = ($('#confidencerange').val()/100).toFixed(2);
+    $('.confidencethreshold').html(score);
+    modelParams.scoreThreshold = score
+    model.setModelParameters(modelParams)
+  });
+
+$('#flipimagecheckbox').change(function () {
+    if ($(this).is(":checked")) {
+        modelParams.flipHorizontal = true
+    } else {
+        modelParams.flipHorizontal = false
+    }
+    // console.log(modelParams)
+    model.setModelParameters(modelParams)
+});
 
 
 $("#trackbutton").click(function () {
