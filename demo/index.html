@@ -10,47 +10,52 @@
         <div class="title pb10">
             <div class="handtracktitle">Handtrack.js</div>
             <div class="lighttext pt5"> A library for prototyping realtime handtracking in
-                the browser. <a href=""> [Github]</a> </div>
+                the browser. <a href="https://github.com/victordibia/handtrack.js/" target="blank"> [Github]</a> </div>
         </div>
     </div>
     <div class="maincontainer">
         <div class="boldtitle pb10" id="modelloadinttext"> Loading Handtrack.js model ... </div>
-        <div id="instruction" class="lighttext pb10 lightborderbottom">
-            Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.</div>
-        <div class="buttonbar pb10">
 
-            <button id="trackbutton" class="bx--btn bx--btn--primary" type="button">
+        <div class="buttonbar pb10 lightborderbottom">
+
+            <button id="trackbutton" class="bx--btn bx--btn--primary iblock" type="button">
                 Video Tracking : Start >
-                <!-- <svg class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 7H4v2h3v3h2V9h3V7H9V4H7v3zm1 9A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" fill-rule="evenodd" />
-                </svg> -->
-                <!-- <svg id="iconstop" style="display:none" class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM6 5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6z"></path>
-                </svg>
-
-                <svg id="iconstart" class="bx--btn__icon" width="16" height="16" viewBox="0 0 16 16">
-                    <path d="M8 16A8 8 0 1 1 8 0a8 8 0 0 1 0 16zM5.497 4.776v6.456a.25.25 0 0 0 .377.216l5.498-3.232a.25.25 0 0 0 0-.431L5.874 4.56a.25.25 0 0 0-.377.215z"></path>
-                </svg> -->
             </button>
-        </div>
-        <div class="videoboxes">
-            <div class="iblock">
-                <video class="videobox" autoplay="autoplay" id="myvideo"></video>
-                <!-- <img id="handpic" src="hand.jpg" alt=""> -->
-            </div>
-            <div class="iblock">
-                <canvas id="canvas" class="canvasbox"></canvas>
+
+            <div class="bx--form-item bx--checkbox-wrapper  flipimagecheckbox">
+                <input id="flipimagecheckbox" class="bx--checkbox" type="checkbox" value="new" name="checkbox">
+                <label for="flipimagecheckbox" class="bx--checkbox-label"> Flip Image </label>
             </div>
 
+
+
+            <!-- <div id="instruction" class="lighttext iblock ">
+                Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
+            </div> -->
+        </div>
+        <div class="videoboxes ">
+            <canvas id="canvas" class="canvasbox"></canvas>
+
+            <div>
+                <div id="instruction" class="lighttext pb10 lightborderbottom">
+                    Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
+                </div>
+                <!-- Scolling horizontal box -->
+                <div class="scrollholdbox ">
+                    <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
+                </div>
+            </div>
+
         </div>
 
 
-        <!-- Scolling horizontal box -->
-        <div class="scrollholdbox mt10">
-            <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
-        </div>
+
         <img id="imgholder" class="imgholder" src="" alt="">
     </div>
+
+    <!-- video element -->
+    <video class="videobox" autoplay="autoplay" id="myvideo"></video>
+
 
     <!-- beginning of sample graph loading overlay -->
     <div class="bx--loading-overlay" id="loading_overlay">
@@ -64,6 +69,13 @@
     </div>
     <!-- end of loading overlay -->
 
+    <div id="footer" class="lighttext">Made with <span style="color:red">&#9829;</span> by <a href="https://twitter.com/vykthur"
+            target="blank">Victor
+            Dibia</a>. Designed using
+        <a href="http://carbondesignsystem.com" target="blank">Carbon Design System.</a>
+    </div>
+
+    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="handtrack.min.js"></script>

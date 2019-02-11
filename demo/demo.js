@@ -9,11 +9,13 @@ const context = canvas.getContext('2d');
 
 let imgHolder = document.getElementById("imgholder")
 
+// flipCheckbox = document.querySelector("[data-dropdown]")
+// layerModal = CarbonComponents.Dropdown.create(layerModalSelector)
+
 handTrack.startVideo(video)
 
-const modelParams = {
-    scoreThreshold: 0.8,
-    modelType: "ssdlitemobilenetv2",
+let modelParams = {
+    scoreThreshold: 0.8, 
     flipHorizontal: false,
 }
 
@@ -36,7 +38,20 @@ function detectImage(img) {
 }
 
 $(".handimagebox").click(function () {
-    detectImage($(this)[0])
+    $(".handimagebox").removeClass("handimageselected")
+    $(this).addClass("handimageselected")
+    self = $(this)[0]
+
+    if (trackStatus) {
+        trackStatus = false;
+        setTimeout(function () {
+            detectImage(self)
+        }, 200)
+    } else {
+        detectImage(self)
+    }
+
+
 })
 
 function runDetection(inputsource) {
@@ -59,11 +74,21 @@ handTrack.load(modelParams).then(loadedModel => {
     hideLoading("#loading_overlay")
     $("#modelloadinttext").fadeOut()
     $(".buttonbar").fadeIn()
-    $("#instruction").fadeIn()
+    // $("#instruction").fadeIn()
     // runDetection()
-    detectImage(document.getElementById("imagesample1"))
+    $("#imagesample1").click()
+    console.log(model.getModelParameters())
 });
 
+$('#flipimagecheckbox').change(function () {
+    if ($(this).is(":checked")) {
+        modelParams.flipHorizontal = true
+    } else {
+        modelParams.flipHorizontal = false
+    }
+    // console.log(modelParams)
+    model.setModelParameters(modelParams)
+});
 
 
 $("#trackbutton").click(function () {

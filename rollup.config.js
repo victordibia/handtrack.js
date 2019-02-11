@@ -13,5 +13,6 @@ export default {
     format: 'umd',
     name: 'handTrack',
   }],
-  plugins: [resolve(), minify()]
+  // plugins: [resolve(), minify()]
+  plugins: [resolve()]
 }

@@ -162,6 +162,14 @@ export class ObjectDetection {
     return this.fps;
   }
 
+  setModelParameters(params){
+    this.modelParams = modelParams = Object.assign({}, this.modelParams, params);
+  }
+
+  getModelParameters(){
+    return this.modelParams
+  }
+
   renderPredictions(predictions, canvas, context, mediasource) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
@@ -180,19 +188,23 @@ export class ObjectDetection {
     // console.log('number of detections: ', predictions.length);
     for (let i = 0; i < predictions.length; i++) {
       context.beginPath();
+      context.fillStyle = "rgba(255, 255, 255, 0.6)";
+      context.fillRect(predictions[i].bbox[0], predictions[i].bbox[1] - 17, predictions[i].bbox[2], 17)
       context.rect(...predictions[i].bbox);
+      
       context.lineWidth = 1;
-      context.strokeStyle = 'red';
-      context.fillStyle = 'green';
+      context.strokeStyle = '#0063FF';
+      context.fillStyle = "#0063FF" // "rgba(244,247,251,1)";
       context.stroke();
       context.fillText(
-        predictions[i].score.toFixed(3) + ' ' + predictions[i].class, predictions[i].bbox[0],
+        predictions[i].score.toFixed(3) + ' ' + " | hand", 
+        predictions[i].bbox[0] + 5,
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
     }
 
     // Write FPS to top left
-    context.font = "bold 15px Arial"
-    context.fillText( "FPS: " + this.fps , 10, 20)
+    context.font = "bold 12px Arial"
+    context.fillText( "[FPS]: " + this.fps , 10, 20)
   }
 
   dispose() {

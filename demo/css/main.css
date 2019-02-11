@@ -20,34 +20,42 @@ body {
     font-size: 0.9rem;
 }
 
-.scrollholdbox {
-    height: 160px;
-    width: 100%;
-    overflow-y:hidden;
+.scrollholdbox { 
+    /* overflow-y: hidden;
     overflow-x: scroll;
-    white-space:nowrap ;
+    white-space: nowrap; */ 
+    /* width: 100%; */
+    margin:  0px 10px 0px 0px;
 }
-.handimagebox{
-    width: 150px;
-    height: 150px;
+
+.handimagebox {
+    width: 100px;
+    height: 100px;
     border-radius: 2px;
-    margin-right: 10px;
+    margin: 0px 10px 5px 0px ;
     display: inline-block;
     z-index: 0;
     transition: transform .2s;
-    border-bottom: 4px solid #fff;
+    border-bottom: 6px solid #fff;
 }
-.videoboxes{
+
+.handimageselected {
+    border-bottom: 6px solid #0063FF;
+}
+.flipimagecheckbox{
+    float: right;
+}
+
+.handimagebox:hover {
+    cursor: pointer;
+    border-bottom: 6px solid #0063FF;
+    /* transform: scale(1.4); */
+    z-index: 1000;
+}
+.videoboxes {
     z-index: -100;
     min-width: 920px;
 }
-.handimagebox:hover{
-    cursor: pointer;
-    border-bottom: 4px solid #0063FF;
-    /* transform: scale(1.4); */
-  z-index: 1000;
-}
-
 .mt10 {
     margin-top: 10px;
 }
@@ -57,7 +65,7 @@ body {
 }
 
 .lightborderbottom {
-    display: none;
+    /* display: none; */
     border-bottom: 1px solid #f4f7fb;
     margin-bottom: 10px;
 }
@@ -72,6 +80,7 @@ body {
 
 
 .videobox {
+    display: none;
     border-radius: 2px;
     margin: 0px 6px 0px 0px;
     object-fit: cover;
@@ -80,6 +89,9 @@ body {
 
 .canvasbox {
     border-radius: 2px;
+    float: right;
+    margin-right: 10px;
+    width: 450px;
 }
 
 .iblock {
@@ -99,7 +111,20 @@ body {
     padding: 0px 10px 10px 0px;
 }
 
-.imgholder{
+.imgholder {
     height: 380px;
     display: none;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #f0f3f6;
+    padding: 14px;
+    background: #fff;
+}
+
+#footer a {
+    text-decoration: none;
 }
