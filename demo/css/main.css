@@ -3,7 +3,8 @@ body {
 }
 
 .maincontainer {
-    padding: 20px 10px 10px 20px
+    padding: 20px 10px 10px 20px;
+    display: none;
 }
 
 .headerblock {
@@ -78,7 +79,7 @@ body {
 }
 
 .buttonbar {
-    display: none
+    /* display: none */
 }
 
 
@@ -110,6 +111,8 @@ body {
 
 .boldtitle {
     font-weight: bold;
+    font-size: 2.2rem;
+    margin: 20px 0px 0px 20px;
 }
 
 .pb10 {
@@ -141,6 +144,7 @@ body {
 }
 .confidencethreshold{
     margin: 0px 0px 0px 10px;
+    font-weight: bold;
 }
 /* The slider itself */
 .slider {

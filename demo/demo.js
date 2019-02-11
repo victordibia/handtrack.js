@@ -43,7 +43,7 @@ $(".handimagebox").click(function () {
     self = $(this)[0]
 
     if (trackStatus) {
-        trackStatus = false;
+        $("#trackbutton").click()
         setTimeout(function () {
             detectImage(self)
         }, 200)
@@ -73,7 +73,7 @@ handTrack.load(modelParams).then(loadedModel => {
     model = loadedModel
     hideLoading("#loading_overlay")
     $("#modelloadinttext").fadeOut()
-    $(".buttonbar").fadeIn()
+    $(".maincontainer").fadeIn()
     // $("#instruction").fadeIn()
     // runDetection()
     $("#imagesample1").click()

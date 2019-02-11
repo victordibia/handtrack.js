@@ -1,9 +1,21 @@
 <html>
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-131578973-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-131578973-1');
+</script>
+
     <title> Handtrackjs: Library for Prototyping Handtracking in the Browser</title>
     <link rel="stylesheet" href="https://unpkg.com/carbon-components/css/carbon-components.min.css">
     <link rel="stylesheet" href="css/main.css">
+
+</head>
+
 
 <body>
     <div class="headerblock">
@@ -13,11 +25,14 @@
                 the browser. <a href="https://github.com/victordibia/handtrack.js/" target="blank"> [Github]</a> </div>
         </div>
     </div>
-    <div class="maincontainer">
-        <!-- <div class="boldtitle pb10 iblock" id="modelloadinttext"> Loading Handtrack.js model ... </div> -->
+    <div class="boldtitle pb10 " id="modelloadinttext"> Loading Handtrack.js model ... </div>
 
-        <div class="buttonbar pb10 lightborderbottom ">
-            
+    <div class="maincontainer">
+        <div id="instruction" class="lighttext  pb10 lightborderbottom">
+            All tracking in this demo runs entirely in the browser.
+        </div>
+        <div class="buttonbar pb10  ">
+
             <button id="trackbutton" class="bx--btn bx--btn--primary iblock" type="button">
                 Video Tracking : Start >
             </button>
@@ -28,10 +43,6 @@
             </div>
 
 
-
-            <!-- <div id="instruction" class="lighttext iblock ">
-                Click <strong>Video Tracking : Start </strong> and put your hands in the video frame to begin.
-            </div> -->
         </div>
 
         <section class="containerflex">
@@ -98,7 +109,7 @@
         <a href="http://carbondesignsystem.com" target="blank">Carbon Design System.</a>
     </div>
 
-    <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script>
+    <!-- <script src="https://unpkg.com/carbon-components/scripts/carbon-components.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="handtrack.min.js"></script>
