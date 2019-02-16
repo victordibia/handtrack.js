@@ -1,0 +1,71 @@
+<div class="graphdescription"> African Masks</div>
+<div class="abstractcontent lighttext">  All tracking in this demo runs entirely in the browser.
+
+  <br />
+</div>
+
+ <div class="boldtitle pb10 " id="modelloadinttext"> Loading Handtrack.js model ... </div>
+
+    <div class="maincontainer">
+       
+        <div class="buttonbar pb10  ">
+
+            <button id="trackbutton" class="bx--btn bx--btn--primary iblock" type="button">
+                Start Video Tracking >
+            </button>
+
+            <div class="bx--form-item bx--checkbox-wrapper  flipimagecheckbox">
+                <input id="flipimagecheckbox" class="bx--checkbox" type="checkbox" value="new" name="checkbox">
+                <label for="flipimagecheckbox" class="bx--checkbox-label"> Flip Image </label>
+            </div>
+
+
+        </div>
+
+        <section class="containerflex">
+            <div class="left-half">
+                <article>
+
+                    <div>
+                        <div id="instruction" class="lighttext pb10 ">
+                            Modify confidence score threshold.
+                        </div>
+                        <div>
+
+                            <div class="slidecontainer iblock">
+                                <input type="range" min="1" max="100" value="80" class="slider" id="confidencerange">
+                            </div>
+                            <div class="iblock confidencethreshold"> 0.80 </div>
+
+                        </div>
+
+                        <!-- Scolling horizontal box -->
+                        <div class="scrollholdbox ">
+                            <!-- <img src="images/1.jpg" class="handimagebox" alt=""> -->
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="right-half">
+                <article>
+
+                    <canvas id="canvas" class="canvasbox"></canvas>
+                </article>
+            </div>
+        </section>
+
+        <div class="videoboxes ">
+
+
+        </div>
+
+
+
+        <img id="imgholder" class="imgholder" src="" alt="">
+    </div>
+
+    <!-- video element -->
+    <video class="videobox" autoplay="autoplay" id="myvideo"></video>
+
+
+<br /><br /><br /><br /><br /><br />
