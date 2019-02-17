@@ -30,28 +30,34 @@ export async function load(params) {
   return (objectDetection);
 }
 
-export function startVideo(video){
+export function startVideo(video) {
   video.height = video.height || 400
   video.width = video.width || 500
   navigator.mediaDevices
-        .getUserMedia({
-            audio: false,
-            video: {
-                facingMode: "user",
-                width: 600,
-                height: 500
-            }
-        })
-        .then(stream => {
-            // console.log(video)
-            video.srcObject = stream
-            video.onloadedmetadata = () => {
-                // video.play()
-            }
-        })
+    .getUserMedia({
+      audio: false,
+      video: {
+        facingMode: "user",
+        width: 600,
+        height: 500
+      }
+    })
+    .then(stream => {
+      window.localStream = stream;
+      video.srcObject = stream
+      video.onloadedmetadata = () => {
+        // video.play()
+      }
+    })
 }
 
-export class ObjectDetection { 
+export function stopVideo() {
+  window.localStream.getTracks().forEach((track) => {
+    track.stop();
+  });
+}
+
+export class ObjectDetection {
   constructor(modelParams) {
     this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
     this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
@@ -128,7 +134,7 @@ export class ObjectDetection {
     )
     let timeEnd = Date.now()
     this.fps = Math.round(1000 / (timeEnd - timeBegin))
-    
+
     return predictions
 
   }
@@ -162,11 +168,11 @@ export class ObjectDetection {
     return this.fps;
   }
 
-  setModelParameters(params){
-    this.modelParams = modelParams = Object.assign({}, this.modelParams, params);
+  setModelParameters(params) {
+    this.modelParams = Object.assign({}, this.modelParams, params);
   }
 
-  getModelParameters(){
+  getModelParameters() {
     return this.modelParams
   }
 
@@ -182,7 +188,7 @@ export class ObjectDetection {
       context.translate(-mediasource.width, 0);
     }
     context.drawImage(mediasource, 0, 0, mediasource.width, mediasource.height);
-    context.restore(); 
+    context.restore();
     context.font = '10px Arial';
 
     // console.log('number of detections: ', predictions.length);
@@ -191,20 +197,20 @@ export class ObjectDetection {
       context.fillStyle = "rgba(255, 255, 255, 0.6)";
       context.fillRect(predictions[i].bbox[0], predictions[i].bbox[1] - 17, predictions[i].bbox[2], 17)
       context.rect(...predictions[i].bbox);
-      
+
       context.lineWidth = 1;
       context.strokeStyle = '#0063FF';
       context.fillStyle = "#0063FF" // "rgba(244,247,251,1)";
       context.stroke();
       context.fillText(
-        predictions[i].score.toFixed(3) + ' ' + " | hand", 
+        predictions[i].score.toFixed(3) + ' ' + " | hand",
         predictions[i].bbox[0] + 5,
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10);
     }
 
     // Write FPS to top left
     context.font = "bold 12px Arial"
-    context.fillText( "[FPS]: " + this.fps , 10, 20)
+    context.fillText("[FPS]: " + this.fps, 10, 20)
   }
 
   dispose() {

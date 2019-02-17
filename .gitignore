@@ -3,6 +3,7 @@ srcdist
 .cache
 .DS_Store
 react
+build
 
 # Logs
 logs
