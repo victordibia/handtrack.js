@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Button } from 'carbon-components-react';
-import { Notification } from 'carbon-components';
 import * as handTrack from "handtrackjs"
 
 class Demo extends Component {
@@ -14,7 +13,9 @@ class Demo extends Component {
             },
             model: null,
             modelLoaded: false,
-            videoPlayStatus: false
+            videoPlayStatus: false,
+            showHighlight: false,
+            highlightText: "Attention needed"
         }
 
         this.canvas = React.createRef();
@@ -47,8 +48,6 @@ class Demo extends Component {
         this.state.model.detect(inputsource).then(predictions => {
             // console.log('Predictions: ', predictions);
             if (this.canvas.current) {
-
-
                 this.state.model.renderPredictions(predictions, this.canvas.current, this.canvas.current.getContext('2d'), inputsource)
                 // console.log("FPS", model.getFPS())
                 // $("#fps").text("FPS: " + model.getFPS())
@@ -95,6 +94,11 @@ class Demo extends Component {
                     self.runDetection(self.video.current)
                 } else {
                     console.log("Camera not available")
+                    self.setState({ highlightText: "Please enable camera to use video detection" })
+                    self.setState({ showHighlight: true })
+                    setTimeout(() => {
+                        self.setState({ showHighlight: false })
+                    }, 6000);
                 }
             })
 
@@ -141,17 +145,20 @@ class Demo extends Component {
 
         return (
             <div className="">
+
                 <div className="pagetitle">Demo</div>
                 <br />
                 {this.state.modelLoaded ? null : <Loading />}
-                <Notification></Notification>
+
                 <div className="clickable">
                     <div className={this.state.modelLoaded ? "hidden" : "disableoverlay"}></div>
+                    <div className={this.state.showHighlight ? "orangehighlight mb10" : "hidden"}> {this.state.highlightText}</div>
                     <div className="bluehightlight mb10">
-                        All detection is done in the browser!
+                        All detection is done in the browser! <span className="lighttext"> Click on an image or start video to start.</span>
                     </div>
                     <div>
-                        <Button id="videobutton" onClick={this.videoButtonClick.bind(this)} > {this.state.videoPlayStatus ? "Stop Video Detection" : "Start Video Detection"} </Button>
+                        <Button id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Detection" : " ▶ ️ Start Video Detection"} </Button>
+
                         <div className="bx--form-item bx--checkbox-wrapper  flipimagecheckbox">
                             <input onClick={this.flipImageCheck.bind(this)} id="flipimagecheckbox" className="bx--checkbox" type="checkbox" value="new" name="checkbox"></input>
                             <label htmlFor="flipimagecheckbox" className="bx--checkbox-label"> Flip Image </label>

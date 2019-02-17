@@ -61,6 +61,13 @@ body {
     margin: 0px 0px 0px 0px;
 }
 
+.orangehighlight {
+    padding: 10px;
+    background: rgb(240, 134, 3);
+    margin: 0px 0px 0px 0px;
+    color: white;
+}
+
 
 
 .active {
@@ -100,6 +107,14 @@ body {
 
 .mb10 {
     margin-bottom: 10px;
+}
+
+.mr10 {
+    margin-right: 10px;
+}
+
+.ml10 {
+    margin-left: 10px;
 }
 
 .sidebarcontent {
@@ -196,4 +211,52 @@ body {
 
 #footer a {
     text-decoration: none;
+}
+
+.pulse {
+
+    /* display: block; */
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0063FF;
+    cursor: pointer;
+    box-shadow: 0 0 0 rgba(2, 30, 90, 0.4);
+    animation: pulse 2s infinite;
+    /* padding-top: 20px; */
+}
+
+.pulse:hover {
+    animation: none;
+}
+
+@-webkit-keyframes pulse {
+    0% {
+        -webkit-box-shadow: 0 0 0 0 rgba(2, 30, 90, 0.4);
+    }
+
+    70% {
+        -webkit-box-shadow: 0 0 0 10px rgba(2, 30, 90, 0);
+    }
+
+    100% {
+        -webkit-box-shadow: 0 0 0 0 rgba(2, 30, 90, 0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        -moz-box-shadow: 0 0 0 0 rgba(2, 30, 90, 0.4);
+        box-shadow: 0 0 0 0 rgba(2, 30, 90, 0.4);
+    }
+
+    70% {
+        -moz-box-shadow: 0 0 0 10px rgba(2, 30, 90, 0);
+        box-shadow: 0 0 0 10px rgba(2, 30, 90, 0);
+    }
+
+    100% {
+        -moz-box-shadow: 0 0 0 0 rgba(2, 30, 90, 0);
+        box-shadow: 0 0 0 0 rgba(2, 30, 90, 0);
+    }
 }

@@ -17,7 +17,7 @@ class Game extends Component {
 
                 {/* <ReactMarkdown source={input}></ReactMarkdown> */}
 
-
+                <div class="pulse "></div>
             </div>
 
         );
