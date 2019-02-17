@@ -1,0 +1,199 @@
+html,
+body {
+    height: 100%;
+    /* font-family: 'IBM Plex Sans'; */
+    background: #fff;
+}
+
+.border {
+    border: 1px solid #000
+}
+
+.containerwrap {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+.iblock {
+    display: inline-block;
+}
+
+.redcolor {
+    color: red;
+}
+
+.headerbox {
+    background: #F4F7FB;
+}
+
+.sidebar {
+    background: white;
+    width: 210px;
+    min-width: 210px;
+    /* border-right: 1px solid #f0f3f6 */
+}
+
+.sidebarlinks {
+
+    border-bottom: 1px solid #f0f3f6;
+
+}
+
+.sidebarlinks a {
+    text-decoration: none;
+    color: #152934;
+    width: 100%;
+    height: 100%;
+    display: block;
+    padding: 10px 0px 10px 10px;
+}
+
+.sidebarlinks:hover {
+    background: #f0f3f6;
+    cursor: pointer;
+    /* border-right: 4px solid #152934; */
+}
+
+.bluehightlight {
+    padding: 10px;
+    background: rgb(190, 213, 250);
+    margin: 0px 0px 0px 0px;
+}
+
+
+
+.active {
+    border-left: 4px solid #152934;
+    background: #f0f3f6;
+}
+
+.pad20 {
+    padding: 20px;
+}
+
+.p10 {
+    padding: 10px;
+}
+
+.displayinline {
+    display: inline;
+}
+
+.disableoverlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 1000;
+}
+
+.clickable {
+    position: relative;
+    display: inline-block;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.mb10 {
+    margin-bottom: 10px;
+}
+
+.sidebarcontent {
+    flex: 1;
+    padding: 20px;
+}
+
+.pagetitle {
+    border-bottom: 2px solid #f0f3f6;
+    padding: 10px 10px 10px 0px;
+    font-size: 1.4em;
+}
+
+.maincontent {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.hidden {
+    display: none;
+}
+
+.bottomcontent {
+    flex: 2;
+    background: white
+}
+
+.containerwrap>* {}
+
+@media all and (max-width: 540px) {
+    .aside {
+        flex: 1 auto;
+    }
+}
+
+@media all and (min-width: 800px) {
+    .maincontent {
+        flex: 3 0px;
+    }
+
+    .sidebar {
+        order: 1;
+    }
+
+    .maincontent {
+        order: 2;
+    }
+
+    .footer {
+        order: 3;
+    }
+}
+
+.examplebox {
+    padding-bottom: 100px;
+    margin-bottom: 50px;
+    background: #fff;
+}
+
+.lighttext {
+    font-weight: 200
+}
+
+.authornames {
+    padding: 10px 0px 0px 0px;
+    font-weight: bold;
+}
+
+.sidebartitle {
+    margin: 0px 0px 10px 0px
+}
+
+.sidebardesc {
+    padding: 10px;
+    margin-top: 15px;
+    background: #f0f3f6;
+}
+
+.maintitle {
+    margin: 0px 0px 30px 0px
+}
+
+
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid #f0f3f6;
+    padding: 14px;
+    background: #fff;
+}
+
+#footer a {
+    text-decoration: none;
+}

@@ -1,0 +1,34 @@
+{
+  "name": "handtrack",
+  "version": "0.1.0",
+  "homepage": "https://victordibia.github.io/handtrack.js/",
+  "private": true,
+  "dependencies": {
+    "carbon-components": "^9.76.7",
+    "carbon-components-react": "^6.96.0",
+    "carbon-icons": "^7.0.7",
+    "handtrackjs": "0.0.5",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-markdown": "^4.0.6",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
