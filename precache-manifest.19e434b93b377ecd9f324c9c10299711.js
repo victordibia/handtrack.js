@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "401840ba22726cf5b8f0b95943ae0c3e",
-    "url": "/handtrack.js/static/media/16.401840ba.jpg"
+    "revision": "2c83c872a57bbddb1661",
+    "url": "/handtrack.js/static/css/main.20126dd4.chunk.css"
   },
   {
-    "revision": "fee629446d12ed3f779d",
-    "url": "/handtrack.js/static/css/main.af9e0f9d.chunk.css"
+    "revision": "2c83c872a57bbddb1661",
+    "url": "/handtrack.js/static/js/main.2c83c872.chunk.js"
   },
   {
     "revision": "44be57ab15fe5ab0be41",
     "url": "/handtrack.js/static/js/runtime~main.44be57ab.js"
   },
   {
-    "revision": "a53f8a90b894dba193bc",
-    "url": "/handtrack.js/static/js/2.a53f8a90.chunk.js"
+    "revision": "fcaa58b26526a81b3232",
+    "url": "/handtrack.js/static/js/2.fcaa58b2.chunk.js"
   },
   {
     "revision": "401840ba22726cf5b8f0b95943ae0c3e",
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/15.1f5880d6.jpg"
   },
   {
-    "revision": "fee629446d12ed3f779d",
-    "url": "/handtrack.js/static/js/main.fee62944.chunk.js"
+    "revision": "401840ba22726cf5b8f0b95943ae0c3e",
+    "url": "/handtrack.js/static/media/16.401840ba.jpg"
   },
   {
     "revision": "2de0d22aa5fb2989ee4c1429fabd50b7",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/hand.f39313f7.jpg"
   },
   {
-    "revision": "ea7b7c7c384b88ccd1b0a5a43905ea79",
+    "revision": "1a09614e3d18d97776b3a95263b108c0",
     "url": "/handtrack.js/index.html"
   }
 ];
