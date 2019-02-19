@@ -33,22 +33,29 @@ export async function load(params) {
 export function startVideo(video) {
   video.height = video.height || 400
   video.width = video.width || 500
-  navigator.mediaDevices
-    .getUserMedia({
-      audio: false,
-      video: {
-        facingMode: "user",
-        width: 600,
-        height: 500
-      }
-    })
-    .then(stream => {
-      window.localStream = stream;
-      video.srcObject = stream
-      video.onloadedmetadata = () => {
-        // video.play()
-      }
-    })
+
+  return new Promise(function (resolve, reject) {
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: false,
+        video: {
+          facingMode: "user",
+          width: 600,
+          height: 500
+        }
+      })
+      .then(stream => {
+        window.localStream = stream;
+        video.srcObject = stream
+        video.onloadedmetadata = () => {
+          // video.play()
+          resolve(true)
+        }
+      }).catch(function (err) {
+        resolve(false)
+      });
+  });
+
 }
 
 export function stopVideo() {
@@ -173,14 +180,15 @@ export class ObjectDetection {
   }
 
   getModelParameters() {
-    return this.modelParams
+    return this.modelParams;
   }
 
   renderPredictions(predictions, canvas, context, mediasource) {
+
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
     canvas.height = mediasource.height;
-    // console.log(mediasource.width,mediasource.height)
+    // console.log(mediasource.width,me diasource.height)
 
     context.save();
     if (this.modelParams.flipHorizontal) {
@@ -198,9 +206,15 @@ export class ObjectDetection {
       context.fillRect(predictions[i].bbox[0], predictions[i].bbox[1] - 17, predictions[i].bbox[2], 17)
       context.rect(...predictions[i].bbox);
 
+      // draw a dot at the center of bounding box
+
+      
+
       context.lineWidth = 1;
       context.strokeStyle = '#0063FF';
       context.fillStyle = "#0063FF" // "rgba(244,247,251,1)";
+      context.fillRect(predictions[i].bbox[0] + (predictions[i].bbox[2] / 2), predictions[i].bbox[1] + (predictions[i].bbox[3] / 2), 5, 5)
+
       context.stroke();
       context.fillText(
         predictions[i].score.toFixed(3) + ' ' + " | hand",
