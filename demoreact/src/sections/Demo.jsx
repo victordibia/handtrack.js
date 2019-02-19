@@ -27,6 +27,9 @@ class Demo extends Component {
     componentDidMount() {
         this.video.current.width = 450
         this.video.current.height = 380;
+
+        this.canvasContext = this.canvas.current.getContext('2d')
+        this.drawCenter = true
         // console.log(this.canvas.current)
         handTrack.load(this.state.modelParams).then(loadedModel => {
             this.setState({ model: loadedModel })
@@ -46,7 +49,7 @@ class Demo extends Component {
 
             // }
             if (this.canvas.current) {
-                this.state.model.renderPredictions(predictions, this.canvas.current, this.canvas.current.getContext('2d'), inputsource)
+                this.state.model.renderPredictions(predictions, this.canvas.current, this.canvasContext, inputsource)
                 // console.log("FPS", model.getFPS())
                 // $("#fps").text("FPS: " + model.getFPS())
                 if (this.state.videoPlayStatus && inputsource) {
@@ -86,7 +89,7 @@ class Demo extends Component {
             handTrack.stopVideo()
         } else {
             handTrack.startVideo(this.video.current).then(function (status) {
-                console.log("Camera status", status)
+                 
                 if (status) {
                     self.setState({ videoPlayStatus: true })
                     self.runDetection(self.video.current)

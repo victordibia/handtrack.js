@@ -30,7 +30,7 @@
 }
 
 .videobox {
-    /* display: none; */
+    display: none;
     border-radius: 2px;
     margin: 0px 6px 0px 0px;
     object-fit: cover;

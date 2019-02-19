@@ -7,7 +7,7 @@
     "carbon-components": "^9.76.7",
     "carbon-components-react": "^6.96.0",
     "carbon-icons": "^7.0.7",
-    "handtrackjs": "0.0.5",
+    "handtrackjs": "^0.0.6",
     "planck-js": "^0.3.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",

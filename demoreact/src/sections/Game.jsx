@@ -123,12 +123,11 @@ class Game extends Component {
     handleScriptLoad() {
         this.setState({ scriptLoaded: true })
 
-
         xp.startPlanck()
-        setTimeout(() => {
-            xp.stopPlanck()
-            console.log("stopped planck")
-        }, 2000);
+        // setTimeout(() => {
+        //     xp.stopPlanck()
+        //     console.log("stopped planck")
+        // }, 2000);
     }
 
     resizeCanvas(e) {

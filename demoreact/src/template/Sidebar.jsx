@@ -24,6 +24,7 @@ class Sidebar extends Component {
                 {/* <div className="sidebarlinks">
                     <NavLink to="/game">game</NavLink>
                 </div> */}
+                
                 <div className="sidebarlinks">
                     <NavLink to="/about">about</NavLink>
                 </div>
