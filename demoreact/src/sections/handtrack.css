@@ -30,7 +30,7 @@
 }
 
 .videobox {
-    display: none;
+    /* display: none; */
     border-radius: 2px;
     margin: 0px 6px 0px 0px;
     object-fit: cover;
@@ -127,4 +127,17 @@
 
 .right-half {
     width: 450;
+}
+
+/* Game canvas sytl */
+.gamecontainer {
+    width: 500px;
+    height: 500px;
+}
+
+.gamecanvas {
+    background-color: rgb(34, 34, 34);
+    display: block;
+    /* height: 300px; */
+    /* max-height: 300px; */
 }

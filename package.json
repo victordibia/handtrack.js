@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=development parcel demo/index.html --open",
     "build": "cross-env NODE_ENV=production parcel build demo/index.html --public-url https://victordibia.github.io/handtrackjs/",
-    "deploy": "gh-pages -d react/build",
+    "deploy": "gh-pages -d demoreact/build",
     "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html"
   },
   "files": [

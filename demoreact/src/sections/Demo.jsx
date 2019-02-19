@@ -29,16 +29,9 @@ class Demo extends Component {
         this.video.current.height = 380;
         // console.log(this.canvas.current)
         handTrack.load(this.state.modelParams).then(loadedModel => {
-            // model = loadedModel
-            // hideLoading("#loading_overlay")
-            // $("#modelloadinttext").fadeOut()
-            // $(".maincontainer").fadeIn()
-            // // $("#instruction").fadeIn()
-            // // runDetection()
             this.setState({ model: loadedModel })
             this.setState({ modelLoaded: true })
             // console.log("model loaded", this.state)
-
             document.getElementsByClassName("handimagebox")[0].click()
         });
     }
@@ -46,7 +39,12 @@ class Demo extends Component {
     runDetection(inputsource) {
         let self = this
         this.state.model.detect(inputsource).then(predictions => {
-            // console.log('Predictions: ', predictions);
+
+            // if (predictions[0]) {
+            //     let midval = predictions[0].bbox[0] + (predictions[0].bbox[2] / 2)
+            //     console.log('Predictions: ', inputsource.width, midval / inputsource.width);
+
+            // }
             if (this.canvas.current) {
                 this.state.model.renderPredictions(predictions, this.canvas.current, this.canvas.current.getContext('2d'), inputsource)
                 // console.log("FPS", model.getFPS())
@@ -154,7 +152,7 @@ class Demo extends Component {
                     <div className={this.state.modelLoaded ? "hidden" : "disableoverlay"}></div>
                     <div className={this.state.showHighlight ? "orangehighlight mb10" : "hidden"}> {this.state.highlightText}</div>
                     <div className="bluehightlight mb10">
-                        All detection is done in the browser! <span className="lighttext"> Click on an image or start video to start.</span>
+                        All detection is done in the browser! <span className="lighttext"> Click on an image or  Start video</span>
                     </div>
                     <div>
                         <Button id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Detection" : " ▶ ️ Start Video Detection"} </Button>

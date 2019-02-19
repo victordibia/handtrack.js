@@ -12,7 +12,8 @@ class About extends Component {
                     <div className="bluehightlight mb10">
                         Handtrack.js lets you track hand position in an image or video element, right in the browser.
                     </div>
-                    Underneath, it uses trained Convoluntional Neural Network model (SSD, MobilenetV2 Architecture)
+                    Underneath, it uses trained Convoluntional Neural Network model (SSD, MobilenetV2 Architecture).
+                    Details on how the model was trained can be found  <a rel="noopener noreferrer" href="https://medium.com/@victor.dibia/how-to-build-a-real-time-hand-detector-using-neural-networks-ssd-on-tensorflow-d6bac0e4b2ce" target="_blank">here</a> .
                 </div>
 
                 {/* <ReactMarkdown source={input}></ReactMarkdown> */}

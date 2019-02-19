@@ -8,11 +8,14 @@
     "carbon-components-react": "^6.96.0",
     "carbon-icons": "^7.0.7",
     "handtrackjs": "0.0.5",
+    "planck-js": "^0.3.3",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
+    "react-load-script": "0.0.6",
     "react-markdown": "^4.0.6",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "stage-js": "^0.8.11"
   },
   "scripts": {
     "start": "react-scripts start",
