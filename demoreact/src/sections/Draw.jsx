@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from 'carbon-components-react';
 import * as handTrack from "handtrackjs"
 
-class Demo extends Component {
+class Draw extends Component {
     constructor(props) {
         super(props);
 
@@ -23,10 +23,6 @@ class Demo extends Component {
         this.imgHolder = React.createRef();
         this.video = React.createRef();
 
-    }
-    componentWillUnmount() {
-        console.log("Page unmounting disposing model")
-        this.state.model.dispose()
     }
     componentDidMount() {
         this.video.current.width = 450
@@ -151,7 +147,7 @@ class Demo extends Component {
         return (
             <div className="">
 
-                <div className="pagetitle">Demo</div>
+                <div className="pagetitle">Draw</div>
                 <br />
                 {this.state.modelLoaded ? null : <Loading />}
 
@@ -221,4 +217,4 @@ class Loading extends Component {
 }
 
 
-export default Demo;
+export default Draw;
