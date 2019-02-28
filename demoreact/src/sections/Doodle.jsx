@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button } from 'carbon-components-react';
 import * as handTrack from "handtrackjs"
 
-class Draw extends Component {
+class Doodle extends Component {
     constructor(props) {
         super(props);
 
@@ -24,12 +24,17 @@ class Draw extends Component {
         this.video = React.createRef();
 
     }
+    componentWillUnmount() {
+        console.log("Page unmounting disposing model")
+        this.state.model.dispose()
+    }
+    
     componentDidMount() {
         this.video.current.width = 450
         this.video.current.height = 380;
 
         this.canvasContext = this.canvas.current.getContext('2d')
-        this.drawCenter = true
+        this.DoodleCenter = true
         // console.log(this.canvas.current)
         handTrack.load(this.state.modelParams).then(loadedModel => {
             this.setState({ model: loadedModel })
@@ -147,7 +152,7 @@ class Draw extends Component {
         return (
             <div className="">
 
-                <div className="pagetitle">Draw</div>
+                <div className="pagetitle">Doodle</div>
                 <br />
                 {this.state.modelLoaded ? null : <Loading />}
 
@@ -217,4 +222,4 @@ class Loading extends Component {
 }
 
 
-export default Draw;
+export default Doodle;

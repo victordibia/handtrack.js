@@ -11,6 +11,7 @@ import Sidebar from "./Sidebar";
 import Demo from "../sections/Demo"
 import About from "../sections/About"
 import Game from "../sections/Game"
+import Doodle from "../sections/Doodle"
 
 class Main extends Component {
     render() {
@@ -30,6 +31,7 @@ class Main extends Component {
                             <Route path="/about" component={About} />
                             <Route path="/demo" component={Demo} />
                             <Route path="/game" component={Game} />
+                            <Route path="/doodle" component={Doodle} />
                         </div>
 
                         <div id="footer"> <Footer /> </div>

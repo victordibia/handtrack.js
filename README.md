@@ -12,6 +12,15 @@ The library is provided as a useful wrapper to allow you prototype hand/gesture 
 
 The library also provides some useful functions (e.g `getFPS` to get FPS, `renderPredictions` to draw bounding boxes on a canvas element), and customizable model parameters.
 
+> Tests on a Macbook Pro 2.2 GHz Intel Core i7, achieve 21 FPS.
+
+## How does this work?
+
+
+- Trained using egohands dataset. You will notice the  model works better in egohands view.
+- It only predicts the hand but does not predict if open or closed.
+
+
 ## Usage
  
 ### via Script Tag
@@ -77,12 +86,12 @@ handTrack.load().then(model => {
 #### List of Methods
 
 
-- `startVideo(video)` : start video stream on given video element
-- `load(params)` : load model
+- `startVideo(video)` : start camera video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
+- `stopVideo(video)` : stop video stream.
+- `load(params)` : load model, returns model object.
 - `model.detect(input)` : get predictions given input
-- `model.getFPS()` : get FPS calculated as 
-- `model.renderPredictions(predictions, canvas, context, mediasource)`: 
-draw bounding box on canvas.
+- `model.getFPS()` : get FPS calculated as number of detections per second.
+- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box on canvas.
 - `model.getModelParameters()`: returns model parameters
 - `model.setModelParameters()`: updates model parameters
 - `dispose()` : delete model instance
@@ -98,7 +107,7 @@ const modelParams = {
   imageScaleFactor: 0.7,  // reduce input image size for gains in speed.
   maxNumBoxes: 20,        // maximum number of boxes to detect
   iouThreshold: 0.5,      // ioU threshold for non-max suppression
-  scoreThreshold: 0.99,    // confidence threshold for predictions.
+  scoreThreshold: 0.79,    // confidence threshold for predictions.
 }
 
 handTrack.load(modelParams).then(model => {
@@ -135,4 +144,4 @@ Returns an array of classes and confidence scores that looks like:
 
 ## How was this built?
 
-The object detection model used in this project was trained using annotated images of the human hand ([see here](https://github.com/victordibia/handtracking/issues)) and converted to the tensorflow.js format. This wrapper library was created using guidelines and some code adapted from [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample were adopted in creating this wrapper.
+The object detection model used in this project was trained using annotated images of the human hand ([see here](https://github.com/victordibia/handtracking/issues)) and converted to the tensorflow.js format. This wrapper library was created using guidelines and some code adapted from [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd).

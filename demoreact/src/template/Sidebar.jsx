@@ -15,15 +15,19 @@ class Sidebar extends Component {
                 <br />
                 <br />
 
+
                 {/* <div className="sidebarlinks">
                     <NavLink exact to="/">Home</NavLink>
                 </div> */}
                 <div className="sidebarlinks">
                     <NavLink exact to="/">demo</NavLink>
                 </div>
-                {/* <div className="sidebarlinks">
+                <div className="sidebarlinks">
+                    <NavLink to="/doodle">doodle</NavLink>
+                </div>
+                <div className="sidebarlinks">
                     <NavLink to="/game">game</NavLink>
-                </div> */}
+                </div>
                 
                 <div className="sidebarlinks">
                     <NavLink to="/about">about</NavLink>

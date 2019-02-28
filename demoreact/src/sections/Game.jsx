@@ -89,6 +89,12 @@ class Game extends Component {
             // document.getElementsByClassName("handimagebox")[0].click()
         });
     }
+
+    componentWillUnmount() {
+        console.log("Page unmounting disposing model")
+        this.state.model.dispose()
+    }
+    
     videoButtonClick(e) {
         let self = this
         if (this.state.videoPlayStatus) {
