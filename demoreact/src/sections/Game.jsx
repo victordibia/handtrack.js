@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Button } from 'carbon-components-react';
-import Script from 'react-load-script'
+// import Script from 'react-load-script'
 import xp from "./gametest"
 import * as handTrack from "handtrackjs"
 
@@ -43,6 +43,8 @@ class Game extends Component {
         this.canvasRef = React.createRef();
         this.contentHolder = React.createRef();
         this.video = React.createRef();
+        this.videoCanvasRef = React.createRef();
+        this.videoInterval  = 200 ;
         // console.log(window.$)
 
     }
@@ -59,12 +61,15 @@ class Game extends Component {
             //     this.state.model.renderPredictions(predictions, this.canvas.current, this.canvas.current.getContext('2d'), inputsource)
             //     // console.log("FPS", model.getFPS())
             //     // $("#fps").text("FPS: " + model.getFPS())
-            if (this.state.videoPlayStatus && inputsource) {
-                window.requestAnimationFrame(function () {
-                    self.runDetection(inputsource)
-                });
+            if (this.videoCanvasRef.current) {
+                this.state.model.renderPredictions(predictions, this.videoCanvasRef.current, this.videoCanvasRef.current.getContext('2d'), inputsource)
             }
-            // }
+            if (this.state.videoPlayStatus && inputsource) {
+                // window.requestAnimationFrame(function () {
+                setTimeout(() => {
+                    self.runDetection(inputsource)
+                }, this.videoInterval);
+            }
 
         });
     }
@@ -87,14 +92,17 @@ class Game extends Component {
             this.setState({ modelLoaded: true })
             // console.log("model loaded", this.state)
             // document.getElementsByClassName("handimagebox")[0].click()
+
         });
+        xp.startPlanck()
+
     }
 
     componentWillUnmount() {
         console.log("Page unmounting disposing model")
         this.state.model.dispose()
     }
-    
+
     videoButtonClick(e) {
         let self = this
         if (this.state.videoPlayStatus) {
@@ -129,7 +137,7 @@ class Game extends Component {
     handleScriptLoad() {
         this.setState({ scriptLoaded: true })
 
-        xp.startPlanck()
+
         // setTimeout(() => {
         //     xp.stopPlanck()
         //     console.log("stopped planck")
@@ -154,17 +162,19 @@ class Game extends Component {
                     <div className="bluehightlight mb10">
                         Handtrack.js can be used to prototype natural hand interaction interfaces for games.
                     </div>
-                    <Button className="mb10" id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Detection" : " ▶ ️ Start Video Detection"} </Button>
+                    <Button className="mb10" id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Control" : " ▶ ️ Start Video Control"} </Button>
                     <canvas ref={this.canvasRef} className="gamecanvas" id="stage" ></canvas>
+                    <canvas className="videocanvasoutput" ref={this.videoCanvasRef} id="videocanvas"></canvas>
                 </div>
 
-                <Script
+                {/* <Script
                     url="https://cdn.jsdelivr.net/npm/planck-js@0.3.3/dist/planck-with-testbed.js"
                     onCreate={this.handleScriptCreate.bind(this)}
                     onError={this.handleScriptError.bind(this)}
                     onLoad={this.handleScriptLoad.bind(this)}
-                />
+                /> */}
                 <video ref={this.video} className="videobox" autoPlay="autoplay" id="myvideo"></video>
+                
 
             </div>
 

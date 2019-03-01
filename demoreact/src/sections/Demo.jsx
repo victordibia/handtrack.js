@@ -93,7 +93,7 @@ class Demo extends Component {
             handTrack.stopVideo()
         } else {
             handTrack.startVideo(this.video.current).then(function (status) {
-                 
+
                 if (status) {
                     self.setState({ videoPlayStatus: true })
                     self.runDetection(self.video.current)
@@ -169,22 +169,22 @@ class Demo extends Component {
                             <label htmlFor="flipimagecheckbox" className="bx--checkbox-label"> Flip Image </label>
                         </div>
                     </div>
-                    <div className="containerflex mt10">
-                        <div className="left-half">
+                    <div className="flex mt10">
+                        <div className="flexfull">
                             <div id="instruction" className="lighttext pb10 ">
                                 Modify confidence score threshold.
-                        </div>
-                            <div className="mt10">
-                                <div className="slidecontainer iblock">
+                            </div>
+                            <div className="mt10 flex  mr20 ">
+                                <div className="slidecontainer flexfull  ">
                                     <input type="range" val={this.state.modelParams.scoreThreshold * 100} onChange={this.updateConfidence.bind(this)} min="1" max="100" className="slider" id="confidencerange"></input>
                                 </div>
-                                <div className="iblock confidencethreshold">  {this.state.modelParams.scoreThreshold} </div>
+                                <div className="iblock confidencethreshold ">  {this.state.modelParams.scoreThreshold} </div>
                             </div>
                             <div className="scrollholdbox ">
                                 {imageList}
                             </div>
                         </div>
-                        <div className="right-half">
+                        <div className="flex5 ">
                             <canvas ref={this.canvas} id="canvas" className="canvasbox"></canvas>
                         </div>
                     </div>
@@ -194,7 +194,7 @@ class Demo extends Component {
 
                 <div className="videoboxes "></div>
                 <img ref={this.imgHolder} id="imgholder" className="imgholder hidden" src="" alt=""></img>
-                <video ref={this.video} className="videobox" autoPlay="autoplay" id="myvideo"></video>
+                <video ref={this.video} className="videobox hidden" autoPlay="autoplay" id="myvideo"></video>
 
             </div >
 

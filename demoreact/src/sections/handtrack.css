@@ -30,7 +30,7 @@
 }
 
 .videobox {
-    display: none;
+    /* display: none; */
     border-radius: 2px;
     margin: 0px 6px 0px 0px;
     object-fit: cover;
@@ -46,8 +46,7 @@
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.slidecontainer {
-    width: 80%;
+.slidecontainer { 
     /* Width of the outside container */
     margin-bottom: 15px;
 }
@@ -124,6 +123,11 @@
 .left-half {
     flex: 1;
 }
+.clickable {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
 .right-half {
     width: 450;
@@ -140,4 +144,21 @@
     display: block;
     /* height: 300px; */
     /* max-height: 300px; */
+}
+
+.videocanvasoutput{
+    position: absolute ;
+    bottom: 10px;
+    right: 10px;
+    width: 150px;
+    height: 120px;
+    border-bottom: 4px solid #0063FF;
+    border-radius: 3px;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.doodlecolor{
+    height: 60px;
+    background: #0063FF ;
+    transition: background-color 0.5s ease;
 }

@@ -82,7 +82,7 @@ xp.startPlanck = function () {
         testbed.width = SPACE_WIDTH;
         testbed.height = SPACE_HEIGHT;
 
-        var playerScore = 0;
+        // var playerScore = 0;
         var windowXRange = [0, windowWidth]
         var worldXRange = [-(SPACE_WIDTH / 2), SPACE_WIDTH / 2]
 
@@ -166,7 +166,7 @@ xp.startPlanck = function () {
 
         function updateScoreBox(points) {
             if (!pauseGame) {
-                playerScore += points;
+                // playerScore += points;
                 // $(".scorevalue").text(playerScore)
                 // pointsAdded = points > 0 ? "+" + points : points
                 // $(".scoreadded").text(pointsAdded)

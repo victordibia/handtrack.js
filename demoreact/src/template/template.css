@@ -69,7 +69,6 @@ body {
 }
 
 
-
 .active {
     border-left: 4px solid #152934;
     background: #f0f3f6;
@@ -96,9 +95,11 @@ body {
     z-index: 1000;
 }
 
-.clickable {
-    position: relative;
-    display: inline-block;
+
+
+.horrule{
+    height: 5px;
+    border-bottom: #ccc;
 }
 
 .mt10 {
@@ -113,6 +114,9 @@ body {
     margin-right: 10px;
 }
 
+.mr20 {
+    margin-right: 20px;
+}
 .ml10 {
     margin-left: 10px;
 }
@@ -120,6 +124,21 @@ body {
 .sidebarcontent {
     flex: 1;
     padding: 20px;
+}
+
+.rad5{
+    border-radius: 5px;
+}
+.rad4{
+    border-radius: 4px;
+}
+.rad3{
+    border-radius: 3px;
+}
+
+
+.rad2{
+    border-radius: 2px;
 }
 
 .pagetitle {
@@ -132,6 +151,35 @@ body {
     display: flex;
     flex-direction: column;
 
+}
+
+.flex{
+    display: flex;
+}
+.flexfull{
+    flex: 1;
+}
+
+.flex1{
+    flex: 0.1;
+}
+.flex2 {
+    flex: 0.2;
+}
+.flex3 {
+    flex: 0.3;
+}
+.flex5 {
+    flex: 0.5;
+}
+.flex7 {
+    flex: 0.7;
+}
+.flex8{
+    flex: 0.8;
+}
+.flex9{
+    flex: 0.9
 }
 
 .hidden {
@@ -177,6 +225,9 @@ body {
 
 .lighttext {
     font-weight: 200
+}
+.boldtext {
+    font-weight: bold;
 }
 
 .authornames {
