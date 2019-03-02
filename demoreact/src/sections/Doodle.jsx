@@ -3,8 +3,13 @@ import { Button } from 'carbon-components-react';
 import { ChromePicker } from 'react-color'
 import * as handTrack from "handtrackjs"
 
-let xpos = 0
+let xpos = 0;
+let nxpos = 0
 let ypos = 0;
+let nypos = 0;
+let canvasDrag = false;
+
+
 class Doodle extends Component {
     constructor(props) {
         super(props);
@@ -20,7 +25,8 @@ class Doodle extends Component {
             videoPlayStatus: false,
             showHighlight: false,
             highlightText: "Attention needed",
-            doodlecolor: "#1780DC"
+            doodlecolor: "#1780DC",
+            saveddoodles: []
         }
 
         this.canvas = React.createRef();
@@ -30,7 +36,7 @@ class Doodle extends Component {
 
         this.media = { width: 450, height: 380 }
 
-
+        this.doodlecounter = 0
 
     }
     componentWillUnmount() {
@@ -43,8 +49,8 @@ class Doodle extends Component {
     };
 
     componentDidMount() {
-        this.video.current.width = 450
-        this.video.current.height = 380;
+        this.video.current.width = this.media.width
+        this.video.current.height = this.media.height;
         xpos = 450 / 2
         ypos = 380 / 2
 
@@ -102,21 +108,27 @@ class Doodle extends Component {
 
         // console.log('number of detections: ', predictions.length);
         for (let i = 0; i < predictions.length; i++) {
+            xpos = nxpos;
+            ypos = nypos;
+            nxpos = predictions[i].bbox[0] + (predictions[i].bbox[2] / 2);
+            nypos = predictions[i].bbox[1] + (predictions[i].bbox[3] / 2)
+            this.drawDoodle()
 
-            this.canvasContext.beginPath(); // begin
-
-            this.canvasContext.lineWidth = 5;
-            this.canvasContext.lineCap = 'round';
-            this.canvasContext.strokeStyle = this.state.doodlecolor;
-            this.canvasContext.moveTo(xpos, ypos); // from
-            xpos = predictions[i].bbox[0] + (predictions[i].bbox[2] / 2);
-            ypos = predictions[i].bbox[1] + (predictions[i].bbox[3] / 2)
-            this.canvasContext.lineTo(xpos, ypos); // to
-
-            this.canvasContext.stroke(); // draw it!
-            this.canvasContext.closePath();
         }
 
+
+    }
+
+    drawDoodle() {
+        this.canvasContext.beginPath(); // begin
+        this.canvasContext.lineWidth = 5;
+        this.canvasContext.lineCap = 'round';
+        this.canvasContext.strokeStyle = this.state.doodlecolor;
+        this.canvasContext.moveTo(xpos, ypos); // from
+
+        this.canvasContext.lineTo(nxpos, nypos); // to
+        this.canvasContext.stroke(); // draw it!
+        this.canvasContext.closePath();
 
     }
 
@@ -168,18 +180,18 @@ class Doodle extends Component {
     }
 
     clearButtonClick(e) {
-
-
-        let image = new Image();
-        image.id = "doodle"
-        image.src = this.cav.toDataURL();
-        image.classList.add("doodleimage","mr10", "mb10", "border", "rad3", "floatleft")
-        document.getElementById("saveddoodlebox").appendChild(image);
-
+        this.doodlecounter++
+        let curstate = this.state.saveddoodles
+        curstate.push({ id: "doodle" + this.doodlecounter, url: this.cav.toDataURL() })
+        this.setState(curstate)
 
         this.canvasContext.clearRect(0, 0, this.cav.width, this.cav.height);
 
     }
+    clearAllButtonClick(e) {
+        this.setState({ saveddoodles: [] })
+    }
+
 
     flipImageCheck(e) {
         let modelParams = this.state.modelParams
@@ -187,6 +199,10 @@ class Doodle extends Component {
         this.setState({ modelParams })
         this.state.model.setModelParameters(this.state.modelParams)
         console.log(this.state)
+    }
+
+    clickDoodle(e) {
+        alert(e)
     }
 
     clickImage(e) {
@@ -208,6 +224,32 @@ class Doodle extends Component {
             this.detectImage(e.target)
         }
 
+    }
+
+    canvasMouseDown(e) {
+        canvasDrag = true
+
+
+    }
+    canvasMouseUp() {
+        canvasDrag = false
+    }
+    canvasMouseMove(e) {
+        if (canvasDrag) {
+            console.log("dragging")
+
+            xpos = nxpos;
+            ypos = nypos;
+            nxpos = e.clientX - this.media.width;
+            nypos = e.clientY - this.media.height;
+
+            console.log("dragging", nxpos, nypos, xpos, ypos)
+            this.drawDoodle()
+
+        }
+    }
+    canvasMouseOut() {
+        canvasDrag = false
     }
 
     render() {
@@ -253,16 +295,20 @@ class Doodle extends Component {
                             />
                             <Button className="mt10 width100" id="clearbutton" onClick={this.clearButtonClick.bind(this)} >  Clear Canvas </Button>
 
+                            {this.state.saveddoodles.length > 0 && <Button className="mt10 width100" id="clearAllbutton" onClick={this.clearAllButtonClick.bind(this)} >  Clear All </Button>}
+
                         </div>
 
                         <div className="flex2 relative">
                             <video ref={this.video} className="videobox videoflip" autoPlay="autoplay" id="myvideo"></video>
-                            <canvas ref={this.canvas} id="canvas" className="canvasbox absolute top left "></canvas>
+                            <canvas onMouseOut={this.canvasMouseOut.bind(this)} onMouseMove={this.canvasMouseMove.bind(this)} onMouseUp={this.canvasMouseUp.bind(this)} onMouseDown={this.canvasMouseDown.bind(this)} ref={this.canvas} id="canvas" className="canvasbox absolute top left "></canvas>
                         </div>
                         <div className="flexfull ml10" >
-                            <div className="boldtext mb10"> Click to Share Doodle </div>
+                            {/* <div className="boldtext mb10"> Click to Share Doodle </div> */}
                             <div id="saveddoodlebox" >
-
+                                {this.state.saveddoodles.map(item => (
+                                    <img key={item.id} onClick={this.clickDoodle.bind(this)} src={item.url} alt="" className="doodleimage border mr10 mb10 rad3 floatleft" />
+                                ))}
                             </div>
 
                         </div>
