@@ -37,13 +37,18 @@
 }
 
 .canvasbox {
-    border-radius: 3px;
-    float: right;
+    border-radius: 3px; 
     margin-right: 10px;
     width: 450px;
     height: 380px;
     border-bottom: 3px solid #0063FF;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.videoflip {
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
 }
 
 .slidecontainer { 
@@ -161,4 +166,15 @@
     height: 60px;
     background: #0063FF ;
     transition: background-color 0.5s ease;
+}
+
+.saveddoodle {
+    height: 50px;
+    width: 50px;
+    background: #0063FF;
+}
+
+.doodleimage{
+    height: 100px;
+    width: 100px; 
 }

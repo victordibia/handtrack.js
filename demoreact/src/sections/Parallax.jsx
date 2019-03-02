@@ -4,8 +4,8 @@ import { ChromePicker } from 'react-color'
 import * as handTrack from "handtrackjs"
 
 let xpos = 0
-let ypos = 0;
-class Doodle extends Component {
+let ypos = 0 ;
+class Parallax extends Component {
     constructor(props) {
         super(props);
 
@@ -28,14 +28,14 @@ class Doodle extends Component {
         this.imgHolder = React.createRef();
         this.video = React.createRef();
 
-        this.media = { width: 450, height: 380 }
+        this.media ={width:450, height:380}
 
-
+        
 
     }
     componentWillUnmount() {
         console.log("Page unmounting disposing model")
-        // this.state.model.dispose()
+        this.state.model.dispose()
     }
 
     handleChangeComplete = (color) => {
@@ -45,8 +45,8 @@ class Doodle extends Component {
     componentDidMount() {
         this.video.current.width = 450
         this.video.current.height = 380;
-        xpos = 450 / 2
-        ypos = 380 / 2
+        xpos = 450/2
+        ypos = 380/2
 
         this.cav = document.getElementById("canvas")
         this.cav.width = 450
@@ -54,14 +54,14 @@ class Doodle extends Component {
         this.canvasContext = this.cav.getContext('2d')
         this.DoodleCenter = true
         console.log(this.canvas.current)
-        // handTrack.load(this.state.modelParams).then(loadedModel => {
-        //     this.setState({ model: loadedModel })
-        //     this.setState({ modelLoaded: true })
-        //     // console.log("model loaded", this.state)
-        //     // document.getElementsByClassName("handimagebox")[0].click()
-        //     this.setState({ modelLoaded: true })
-        // });
-        this.setState({ modelLoaded: true })
+        handTrack.load(this.state.modelParams).then(loadedModel => {
+            this.setState({ model: loadedModel })
+            this.setState({ modelLoaded: true })
+            // console.log("model loaded", this.state)
+            // document.getElementsByClassName("handimagebox")[0].click()
+            this.setState({ modelLoaded: true })
+        });
+
     }
 
     runDetection(inputsource) {
@@ -89,7 +89,7 @@ class Doodle extends Component {
 
     runDrawPredictions(predictions) {
         // context.clearRect(0, 0, canvas.width, canvas.height);
-
+       
 
         this.canvasContext.save();
         if (this.state.modelParams.flipHorizontal) {
@@ -101,20 +101,20 @@ class Doodle extends Component {
         // this.canvasContext.font = '10px Arial';
 
         // console.log('number of detections: ', predictions.length);
-        for (let i = 0; i < predictions.length; i++) {
+        for (let i = 0; i < predictions.length; i++) { 
 
             this.canvasContext.beginPath(); // begin
 
             this.canvasContext.lineWidth = 5;
             this.canvasContext.lineCap = 'round';
-            this.canvasContext.strokeStyle = this.state.doodlecolor;
+            this.canvasContext.strokeStyle = this.state.doodlecolor; 
             this.canvasContext.moveTo(xpos, ypos); // from
             xpos = predictions[i].bbox[0] + (predictions[i].bbox[2] / 2);
             ypos = predictions[i].bbox[1] + (predictions[i].bbox[3] / 2)
             this.canvasContext.lineTo(xpos, ypos); // to
 
             this.canvasContext.stroke(); // draw it!
-            this.canvasContext.closePath();
+            this.canvasContext.closePath(); 
         }
 
 
@@ -167,17 +167,14 @@ class Doodle extends Component {
         }
     }
 
-    clearButtonClick(e) {
-
-
-        let image = new Image();
-        image.id = "doodle"
-        image.src = this.cav.toDataURL();
-        image.classList.add("doodleimage","mr10", "mb10", "border", "rad3", "floatleft")
-        document.getElementById("saveddoodlebox").appendChild(image);
-
-
+    clearButtonClick(e){
         this.canvasContext.clearRect(0, 0, this.cav.width, this.cav.height);
+
+        // Save as doodle
+        //         var image = new Image();
+        // image.id = "pic"
+        // image.src = canvas.toDataURL();
+        // document.getElementById('image_for_crop').appendChild(image);
 
     }
 
@@ -259,12 +256,8 @@ class Doodle extends Component {
                             <video ref={this.video} className="videobox videoflip" autoPlay="autoplay" id="myvideo"></video>
                             <canvas ref={this.canvas} id="canvas" className="canvasbox absolute top left "></canvas>
                         </div>
-                        <div className="flexfull ml10" >
-                            <div className="boldtext mb10"> Click to Share Doodle </div>
-                            <div id="saveddoodlebox" >
-
-                            </div>
-
+                        <div className="flexfull">
+                            
                         </div>
                     </div>
 
@@ -300,4 +293,4 @@ class Loading extends Component {
 }
 
 
-export default Doodle;
+export default Parallax;

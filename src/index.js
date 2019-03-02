@@ -98,51 +98,56 @@ export class ObjectDetection {
       }
     })
 
-    const result = await this.model.executeAsync(batched);
+    // const result = await this.model.executeAsync(batched);
+    self = this
+    return this.model.executeAsync(batched).then(function (result) {
 
-    const scores = result[0].dataSync()
-    const boxes = result[1].dataSync()
 
-    // clean the webgl tensors
-    batched.dispose()
-    tf.dispose(result)
+      const scores = result[0].dataSync()
+      const boxes = result[1].dataSync()
 
-    // console.log("scores result",scores, boxes)
+      // clean the webgl tensors
+      batched.dispose()
+      tf.dispose(result)
 
-    const [maxScores, classes] = calculateMaxScores(scores, result[0].shape[1], result[0].shape[2]);
-    const prevBackend = tf.getBackend()
-    // run post process in cpu
-    tf.setBackend('cpu')
-    const indexTensor = tf.tidy(() => {
-      const boxes2 = tf.tensor2d(boxes, [
-        result[1].shape[1],
-        result[1].shape[3]
-      ])
-      return tf.image.nonMaxSuppression(
-        boxes2,
+      // console.log("scores result",scores, boxes)
+
+      const [maxScores, classes] = calculateMaxScores(scores, result[0].shape[1], result[0].shape[2]);
+      const prevBackend = tf.getBackend()
+      // run post process in cpu
+      tf.setBackend('cpu')
+      const indexTensor = tf.tidy(() => {
+        const boxes2 = tf.tensor2d(boxes, [
+          result[1].shape[1],
+          result[1].shape[3]
+        ])
+        return tf.image.nonMaxSuppression(
+          boxes2,
+          scores,
+          self.modelParams.maxNumBoxes, // maxNumBoxes
+          self.modelParams.iouThreshold, // iou_threshold
+          self.modelParams.scoreThreshold // score_threshold
+        )
+      })
+      const indexes = indexTensor.dataSync()
+      indexTensor.dispose()
+      // restore previous backend
+      tf.setBackend(prevBackend)
+
+      const predictions = self.buildDetectedObjects(
+        width,
+        height,
+        boxes,
         scores,
-        this.modelParams.maxNumBoxes, // maxNumBoxes
-        this.modelParams.iouThreshold, // iou_threshold
-        this.modelParams.scoreThreshold // score_threshold
+        indexes,
+        classes
       )
+      let timeEnd = Date.now()
+      self.fps = Math.round(1000 / (timeEnd - timeBegin))
+
+      return predictions
+
     })
-    const indexes = indexTensor.dataSync()
-    indexTensor.dispose()
-    // restore previous backend
-    tf.setBackend(prevBackend)
-
-    const predictions = this.buildDetectedObjects(
-      width,
-      height,
-      boxes,
-      scores,
-      indexes,
-      classes
-    )
-    let timeEnd = Date.now()
-    this.fps = Math.round(1000 / (timeEnd - timeBegin))
-
-    return predictions
 
   }
 
@@ -208,7 +213,6 @@ export class ObjectDetection {
 
       // draw a dot at the center of bounding box
 
-      
 
       context.lineWidth = 1;
       context.strokeStyle = '#0063FF';

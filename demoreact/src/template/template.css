@@ -101,7 +101,12 @@ body {
     height: 5px;
     border-bottom: #ccc;
 }
-
+.floatleft{
+    float: left;
+}
+.floatright{
+    float: right;
+}
 .mt10 {
     margin-top: 10px;
 }
@@ -186,10 +191,35 @@ body {
     display: none;
 }
 
+.width100{
+    width: 100%;
+}
 .bottomcontent {
     flex: 2;
     background: white
 }
+
+/* Positioning */
+.absolute {
+    position: absolute
+}
+.relative{
+    position: relative;
+}
+.top{
+    top: 0px;
+}
+.left{
+    left:0px;
+}
+.bottom {
+    bottom: 0px;
+}
+.right{
+    right: 0px;
+}
+
+
 
 .containerwrap>* {}
 

@@ -49,8 +49,7 @@ You can use the library by including it in a javacript script tag.
   handTrack.load().then(model => {
     // detect objects in the image.
     model.detect(img).then(predictions => {
-      console.log('Predictions: ', predictions);
-      model.renderPredictions(predictions, canvas, context, img)
+      console.log('Predictions: ', predictions); 
     });
   });
 </script>
@@ -72,8 +71,7 @@ handTrack.load().then(model => {
   // detect objects in the image.
   console.log("model loaded")
   model.detect(img).then(predictions => {
-    console.log('Predictions: ', predictions);
-    model.renderPredictions(predictions, canvas, context, img)
+    console.log('Predictions: ', predictions); 
   });
 });
 ```
@@ -83,22 +81,8 @@ handTrack.load().then(model => {
 
 ## API
 
-#### List of Methods
-
-
-- `startVideo(video)` : start camera video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
-- `stopVideo(video)` : stop video stream.
-- `load(params)` : load model, returns model object.
-- `model.detect(input)` : get predictions given input
-- `model.getFPS()` : get FPS calculated as number of detections per second.
-- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box on canvas.
-- `model.getModelParameters()`: returns model parameters
-- `model.setModelParameters()`: updates model parameters
-- `dispose()` : delete model instance
-
-
-####  Loading the model (load)
-Once you include the js module, it is available as `handTrack`. You can then load a model with a some optional parameters.
+####  Loading the model: handTrack.load()
+Once you include the js module, it is available as `handTrack`. You can then load a model with optional parameters.
 
 ```js
 
@@ -117,8 +101,7 @@ handTrack.load(modelParams).then(model => {
 ```
 Returns a `model` object.
 
-#### Detecting hands
-You can detect hands with the model without needing to create a Tensor.
+#### Detecting hands: model.detect()
 `model.detect` takes an input image element (can be an `img`, `video`, `canvas` tag) and returns an array of bounding boxes with class name and confidence level.
 
 ```js
@@ -140,6 +123,16 @@ Returns an array of classes and confidence scores that looks like:
   score: 0.74644153267145157
 }]
 ```
+
+#### Other Helper Methods
+
+- `model.getFPS()` : get FPS calculated as number of detections per second.
+- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas.
+- `model.getModelParameters()`: returns model parameters.
+- `model.setModelParameters()`: updates model parameters.
+- `dispose()` : delete model instance
+- `startVideo(video)` : start camera video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
+- `stopVideo(video)` : stop video stream.
 
 
 ## How was this built?

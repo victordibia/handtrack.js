@@ -173,7 +173,7 @@ class Game extends Component {
                     onError={this.handleScriptError.bind(this)}
                     onLoad={this.handleScriptLoad.bind(this)}
                 /> */}
-                <video ref={this.video} className="videobox" autoPlay="autoplay" id="myvideo"></video>
+                <video ref={this.video} className="videobox hidden" autoPlay="autoplay" id="myvideo"></video>
                 
 
             </div>
