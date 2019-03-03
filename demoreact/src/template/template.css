@@ -103,7 +103,7 @@ body {
 
 .horrule {
     height: 5px;
-    border-bottom: #ccc;
+    border-bottom: rgb(151, 6, 6);
 }
 
 .floatleft {
@@ -116,6 +116,10 @@ body {
 
 .mt10 {
     margin-top: 10px;
+}
+
+.mt20 {
+    margin-top: 20px;
 }
 
 .mb10 {

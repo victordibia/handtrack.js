@@ -4,6 +4,9 @@ import { Button } from 'carbon-components-react';
 import xp from "./gametest"
 import * as handTrack from "handtrackjs"
 
+
+let gamex = 0
+
 class Loading extends Component {
     render() {
         return (
@@ -44,7 +47,8 @@ class Game extends Component {
         this.contentHolder = React.createRef();
         this.video = React.createRef();
         this.videoCanvasRef = React.createRef();
-        this.videoInterval  = 200 ;
+        this.videoInterval = 200;
+        this.usablecanvasWidth = 500
         // console.log(window.$)
 
     }
@@ -53,7 +57,9 @@ class Game extends Component {
         this.state.model.detect(inputsource).then(predictions => {
             if (predictions[0]) {
                 let midval = predictions[0].bbox[0] + (predictions[0].bbox[2] / 2)
-                console.log('Predictions: ', inputsource.width, midval / inputsource.width);
+                gamex = this.usablecanvasWidth * (midval / inputsource.width)
+                xp.setGamex(gamex)
+                console.log('Predictions: ', this.usablecanvasWidth, midval / inputsource.width);
 
             }
 
@@ -80,8 +86,9 @@ class Game extends Component {
         this.canvasRef.current.style.width = usablecanvasWidth + "px";
         this.canvasRef.current.style.maxWidth = usablecanvasWidth + "px";
         // this.canvasRef.current.width = usablecanvasWidth;
+        this.usablecanvasWidth = usablecanvasWidth
 
-        let usableCanvasHeight = document.documentElement.clientHeight - this.canvasRef.current.getBoundingClientRect().top - 100
+        let usableCanvasHeight = document.documentElement.clientHeight - this.canvasRef.current.getBoundingClientRect().top - 40
         this.canvasRef.current.style.height = usableCanvasHeight + "px"
         // this.canvasRef.current.height = usableCanvasHeight;
 
@@ -97,6 +104,21 @@ class Game extends Component {
         xp.startPlanck()
 
     }
+
+    updateConfidence(e) {
+
+        let modelParams = this.state.modelParams
+        modelParams.scoreThreshold = e.target.value / 100
+        this.setState({ modelParams })
+
+        this.state.model.setModelParameters(this.state.modelParams)
+        let selectedBox = document.getElementsByClassName("handimageselected")[0]
+        if (!this.state.videoPlayStatus && selectedBox) {
+            selectedBox.click()
+        }
+
+    }
+
 
     componentWillUnmount() {
         console.log("Page unmounting disposing model")
@@ -159,10 +181,19 @@ class Game extends Component {
                 <div className="clickable">
                     <div className={this.state.modelLoaded ? "hidden" : "disableoverlay"}></div>
 
-                    <div className="bluehightlight mb10">
-                        Handtrack.js can be used to prototype natural hand interaction interfaces for games.
+                    <div className="bluehightlight mb10 lh10">
+                        Control the pong game paddle by waving your hands in front of the camera. Click start video to begin.
                     </div>
                     <Button className="mb10" id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Control" : " ▶ ️ Start Video Control"} </Button>
+                    <div className="flexfull ">
+                        <div id="instruction" className="lighttext mt10">Modify confidence score threshold.</div>
+                        <div className="mt10 flex">
+                            <div className="slidecontainer flexfull ">
+                                <input type="range" val={this.state.modelParams.scoreThreshold * 100} onChange={this.updateConfidence.bind(this)} min="1" max="100" className="slider" id="confidencerange"></input>
+                            </div>
+                            <div className="iblock confidencethreshold ">  {this.state.modelParams.scoreThreshold} </div>
+                        </div>
+                    </div>
                     <canvas ref={this.canvasRef} className="gamecanvas" id="stage" ></canvas>
                     <canvas className="videocanvasoutput" ref={this.videoCanvasRef} id="videocanvas"></canvas>
                 </div>
@@ -174,7 +205,7 @@ class Game extends Component {
                     onLoad={this.handleScriptLoad.bind(this)}
                 /> */}
                 <video ref={this.video} className="videobox hidden" autoPlay="autoplay" id="myvideo"></video>
-                
+
 
             </div>
 

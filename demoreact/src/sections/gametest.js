@@ -3,11 +3,20 @@
 
 let xp = {}
 export default xp
-
+let gamex = 0
+let paddle
+let Vec2
+let accelFactor
 
 xp.stopPlanck = function () {
 
 }
+xp.setGamex = function (x) {
+    gamex = x;
+    let lineaVeloctiy = Vec2((x - paddle.getPosition().x) * accelFactor, 0)
+    paddle.setLinearVelocity(lineaVeloctiy)
+}
+
 xp.startPlanck = function () {
 
     // TestBed Details
@@ -30,7 +39,7 @@ xp.startPlanck = function () {
     var BEAD_RESTITUTION = 0.7
 
     // Paddle Details
-    let accelFactor = 0.042 * SPACE_WIDTH;   // how fast the paddle accelerates when mouse or other controls are moved.
+    accelFactor = 0.042 * SPACE_WIDTH;   // how fast the paddle accelerates when mouse or other controls are moved.
 
 
 
@@ -52,8 +61,8 @@ xp.startPlanck = function () {
     // });
 
     planck.testbed(function (testbed) {
-        var pl = planck,
-            Vec2 = pl.Vec2;
+        var pl = planck;
+        Vec2 = pl.Vec2;
 
         var world = pl.World(Vec2(0, -30));
         var BEAD = 4
@@ -86,7 +95,7 @@ xp.startPlanck = function () {
         var windowXRange = [0, windowWidth]
         var worldXRange = [-(SPACE_WIDTH / 2), SPACE_WIDTH / 2]
 
-        var paddle
+
         var characterBodies = [];
         var paddleBodies = new Map();
 
@@ -204,6 +213,7 @@ xp.startPlanck = function () {
             // }
 
         }
+
 
         // process mouse move and touch events
         function mouseMoveHandler(event) {
@@ -362,7 +372,7 @@ xp.startPlanck = function () {
 
             globalTime += dt;
             if (world.m_stepCount % 80 === 0) {
-                console.log("inner tikcoo")
+                console.log("inner tikcoo", gamex)
                 if (!pauseGame) {
                     generateBeads(NUM_BEADS);
                     //console.log("car size", characterBodies.length);

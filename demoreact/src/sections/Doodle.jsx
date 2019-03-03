@@ -40,8 +40,8 @@ class Doodle extends Component {
 
     }
     componentWillUnmount() {
-        console.log("Page unmounting disposing model")
-        // this.state.model.dispose()
+        // console.log("Page unmounting disposing model")
+        this.state.model.dispose()
     }
 
     handleChangeComplete = (color) => {
@@ -59,7 +59,7 @@ class Doodle extends Component {
         this.cav.height = 380
         this.canvasContext = this.cav.getContext('2d')
         this.DoodleCenter = true
-        console.log(this.canvas.current)
+
         handTrack.load(this.state.modelParams).then(loadedModel => {
             this.setState({ model: loadedModel })
             this.setState({ modelLoaded: true })
@@ -266,8 +266,8 @@ class Doodle extends Component {
                     <div className={this.state.modelLoaded ? "hidden" : "disableoverlay"}></div>
                     <div className={this.state.showHighlight ? "orangehighlight mb10" : "hidden"}> {this.state.highlightText}</div>
                     <div className="bluehightlight mb10 lh10">
-                        All detection is done in the browser! <span className="lighttext"> Click on an image or  Start video.</span>
-                        Not seeing any doodle? Change the confidence threshold value. The right threshold may depend on your camera and lighting conditions.
+                        Draw interesting doodles by waving your hand in front of the camera. All detection is done in the browser! <span className="lighttext"> </span>
+
                     </div>
                     <div>
                         <Button id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Doodle" : " ▶ ️ Start Video Doodle"} </Button>
@@ -277,18 +277,10 @@ class Doodle extends Component {
                             <label htmlFor="flipimagecheckbox" className="bx--checkbox-label"> Flip Image </label>
                         </div>
                     </div>
-                    <div className="flex9 ">
-                        <div id="instruction" className="lighttext mt10">Modify confidence score threshold.</div>
-                        <div className="mt10 flex">
-                            <div className="slidecontainer flexfull ">
-                                <input type="range" val={this.state.modelParams.scoreThreshold * 100} onChange={this.updateConfidence.bind(this)} min="1" max="100" className="slider" id="confidencerange"></input>
-                            </div>
-                            <div className="iblock confidencethreshold ">  {this.state.modelParams.scoreThreshold} </div>
-                        </div>
-                    </div>
+
                     <div className="flex mt10">
                         <div className="flex2 mr20  ">
-                            <div className="boldtext mb10"> Doodle Color </div>
+                            <div className="boldtext mb10"> Select Doodle Color </div>
                             <div style={{ backgroundColor: this.state.doodlecolor }} className="doodlecolor mb10 rad3"></div>
                             <ChromePicker
                                 color={this.state.doodlecolor}
@@ -300,16 +292,29 @@ class Doodle extends Component {
                         </div>
 
                         <div className="flex2 relative">
-                            <video ref={this.video} className="videobox videoflip" autoPlay="autoplay" id="myvideo"></video>
-                            <canvas onMouseOut={this.canvasMouseOut.bind(this)} onMouseMove={this.canvasMouseMove.bind(this)} onMouseUp={this.canvasMouseUp.bind(this)} onMouseDown={this.canvasMouseDown.bind(this)} ref={this.canvas} id="canvas" className="canvasbox absolute top left "></canvas>
+
+                            <div className="relative">
+                                <video ref={this.video} className="videobox videoflip" autoPlay="autoplay" id="myvideo"></video>
+                                <canvas onMouseOut={this.canvasMouseOut.bind(this)} onMouseMove={this.canvasMouseMove.bind(this)} onMouseUp={this.canvasMouseUp.bind(this)} onMouseDown={this.canvasMouseDown.bind(this)} ref={this.canvas} id="canvas" className="canvasbox absolute top left "></canvas>
+
+                            </div>
                         </div>
                         <div className="flexfull ml10" >
+                            <div className="flexfull ">
+                                <div id="instruction" className="lighttext mt10">Modify confidence score threshold.</div>
+                                <div className="mt10 flex">
+                                    <div className="slidecontainer flexfull ">
+                                        <input type="range" val={this.state.modelParams.scoreThreshold * 100} onChange={this.updateConfidence.bind(this)} min="1" max="100" className="slider" id="confidencerange"></input>
+                                    </div>
+                                    <div className="iblock confidencethreshold ">  {this.state.modelParams.scoreThreshold} </div>
+                                </div>
+                            </div>
                             {/* <div className="boldtext mb10"> Click to Share Doodle </div> */}
                             {this.state.saveddoodles.length > 0 && <Button className="mb10 width100" id="clearAllbutton" onClick={this.clearAllButtonClick.bind(this)} >  Clear All Doodles </Button>}
-                            {this.state.saveddoodles.length == 0 && (
-                                <div className="bluehightlight mb10 lh10">
-                                    <span className="lighttext"> Click start video doodle, then click clear. </span>
-                                    Each doodle you make will appear here.
+                            {this.state.saveddoodles.length === 0 && (
+                                <div className="bluehightlight mb10 lh10 mr20">
+                                    Detection not working as expected? Change the confidence threshold value.
+                               The right threshold may depend on your <span className="boldtext">camera</span>  and <span className="boldtext">lighting</span>   conditions.
                                 </div>
                             )}
 

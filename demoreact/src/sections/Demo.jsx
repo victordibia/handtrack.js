@@ -25,7 +25,7 @@ class Demo extends Component {
 
     }
     componentWillUnmount() {
-        console.log("Page unmounting disposing model")
+        // console.log("Page unmounting disposing model")
         this.state.model.dispose()
     }
     componentDidMount() {
@@ -169,6 +169,7 @@ class Demo extends Component {
                             <label htmlFor="flipimagecheckbox" className="bx--checkbox-label"> Flip Image </label>
                         </div>
                     </div>
+                    <div className="border mb10 bluehightlight"> hi</div>
                     <div className="flex mt10">
                         <div className="flexfull">
                             <div id="instruction" className="lighttext pb10 ">
@@ -180,10 +181,15 @@ class Demo extends Component {
                                 </div>
                                 <div className="iblock confidencethreshold ">  {this.state.modelParams.scoreThreshold} </div>
                             </div>
+                            <div className="bluehightlight mb10 lh10 mr20">
+                                Detection not working as expected? Change the confidence threshold value.
+                               The right threshold may depend on your <span className="boldtext">camera</span>  and <span className="boldtext">lighting</span>   conditions.
+                            </div>
                             <div className="scrollholdbox ">
                                 {imageList}
                             </div>
                         </div>
+
                         <div className="flex5 ">
                             <canvas ref={this.canvas} id="canvas" className="canvasbox"></canvas>
                         </div>
