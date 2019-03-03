@@ -8,11 +8,12 @@
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
 
-| FPS | Image Size | Device                         | Browser |
-|-----|------------|--------------------------------|---------|
-| 21  | 450 * 380  | Macbook Pro (i7, 2.8GHz, 2018) | Chrome  |
-| 14  | 450 * 380  | Macbook Pro (i7, 2.2GHz, 2014) | Chrome  |
-|     |            |                                |         |
+
+| FPS | Image Size | Device                             | Browser                  | Comments |
+|-----|------------|------------------------------------|--------------------------|----------|
+| 21  | 450 * 380  | Macbook Pro (i7, 2.2GHz, 2018)     | Chrome Version 72.0.3626 |  --      |
+| 14  | 450 * 380  | Macbook Pro (i7, 2.2GHz, mid 2014) | Chrome Version 72.0.3626 |  --      |
+
 
 > This work is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. Definitely check it out if you are interested in detecting/tracking any of the 90 classes in the coco dataset.
 
@@ -25,8 +26,9 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 ## How does this work?
 
 
-- Trained using egohands dataset. You will notice the  model works better in egohands view.
-- It only predicts the hand but does not predict if open or closed.
+- Trained using egohands dataset. You will notice the  model works better when the hands in an image is viewed from a top (egocentic) view.
+- Trained model is converted to the Tensorflowjs format
+- Model is wrapped into an npm package, and can be accessed using [jsdelivr](https://www.jsdelivr.com/package/npm/handtrackjs), a free open source cdn that lets you include any npm package in your web application. You may notice the model is loaded slowly the first time the page is opened but gets faster on subsequent loads (caching).
 
 
 ## Usage
@@ -135,7 +137,7 @@ Returns an array of classes and confidence scores that looks like:
 #### Other Helper Methods
 
 - `model.getFPS()` : get FPS calculated as number of detections per second.
-- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas.
+- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas. `predictions` are an array of results from the `detect()` method. `canvas` is a reference to a html canvas object where the predictions should be rendered, `context` is the canvas 2D context object, `mediasource` a reference to the input frame (img, video, canvas etc) used in the prediction (it is first rendered, and the bounding boxes drawn on top of it).
 - `model.getModelParameters()`: returns model parameters.
 - `model.setModelParameters()`: updates model parameters.
 - `dispose()` : delete model instance
