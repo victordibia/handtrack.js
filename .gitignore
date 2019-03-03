@@ -4,8 +4,8 @@ srcdist
 .DS_Store
 react
 build
-demoreact
-models
+# demoreact
+# models
 
 # Logs
 logs
