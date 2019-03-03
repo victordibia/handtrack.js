@@ -60,14 +60,14 @@ class Doodle extends Component {
         this.canvasContext = this.cav.getContext('2d')
         this.DoodleCenter = true
         console.log(this.canvas.current)
-        // handTrack.load(this.state.modelParams).then(loadedModel => {
-        //     this.setState({ model: loadedModel })
-        //     this.setState({ modelLoaded: true })
-        //     // console.log("model loaded", this.state)
-        //     // document.getElementsByClassName("handimagebox")[0].click()
-        //     this.setState({ modelLoaded: true })
-        // });
-        this.setState({ modelLoaded: true })
+        handTrack.load(this.state.modelParams).then(loadedModel => {
+            this.setState({ model: loadedModel })
+            this.setState({ modelLoaded: true })
+            // console.log("model loaded", this.state)
+            // document.getElementsByClassName("handimagebox")[0].click()
+            this.setState({ modelLoaded: true })
+        });
+        // this.setState({ modelLoaded: true })
     }
 
     runDetection(inputsource) {
@@ -202,7 +202,7 @@ class Doodle extends Component {
     }
 
     clickDoodle(e) {
-        alert(e)
+
     }
 
     clickImage(e) {
@@ -265,8 +265,9 @@ class Doodle extends Component {
                 <div className="clickable ">
                     <div className={this.state.modelLoaded ? "hidden" : "disableoverlay"}></div>
                     <div className={this.state.showHighlight ? "orangehighlight mb10" : "hidden"}> {this.state.highlightText}</div>
-                    <div className="bluehightlight mb10">
-                        All detection is done in the browser! <span className="lighttext"> Click on an image or  Start video</span>
+                    <div className="bluehightlight mb10 lh10">
+                        All detection is done in the browser! <span className="lighttext"> Click on an image or  Start video.</span>
+                        Not seeing any doodle? Change the confidence threshold value. The right threshold may depend on your camera and lighting conditions.
                     </div>
                     <div>
                         <Button id="videobutton" onClick={this.videoButtonClick.bind(this)} >  {this.state.videoPlayStatus ? "▩ Stop Video Doodle" : " ▶ ️ Start Video Doodle"} </Button>
@@ -293,9 +294,8 @@ class Doodle extends Component {
                                 color={this.state.doodlecolor}
                                 onChangeComplete={this.handleChangeComplete}
                             />
-                            <Button className="mt10 width100" id="clearbutton" onClick={this.clearButtonClick.bind(this)} >  Clear Canvas </Button>
+                            <Button className="mt10 width100" id="clearbutton" onClick={this.clearButtonClick.bind(this)} > Clear Doodle </Button>
 
-                            {this.state.saveddoodles.length > 0 && <Button className="mt10 width100" id="clearAllbutton" onClick={this.clearAllButtonClick.bind(this)} >  Clear All </Button>}
 
                         </div>
 
@@ -305,9 +305,18 @@ class Doodle extends Component {
                         </div>
                         <div className="flexfull ml10" >
                             {/* <div className="boldtext mb10"> Click to Share Doodle </div> */}
+                            {this.state.saveddoodles.length > 0 && <Button className="mb10 width100" id="clearAllbutton" onClick={this.clearAllButtonClick.bind(this)} >  Clear All Doodles </Button>}
+                            {this.state.saveddoodles.length == 0 && (
+                                <div className="bluehightlight mb10 lh10">
+                                    <span className="lighttext"> Click start video doodle, then click clear. </span>
+                                    Each doodle you make will appear here.
+                                </div>
+                            )}
+
+
                             <div id="saveddoodlebox" >
                                 {this.state.saveddoodles.map(item => (
-                                    <img key={item.id} onClick={this.clickDoodle.bind(this)} src={item.url} alt="" className="doodleimage border mr10 mb10 rad3 floatleft" />
+                                    <img key={item.id} onClick={this.clickDoodle.bind(this)} src={item.url} alt="" className="doodleimage mr10 mb10 rad3 floatleft" />
                                 ))}
                             </div>
 

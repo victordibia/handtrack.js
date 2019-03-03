@@ -37,7 +37,7 @@
 }
 
 .canvasbox {
-    border-radius: 3px; 
+    border-radius: 3px;
     margin-right: 10px;
     width: 450px;
     height: 380px;
@@ -47,11 +47,13 @@
 
 .videoflip {
     transform: rotateY(180deg);
-    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-    -moz-transform:rotateY(180deg); /* Firefox */
+    -webkit-transform: rotateY(180deg);
+    /* Safari and Chrome */
+    -moz-transform: rotateY(180deg);
+    /* Firefox */
 }
 
-.slidecontainer { 
+.slidecontainer {
     /* Width of the outside container */
     margin-bottom: 15px;
 }
@@ -128,6 +130,7 @@
 .left-half {
     flex: 1;
 }
+
 .clickable {
     position: relative;
     display: inline-block;
@@ -151,8 +154,8 @@
     /* max-height: 300px; */
 }
 
-.videocanvasoutput{
-    position: absolute ;
+.videocanvasoutput {
+    position: absolute;
     bottom: 10px;
     right: 10px;
     width: 150px;
@@ -162,9 +165,9 @@
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.doodlecolor{
+.doodlecolor {
     height: 60px;
-    background: #0063FF ;
+    background: #0063FF;
     transition: background-color 0.5s ease;
 }
 
@@ -174,7 +177,10 @@
     background: #0063FF;
 }
 
-.doodleimage{
+.doodleimage {
     height: 100px;
-    width: 100px; 
+    width: 100px;
+    border-bottom: #0063FF 3px solid;
+    border-top: #0063FF 3px solid;
+    background: rgba(211, 211, 211, 0.2);
 }

@@ -10,7 +10,7 @@ class Sidebar extends Component {
                     <span className="bx--type-epsilon"> handtrack.js </span>
                     <span className="lighttext"> </span>
                 </div>
-                <div className="lighttext">v0.0.6</div>
+                <div className="lighttext">v0.0.8</div>
 
                 <br />
                 <br />
@@ -28,7 +28,7 @@ class Sidebar extends Component {
                 <div className="sidebarlinks">
                     <NavLink to="/game">game</NavLink>
                 </div>
-                
+
                 <div className="sidebarlinks">
                     <NavLink to="/about">about</NavLink>
                 </div>
