@@ -8,6 +8,12 @@
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
 
+| FPS | Image Size | Device                         | Browser |
+|-----|------------|--------------------------------|---------|
+| 21  | 450 * 380  | Macbook Pro (i7, 2.8GHz, 2018) | Chrome  |
+| 14  | 450 * 380  | Macbook Pro (i7, 2.2GHz, 2014) | Chrome  |
+|     |            |                                |         |
+
 > This work is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. Definitely check it out if you are interested in detecting/tracking any of the 90 classes in the coco dataset.
 
 The library is provided as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications. without the need to understand. It takes in a html image element (`img`, `video`, `canvas` elements, for example) and returns an array of bounding boxes, class names and confidence scores.
