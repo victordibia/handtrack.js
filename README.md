@@ -1,4 +1,6 @@
 ## Handtrack.js
+
+[![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
@@ -58,7 +60,7 @@ You can use the library by including it in a javacript script tag.
 ### via NPM
 
 ```shell
-npm install handtrackjs
+npm install --save handtrackjs
 ```
 
 ```js
