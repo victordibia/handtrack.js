@@ -24,7 +24,7 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 > Tests on a Macbook Pro 2.2 GHz Intel Core i7, achieve 21 FPS.
 
 ## How does this work?
-
+<img src="demo/images/architecture.jpg" style="width:100%">
 
 - Trained using egohands dataset. You will notice the  model works better when the hands in an image is viewed from a top (egocentic) view.
 - Trained model is converted to the Tensorflowjs format
@@ -139,7 +139,7 @@ Returns an array of classes and confidence scores that looks like:
 - `model.getFPS()` : get FPS calculated as number of detections per second.
 - `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas. `predictions` are an array of results from the `detect()` method. `canvas` is a reference to a html canvas object where the predictions should be rendered, `context` is the canvas 2D context object, `mediasource` a reference to the input frame (img, video, canvas etc) used in the prediction (it is first rendered, and the bounding boxes drawn on top of it).
 - `model.getModelParameters()`: returns model parameters.
-- `model.setModelParameters()`: updates model parameters.
+- `model.setModelParameters(modelParams)`: updates model parameters with [`modelParams`](#loading-the-model-handtrackload)
 - `dispose()` : delete model instance
 - `startVideo(video)` : start camera video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
 - `stopVideo(video)` : stop video stream.
