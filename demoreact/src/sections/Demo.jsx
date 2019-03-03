@@ -169,7 +169,7 @@ class Demo extends Component {
                             <label htmlFor="flipimagecheckbox" className="bx--checkbox-label"> Flip Image </label>
                         </div>
                     </div>
-                    <div className="border mb10 bluehightlight"> hi</div>
+                    {/* <div className="border mb10 bluehightlight"> hi</div> */}
                     <div className="flex mt10">
                         <div className="flexfull">
                             <div id="instruction" className="lighttext pb10 ">

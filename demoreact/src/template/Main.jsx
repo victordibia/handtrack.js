@@ -31,9 +31,9 @@ class Main extends Component {
                             <Route exact path="/" component={Demo} />
                             <Route path="/about" component={About} />
                             <Route path="/demo" component={Demo} />
-                            <Route path="/game" component={Game} />
+                            {/* <Route path="/game" component={Game} /> */}
                             <Route path="/doodle" component={Doodle} />
-                            <Route path="/parallax" component={Parallax} />
+                            {/* <Route path="/parallax" component={Parallax} /> */}
                         </div>
 
                         <div id="footer"> <Footer /> </div>
