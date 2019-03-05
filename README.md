@@ -4,7 +4,7 @@
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
-<img src="demo/images/bossflip.gif" style="width:100%">
+<img src="demo/images/bossflip.gif" width="100%">
 
 
 
@@ -28,7 +28,7 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 > Tests on a Macbook Pro 2.2 GHz Intel Core i7, achieve 21 FPS.
 
 ## How does this work?
-<img src="demo/images/architecture.jpg" style="width:100%">
+<img src="demo/images/architecture.jpg" width="100%">
 
 - Trained using egohands dataset. You will notice the  model works better when the hands in an image is viewed from a top (egocentic) view.
 - Trained model is converted to the Tensorflowjs format
@@ -37,7 +37,7 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 ## When Should I Use Handtrack.js
 
 
-<img src="demo/images/doodle.gif" width="250%" style="width:100%">
+<img src="demo/images/doodle.gif" width="100%">
 
 If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The usser does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
 
