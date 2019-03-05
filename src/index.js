@@ -58,11 +58,14 @@ export function startVideo(video) {
 
 }
 
-export function stopVideo() {
+export async function stopVideo() {
   if (window.localStream) {
     window.localStream.getTracks().forEach((track) => {
       track.stop();
+      return true;
     });
+  } else {
+    return false;
   }
 }
 

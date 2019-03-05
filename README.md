@@ -4,9 +4,13 @@
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
-<img src="demo/images/banner.jpg" style="width:100%">
+<img src="demo/images/bossflip.gif" style="width:100%">
+
+
 
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. Underneath, it uses a trained convolutional neural network that provides bounding box predictions for the location of hands in an image. The convolutional neural network (ssdlite, mobilenetv2) is trained using the tensorflow object detection api ([see here](https://github.com/victordibia/handtracking/issues)).
+
+
 
 
 | FPS | Image Size | Device                             | Browser                  | Comments |
@@ -30,8 +34,21 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 - Trained model is converted to the Tensorflowjs format
 - Model is wrapped into an npm package, and can be accessed using [jsdelivr](https://www.jsdelivr.com/package/npm/handtrackjs), a free open source cdn that lets you include any npm package in your web application. You may notice the model is loaded slowly the first time the page is opened but gets faster on subsequent loads (caching).
 
+## When Should I Use Handtrack.js
 
-## Usage
+
+<img src="demo/images/doodle.gif" style="width:100%">
+
+If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The usser does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
+
+Some (not all) relevant scenarios are listed below: 
+
+- When mouse motion can be mapped to hand motion for control purposes.
+- When an overlap of hand and other objects can represent meaningful interaction signals (e.g a touch or selection event for an object).
+- Scenarios where the human hand motion can be a proxy for activity recognition (e.g. automatically tracking movement activity from a video or images of individuals playing chess). Or simply counting how many humans are present in an image or video frame.
+
+
+## How Do I Use Handtrack.js in my Web App?
  
 ### via Script Tag
 

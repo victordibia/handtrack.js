@@ -11,7 +11,7 @@ const copyPlugin = function (options) {
         fs.mkdirSync(targDir);
       }
       fs.writeFileSync(options.targ, fs.readFileSync(options.src));
-      
+
     }
   };
 };
@@ -27,10 +27,10 @@ export default {
     format: 'umd',
     name: 'handTrack',
   }],
-  // plugins: [resolve(), minify()]
+  plugins: [resolve(), minify()]
   // plugins: [resolve()]
-  plugins: [resolve(), copyPlugin({
-      src: './src/index.js',
-      targ: './demoreact/node_modules/handtrackjs/src/index.js'
-    })]
-  }
+  // plugins: [resolve(), copyPlugin({
+  //     src: './src/index.js',
+  //     targ: './demoreact/node_modules/handtrackjs/src/index.js'
+  //   })]
+}
