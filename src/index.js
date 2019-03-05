@@ -59,9 +59,11 @@ export function startVideo(video) {
 }
 
 export function stopVideo() {
-  window.localStream.getTracks().forEach((track) => {
-    track.stop();
-  });
+  if (window.localStream) {
+    window.localStream.getTracks().forEach((track) => {
+      track.stop();
+    });
+  }
 }
 
 export class ObjectDetection {
