@@ -30,7 +30,7 @@ export default {
   plugins: [resolve(), minify()]
   // plugins: [resolve()]
   // plugins: [resolve(), copyPlugin({
-  //     src: './src/index.js',
-  //     targ: './demoreact/node_modules/handtrackjs/src/index.js'
-  //   })]
+  //   src: 'src/index.js',
+  //   targ: './demoreact/node_modules/handtrackjs/src/index.js'
+  // })]
 }

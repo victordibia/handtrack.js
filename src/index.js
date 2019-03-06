@@ -31,24 +31,22 @@ export async function load(params) {
 }
 
 export function startVideo(video) {
-  video.height = video.height || 400
-  video.width = video.width || 500
+  // video.height = video.height || 400
+  video.width = video.width || 500;
 
   return new Promise(function (resolve, reject) {
     navigator.mediaDevices
       .getUserMedia({
         audio: false,
         video: {
-          facingMode: "user",
-          width: 600,
-          height: 500
+          facingMode: "user"
         }
       })
       .then(stream => {
         window.localStream = stream;
         video.srcObject = stream
         video.onloadedmetadata = () => {
-          // video.play()
+          video.play()
           resolve(true)
         }
       }).catch(function (err) {

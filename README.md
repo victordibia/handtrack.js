@@ -1,6 +1,6 @@
 ## Handtrack.js
 
-[![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
+[![npm version](https://badge.fury.io/js/handtrackjs.svg)](https://badge.fury.io/js/handtrackjs) [![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
@@ -158,7 +158,7 @@ Returns an array of classes and confidence scores that looks like:
 - `model.getModelParameters()`: returns model parameters.
 - `model.setModelParameters(modelParams)`: updates model parameters with [`modelParams`](#loading-the-model-handtrackload)
 - `dispose()` : delete model instance
-- `startVideo(video)` : start camera video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
+- `startVideo(video)` : start webcam video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
 - `stopVideo(video)` : stop video stream.
 
 
