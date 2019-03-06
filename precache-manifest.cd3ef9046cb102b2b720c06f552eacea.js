@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/17.a7985be4.jpg"
   },
   {
-    "revision": "678bec305fcc9785a5d3",
+    "revision": "cd27560dca764dbcfe53",
     "url": "/handtrack.js/static/css/main.e4fb9ba0.chunk.css"
   },
   {
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/16.401840ba.jpg"
   },
   {
-    "revision": "678bec305fcc9785a5d3",
-    "url": "/handtrack.js/static/js/main.678bec30.chunk.js"
+    "revision": "cd27560dca764dbcfe53",
+    "url": "/handtrack.js/static/js/main.cd27560d.chunk.js"
   },
   {
     "revision": "d3cec801951e8051e703efdc910274bf",
@@ -100,7 +100,7 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/hand.f39313f7.jpg"
   },
   {
-    "revision": "b70de3848ea485aca8c2484c9db86a5f",
+    "revision": "8ca3bb7ccb0598cdbaac9116deccc52a",
     "url": "/handtrack.js/index.html"
   }
 ];
