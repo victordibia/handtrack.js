@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/handtrack.js/precache-manifest.cd3ef9046cb102b2b720c06f552eacea.js"
+  "/handtrack.js/precache-manifest.1c823def4fe41ec9a2283d204e181f5a.js"
 );
 
 workbox.clientsClaim();
