@@ -31,7 +31,8 @@ export async function load(params) {
 }
 
 export function startVideo(video) {
-
+  // Video must have height and width in order to be used as input for NN
+  // Aspect ratio of 3/4 is used to support safari browser.
   video.width = video.width || 640;
   video.height = video.height || video.width * (3 / 4)
 
