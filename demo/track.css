@@ -16,6 +16,15 @@ body {
 
 }
 
+.block {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+
 .mb10 {
     margin-bottom: 10px
 }

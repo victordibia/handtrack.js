@@ -31,8 +31,9 @@ export async function load(params) {
 }
 
 export function startVideo(video) {
-  // video.height = video.height || 400
-  video.width = video.width || 500;
+
+  video.width = video.width || 640;
+  video.height = video.height || video.width * (3 / 4)
 
   return new Promise(function (resolve, reject) {
     navigator.mediaDevices
@@ -196,7 +197,7 @@ export class ObjectDetection {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
     canvas.height = mediasource.height;
-    // console.log(mediasource.width,me diasource.height)
+    // console.log("render", mediasource.width, mediasource.height)
 
     context.save();
     if (this.modelParams.flipHorizontal) {
