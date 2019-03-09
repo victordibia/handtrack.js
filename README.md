@@ -1,6 +1,8 @@
 ## Handtrack.js
 
-[![npm version](https://badge.fury.io/js/handtrackjs.svg)](https://badge.fury.io/js/handtrackjs) [![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
+[![npm version](https://badge.fury.io/js/handtrackjs.svg)](https://badge.fury.io/js/handtrackjs)
+![npm](https://img.shields.io/npm/dt/handtrackjs.svg)
+[![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
@@ -37,6 +39,7 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 ## When Should I Use Handtrack.js
 
 
+
 <img src="demo/images/doodle.gif" width="100%">
 
 If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The usser does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
@@ -46,6 +49,7 @@ Some (not all) relevant scenarios are listed below: 
 - When mouse motion can be mapped to hand motion for control purposes.
 - When an overlap of hand and other objects can represent meaningful interaction signals (e.g a touch or selection event for an object).
 - Scenarios where the human hand motion can be a proxy for activity recognition (e.g. automatically tracking movement activity from a video or images of individuals playing chess). Or simply counting how many humans are present in an image or video frame.
+- You want an accessible demonstration that anyone can easily run or tryout with minimal setup.
 
 
 ## How Do I Use Handtrack.js in my Web App?
