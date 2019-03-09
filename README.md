@@ -1,7 +1,7 @@
 ## Handtrack.js
 
 [![npm version](https://badge.fury.io/js/handtrackjs.svg)](https://badge.fury.io/js/handtrackjs)
-![npm](https://img.shields.io/npm/dt/handtrackjs.svg?label=npm%20downloads)
+![npm](https://img.shields.io/npm/dt/handtrackjs.svg?label=npm%20downloads&style=flat-square)
 [![](https://data.jsdelivr.com/v1/package/npm/handtrackjs/badge)](https://www.jsdelivr.com/package/npm/handtrackjs)
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
