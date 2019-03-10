@@ -109,7 +109,6 @@ handTrack.load().then(model => {
 
 
 
-
 ## API
 
 ####  Loading the model: handTrack.load()
@@ -169,3 +168,11 @@ Returns an array of classes and confidence scores that looks like:
 ## How was this built?
 
 The object detection model used in this project was trained using annotated images of the human hand ([see here](https://github.com/victordibia/handtracking/issues)) and converted to the tensorflow.js format. This wrapper library was created using guidelines and some code adapted from [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd).
+
+
+## TODO (ideas welcome)
+
+- This thing is still compute heavy (you will hear your fans start spinning like crazy after a few mins). This is mainly because of the neural net operations needed to predict bounding boxes. Perhaps there might be ways to improve/optimize this.
+- Tracking id's across frames. Perhaps some nifty methods that assigns ids to each had as they enter a frame and tracks them (e.g based on naive euclidean distance).
+- Add some discrete poses (e.g. instead of just hand, detect open hand, fist).
+
