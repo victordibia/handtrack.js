@@ -1,15 +1,15 @@
 {
-  "main.css": "/handtrack.js/static/css/main.207a71ed.chunk.css",
-  "main.js": "/handtrack.js/static/js/main.99a63008.chunk.js",
-  "main.js.map": "/handtrack.js/static/js/main.99a63008.chunk.js.map",
+  "main.css": "/handtrack.js/static/css/main.ab15f107.chunk.css",
+  "main.js": "/handtrack.js/static/js/main.a039f947.chunk.js",
+  "main.js.map": "/handtrack.js/static/js/main.a039f947.chunk.js.map",
   "runtime~main.js": "/handtrack.js/static/js/runtime~main.44be57ab.js",
   "runtime~main.js.map": "/handtrack.js/static/js/runtime~main.44be57ab.js.map",
-  "static/js/2.c744c2cf.chunk.js": "/handtrack.js/static/js/2.c744c2cf.chunk.js",
-  "static/js/2.c744c2cf.chunk.js.map": "/handtrack.js/static/js/2.c744c2cf.chunk.js.map",
+  "static/js/2.80679a65.chunk.js": "/handtrack.js/static/js/2.80679a65.chunk.js",
+  "static/js/2.80679a65.chunk.js.map": "/handtrack.js/static/js/2.80679a65.chunk.js.map",
   "index.html": "/handtrack.js/index.html",
-  "precache-manifest.a910853f340fe61c2771ba492f7f5187.js": "/handtrack.js/precache-manifest.a910853f340fe61c2771ba492f7f5187.js",
+  "precache-manifest.cf5840bc612ecc99b8fe643c81cf118d.js": "/handtrack.js/precache-manifest.cf5840bc612ecc99b8fe643c81cf118d.js",
   "service-worker.js": "/handtrack.js/service-worker.js",
-  "static/css/main.207a71ed.chunk.css.map": "/handtrack.js/static/css/main.207a71ed.chunk.css.map",
+  "static/css/main.ab15f107.chunk.css.map": "/handtrack.js/static/css/main.ab15f107.chunk.css.map",
   "static/media/0.jpg": "/handtrack.js/static/media/0.401840ba.jpg",
   "static/media/1.jpg": "/handtrack.js/static/media/1.71d1d1d3.jpg",
   "static/media/10.jpg": "/handtrack.js/static/media/10.9621bbbc.jpg",
@@ -30,5 +30,8 @@
   "static/media/8.jpg": "/handtrack.js/static/media/8.c04fb220.jpg",
   "static/media/9.jpg": "/handtrack.js/static/media/9.e641a945.jpg",
   "static/media/banner.jpg": "/handtrack.js/static/media/banner.275e0e05.jpg",
-  "static/media/hand.jpg": "/handtrack.js/static/media/hand.f39313f7.jpg"
+  "static/media/chess.mp4": "/handtrack.js/static/media/chess.183c7237.mp4",
+  "static/media/hand.jpg": "/handtrack.js/static/media/hand.f39313f7.jpg",
+  "static/media/jenga.mp4": "/handtrack.js/static/media/jenga.23bdd218.mp4",
+  "static/media/tea.mp4": "/handtrack.js/static/media/tea.7231125e.mp4"
 }
