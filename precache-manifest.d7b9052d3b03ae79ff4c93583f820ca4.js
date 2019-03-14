@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "308e6716c8771ad6feaf",
+    "revision": "c0304081a2f081099e4c",
     "url": "/handtrack.js/static/css/main.ab15f107.chunk.css"
   },
   {
-    "revision": "308e6716c8771ad6feaf",
-    "url": "/handtrack.js/static/js/main.308e6716.chunk.js"
+    "revision": "c0304081a2f081099e4c",
+    "url": "/handtrack.js/static/js/main.c0304081.chunk.js"
   },
   {
     "revision": "44be57ab15fe5ab0be41",
@@ -112,7 +112,7 @@ self.__precacheManifest = [
     "url": "/handtrack.js/static/media/jenga.23bdd218.mp4"
   },
   {
-    "revision": "3a9a56eb9ff308cb8e92d88de598ced0",
+    "revision": "3c2a2020440df2e048e33db1fcbe0d73",
     "url": "/handtrack.js/index.html"
   }
 ];
