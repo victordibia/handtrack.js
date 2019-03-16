@@ -11,7 +11,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cp -R demo/images dist/ && cross-env NODE_ENV=development parcel demo/index.html --open",   
+    "start": "cd demo && python3 -m http.server 3005",   
     "deploy": "gh-pages -d demoreact/build",
     "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html",
     "build" : "rollup -c "
