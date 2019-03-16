@@ -11,10 +11,10 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=development parcel demo/index.html --open",
-    "build": "cross-env NODE_ENV=production parcel build demo/index.html --public-url https://victordibia.github.io/handtrackjs/",
+    "start": "cp -R demo/images dist/ && cross-env NODE_ENV=development parcel demo/index.html --open",   
     "deploy": "gh-pages -d demoreact/build",
-    "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html"
+    "srcbuild": "cross-env NODE_ENV=production parcel build --out-dir srcdist demo/index.html",
+    "build" : "rollup -c "
   },
   "files": [
     "dist/**/*",

@@ -164,6 +164,14 @@ Returns an array of classes and confidence scores that looks like:
 - `startVideo(video)` : start webcam video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
 - `stopVideo(video)` : stop video stream.
 
+## Run Demo 
+
+Commands below runs the demo example in the `demo` folder.
+
+`npm install`
+`npm run start`
+
+
 
 ## How was this built?
 
@@ -172,7 +180,7 @@ The object detection model used in this project was trained using annotated imag
 
 ## TODO (ideas welcome)
 
-- This thing is still compute heavy (you will hear your fans start spinning like crazy after a few mins). This is mainly because of the neural net operations needed to predict bounding boxes. Perhaps there might be ways to improve/optimize this.
+- This thing is still compute heavy (your fans may spin after while). This is mainly because of the neural net operations needed to predict bounding boxes. Perhaps there might be ways to improve/optimize this.
 - Tracking id's across frames. Perhaps some nifty methods that assigns ids to each had as they enter a frame and tracks them (e.g based on naive euclidean distance).
 - Add some discrete poses (e.g. instead of just hand, detect open hand, fist).
 

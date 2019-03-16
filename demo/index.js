@@ -45,10 +45,21 @@ function toggleVideo() {
     }
 }
 
+
+
+nextImageButton.addEventListener("click", function(){
+    nextImage();
+});
+
+trackButton.addEventListener("click", function(){
+    toggleVideo();
+});
+
 function nextImage() {
 
     imgindex++;
     handimg.src = "images/" + imgindex % 15 + ".jpg"
+    // alert(handimg.src)
     runDetectionImage(handimg)
 }
 
