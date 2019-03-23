@@ -38,11 +38,11 @@ The library also provides some useful functions (e.g `getFPS` to get FPS, `rende
 
 ## When Should I Use Handtrack.js
 
-
-
 <img src="demo/images/doodle.gif" width="100%">
 
 If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The usser does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
+
+<img src="demo/images/pong.gif" width="100%">
 
 Some (not all) relevant scenarios are listed below: 
 
