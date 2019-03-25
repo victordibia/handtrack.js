@@ -71,14 +71,13 @@ export async function stopVideo() {
 
 export class ObjectDetection {
   constructor(modelParams) {
-    this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
-    this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
+    this.modelPath = basePath + modelParams.modelType + "/json/model.json";
     this.modelParams = modelParams
   }
 
   async load() {
     this.fps = 0
-    this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
+    this.model = await tf.loadGraphModel(this.modelPath);
 
     // Warmup the model.
     const result = await this.model.executeAsync(tf.zeros([1, 300, 300, 3]));
@@ -95,7 +94,7 @@ export class ObjectDetection {
     const resizedWidth = getValidResolution(this.modelParams.imageScaleFactor, width, this.modelParams.outputStride);
 
     const batched = tf.tidy(() => {
-      const imageTensor = tf.fromPixels(input)
+      const imageTensor = tf.browser.fromPixels(input)
       if (this.modelParams.flipHorizontal) {
         return imageTensor.reverse(1).resizeBilinear([resizedHeight, resizedWidth]).expandDims(0);
       } else {
