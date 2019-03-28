@@ -171,7 +171,7 @@ Commands below runs the demo example in the `demo` folder.
 `npm install`
 `npm run start`
 
-The start script launch a simple `python3` webserver from the demo folder using `http.server`.
+The start script launches a simple `python3` webserver from the demo folder using `http.server`.
 
 
 
