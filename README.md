@@ -44,6 +44,8 @@ If you are interested in prototyping gesture based (body as input) interactive e
 
 <img src="demo/images/pong.gif" width="100%">
 
+> Code examples for the pong game control shown above is in the [ `demo` folder](/demo).
+
 Some (not all) relevant scenarios are listed below: 
 
 - When mouse motion can be mapped to hand motion for control purposes.

@@ -1,0 +1,210 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.infordisplay {
+    position: absolute;
+    margin: 2vw;
+    top: 0.0vw;
+    color: #fff;
+}
+
+.floatleft {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.dispblock {
+    display: block;
+}
+
+.scorebox {
+    height: 100%;
+    border-bottom: 0.1vw solid #ff8800;
+    padding: 1vw;
+    font-size: 1.3vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+    margin: 0vw 0vw 0vw 0vw;
+}
+
+.iblock {
+    display: inline-block;
+}
+
+.inscore {
+    display: inline-block;
+}
+
+.scorevalue {
+    font-size: 2vw;
+    font-weight: bold;
+}
+
+.scoreadded {
+    position: absolute;
+    font-size: 2vw;
+    font-weight: bold;
+    padding: 0vw 0vw 0vw 1vw
+}
+
+.scoreanimate {
+    transform: scale(3);
+    transition: all 2s;
+}
+
+.icon {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 4.2vw;
+    margin: 0vw;
+}
+
+.border {
+    border: 2px solid #fff;
+}
+
+.settingsswitches {
+    margin: 1vw 0vw 0vw 0vw;
+}
+
+.soundofftext {
+    padding: 0.1vw 1vw 0vw 0.5vw;
+    height: 100%;
+    font-size: 1.2vw;
+}
+
+.pausetext {
+    padding: 1vw 0vw 0vw 0vw;
+    font-size: 1vw;
+}
+
+.pauseoverlay {
+    position: fixed;
+    /* Sit on top of the page content */
+    display: none;
+    /* Hidden by default */
+    width: 100%;
+    /* Full width (cover the whole page) */
+    height: 100%;
+    /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Black background with opacity */
+    z-index: 2;
+    /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer;
+    /* Add a pointer on hover */
+}
+
+.overlaycenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -3vw;
+    margin-left: -15vw;
+    font-size: 0vw;
+    color: #ff8800;
+    opacity: 0;
+    font-weight: bold;
+
+}
+
+/* ============= switches ================== */
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 4vw;
+    height: 1.8vw;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    display: none;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.2vw;
+    width: 1.2vw;
+    left: 0.4vw;
+    bottom: 0.3vw;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #ff8800;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #ff8800;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(2vw);
+    -ms-transform: translateX(2vw);
+    transform: translateX(2vw);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 2vw;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+
+.canvasbox {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border-radius: 3px;
+    margin-right: 10px;
+    width: 215px;
+    height: 162px;
+    border-bottom: 3px solid #0063FF;
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 #00000030;
+
+}
+
+
+.updatenote{
+    padding: 12px;
+    background: #ff8800;
+    color: #fff;
+    /* font-weight: bold; */
+
+}
+
+.trackbutton{
+    /* background: #ff8800;
+    color: #fff; */
+}

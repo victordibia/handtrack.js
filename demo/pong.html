@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Handtrack.js : A library for prototyping realtime handtracking in the browser. </title>
+    <link rel="stylesheet" href="https://unpkg.com/carbon-components@latest/css/carbon-components.css" />
+    <link rel="stylesheet" href="css/pong.css">
+</head>
+
+<body class="bx--body p20">
+    <div class="infordisplay ">
+        <div class="toprow">
+            <img src="http://victordibia.com/skyfall/icon.png" class="icon  floatleft " />
+            <div class="scorebox  iblock ">
+                <div class="scorevalue inscore"> 0 </div>
+                <div class="scorelabel inscore"> pts </div>
+                <div class="scoreadded inscore"> </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="settingsswitches">
+            <div class=" ">
+                <div class="iblock floatleft">
+                    <label class="switch">
+                        <input type="checkbox" id="sound">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="  iblock soundofftext"> sound off</div>
+                <div class="clear"></div>
+            </div>
+
+        </div>
+
+        <div class="pausetext">
+            <div>Sound (s) </div>
+            <div>Pause (space bar) </div>
+        </div>
+
+        <div id="updatenote" class="updatenote mt10"> loading model ..</div>
+        <button  id="trackbutton" class="bx--btn bx--btn--secondary mt10 trackbutton" type="button" disabled>
+                Toggle Video Control ..
+              </button>
+
+
+    </div>
+    <video class="videobox canvasbox" autoplay="autoplay" id="myvideo"></video>
+  <canvas id="canvas" class="border canvasbox"></canvas>
+
+    <div class="pauseoverlay">
+        <div class="overlaycenter ">
+            Game Paused
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/planck-js/0.1.44/planck-with-testbed.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+    <script src="js/pong.js"></script>
+</body>
+
+</html>
