@@ -1,7 +1,7 @@
-const video = document.getElementById("myvideo"); 
+const video = document.getElementById("myvideo");
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
-let trackButton = document.getElementById("trackbutton"); 
+let trackButton = document.getElementById("trackbutton");
 let updateNote = document.getElementById("updatenote");
 
 let imgindex = 1
@@ -12,18 +12,25 @@ let videoInterval = 100
 // video.width = 500
 // video.height = 400
 
+$(".pauseoverlay").show()
+// $(".overlaycenter").text("Game Paused")
+$(".overlaycenter").animate({
+    opacity: 1,
+    fontSize: "4vw"
+}, pauseGameAnimationDuration, function () {});
+
 const modelParams = {
-    flipHorizontal: true,   // flip e.g for video  
-    maxNumBoxes: 1,        // maximum number of boxes to detect
-    iouThreshold: 0.5,      // ioU threshold for non-max suppression
-    scoreThreshold: 0.6,    // confidence threshold for predictions.
+    flipHorizontal: true, // flip e.g for video  
+    maxNumBoxes: 1, // maximum number of boxes to detect
+    iouThreshold: 0.5, // ioU threshold for non-max suppression
+    scoreThreshold: 0.6, // confidence threshold for predictions.
 }
 
 function startVideo() {
     handTrack.startVideo(video).then(function (status) {
         console.log("video started", status);
         if (status) {
-            updateNote.innerText = "Video started. Now tracking"
+            updateNote.innerText = "Now tracking"
             isVideo = true
             runDetection()
         } else {
@@ -44,12 +51,12 @@ function toggleVideo() {
     }
 }
 
-  
 
-trackButton.addEventListener("click", function(){
+
+trackButton.addEventListener("click", function () {
     toggleVideo();
 });
- 
+
 
 
 function runDetection() {
@@ -71,13 +78,20 @@ function runDetection() {
         }
     });
 }
- 
+
 // Load the model.
 handTrack.load(modelParams).then(lmodel => {
     // detect objects in the image.
     model = lmodel
-    updateNote.innerText = "Loaded Model!" 
-    trackButton.disabled = false 
+    updateNote.innerText = "Loaded Model!"
+    trackButton.disabled = false
+
+    $(".overlaycenter").animate({
+        opacity: 0,
+        fontSize: "0vw"
+    }, pauseGameAnimationDuration, function () {
+        $(".pauseoverlay").hide()
+    });
 });
 
 // ===============================
@@ -136,7 +150,7 @@ function updatePaddleControl(x) {
     let lineaVeloctiy = Vec2((mouseX - paddle.getPosition().x) * accelFactor, 0)
     // paddle.setLinearVelocity(lineaVeloctiy)
     // paddle.setLinearVelocity(lineaVeloctiy)
-    lineaVeloctiy.x =  isNaN(lineaVeloctiy.x) ? 0: lineaVeloctiy.x
+    lineaVeloctiy.x = isNaN(lineaVeloctiy.x) ? 0 : lineaVeloctiy.x
     paddle.setLinearVelocity(lineaVeloctiy)
     console.log("linear velocity", lineaVeloctiy.x, lineaVeloctiy.y)
 }
@@ -279,6 +293,7 @@ planck.testbed(function (testbed) {
         if (pauseGame) {
             paddle.setLinearVelocity(Vec2(0, 0))
             $(".pauseoverlay").show()
+            $(".overlaycenter").text("Game Paused")
             $(".overlaycenter").animate({
                 opacity: 1,
                 fontSize: "4vw"
@@ -297,8 +312,8 @@ planck.testbed(function (testbed) {
     }
 
     // process mouse move and touch events
-    function mouseMoveHandler(event){
-        if (!pauseGame) { 
+    function mouseMoveHandler(event) {
+        if (!pauseGame) {
             mouseX = convertToRange(event.clientX, windowXRange, worldXRange);
             if (!isNaN(mouseX)) {
                 lineaVeloctiy = Vec2((mouseX - paddle.getPosition().x) * accelFactor, 0)
@@ -319,14 +334,14 @@ planck.testbed(function (testbed) {
         $(document).bind('touchmove touchstart mousemove', function (e) {
             e.preventDefault();
             var touch
-            if (e.type == "touchmove" ) {
-                  touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-            }else if (e.type == "touchstart"){
+            if (e.type == "touchmove") {
+                touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+            } else if (e.type == "touchstart") {
                 touch = e.targetTouches[0]
-          }else if (e.type == "mousemove"){
-                  touch = e
+            } else if (e.type == "mousemove") {
+                touch = e
             }
-            mouseMoveHandler (touch) 
+            mouseMoveHandler(touch)
         });
 
         // Add keypress event listener to pause game
