@@ -6,7 +6,8 @@
  
 > View a live demo in your [browser here](https://victordibia.github.io/handtrack.js/).
 
-<img src="demo/images/bossflip.gif" width="100%">
+
+[<img src="demo/images/bossflip.gif" width="100%">](https://victordibia.github.io/handtrack.js/)
 
 
 
