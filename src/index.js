@@ -136,7 +136,7 @@ export class ObjectDetection {
           self.modelParams.scoreThreshold // score_threshold
         )
       })
-      const indexes = indexTensor.dataSync()
+      const indexes = await indexTensor.data()
       indexTensor.dispose()
       // restore previous backend
       tf.setBackend(prevBackend)
