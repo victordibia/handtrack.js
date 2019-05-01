@@ -111,7 +111,7 @@ export class ObjectDetection {
       const scores = result[0].data()
       const boxes =  result[1].data()
 
-      Promise.all([scores, boxes]);
+      await Promise.all([scores, boxes]);
 
       // clean the webgl tensors
       batched.dispose()
