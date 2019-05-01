@@ -80,7 +80,7 @@ export class ObjectDetection {
     this.fps = 0
     this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
 
-    // Warmup the model.
+    // Warmup tdhe model.
     const result = await this.model.executeAsync(tf.zeros([1, 300, 300, 3]));
     result.map(async (t) => await t.data());
     result.map(async (t) => t.dispose());
@@ -108,8 +108,10 @@ export class ObjectDetection {
     return this.model.executeAsync(batched).then(function (result) {
 
 
-      const scores = result[0].dataSync()
-      const boxes = result[1].dataSync()
+      const scores = result[0].data()
+      const boxes =  result[1].data()
+
+      Promise.all([scores, boxes]);
 
       // clean the webgl tensors
       batched.dispose()
