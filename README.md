@@ -192,8 +192,6 @@ If you use this code in your project/paper/research and would like to cite this 
 
 Victor Dibia, HandTrack: A Library For Prototyping Real-time Hand TrackingInterfaces using Convolutional Neural Networks, https://github.com/victordibia/handtracking
 
-
-
 ```bib
 @article{Dibia2017,
   author = {Victor, Dibia},
