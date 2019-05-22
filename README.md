@@ -183,6 +183,28 @@ The start script launches a simple `python3` webserver from the demo folder usin
 The object detection model used in this project was trained using annotated images of the human hand ([see here](https://github.com/victordibia/handtracking/issues)) and converted to the tensorflow.js format. This wrapper library was created using guidelines and some code adapted from [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd).
 
 
+## Citing this Work ([see abstract](https://github.com/victordibia/handtracking/tree/master/docs/handtrack.pdf))
+
+
+> Paper abstract of the [paper is here](https://github.com/victordibia/handtracking/tree/master/docs/handtrack.pdf). (a full paper will be added when complete).
+
+If you use this code in your project/paper/research and would like to cite this work, use the below.
+
+Victor Dibia, HandTrack: A Library For Prototyping Real-time Hand TrackingInterfaces using Convolutional Neural Networks, https://github.com/victordibia/handtracking
+
+
+
+```bib
+@article{Dibia2017,
+  author = {Victor, Dibia},
+  title = {HandTrack: A Library For Prototyping Real-time Hand TrackingInterfaces using Convolutional Neural Networks},
+  year = {2017},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  url = {https://github.com/victordibia/handtracking/tree/master/docs/handtrack.pdf}, 
+}
+```
+
 ## TODO (ideas welcome)
 
 - This thing is still compute heavy (your fans may spin after while). This is mainly because of the neural net operations needed to predict bounding boxes. Perhaps there might be ways to improve/optimize this.
