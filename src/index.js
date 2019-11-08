@@ -10,7 +10,6 @@
 
 import * as tf from '@tensorflow/tfjs';
 
-const basePath = "https://cdn.jsdelivr.net/npm/handtrackjs/models/web/"
 
 const defaultParams = {
   flipHorizontal: true,
@@ -19,7 +18,8 @@ const defaultParams = {
   maxNumBoxes: 20,
   iouThreshold: 0.5,
   scoreThreshold: 0.99,
-  modelType: "ssdlitemobilenetv2"
+  modelType:"ssdlitemobilenetv2",
+  basePath:"https://cdn.jsdelivr.net/npm/handtrackjs/models/web/"
 }
 
 export async function load(params) {
@@ -71,8 +71,8 @@ export async function stopVideo() {
 
 export class ObjectDetection {
   constructor(modelParams) {
-    this.modelPath = basePath + modelParams.modelType + "/tensorflowjs_model.pb";
-    this.weightPath = basePath + modelParams.modelType + "/weights_manifest.json";
+    this.modelPath = modelParams.basePath + modelParams.modelType + "/tensorflowjs_model.pb";
+    this.weightPath = modelParams.basePath + modelParams.modelType + "/weights_manifest.json";
     this.modelParams = modelParams
   }
 
