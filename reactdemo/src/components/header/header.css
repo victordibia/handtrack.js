@@ -1,0 +1,54 @@
+.navbarlinks a.active:hover,
+.navbarlinks a.active,
+.navbarlinks.selected {
+  border-bottom: 4px #F66303 solid;
+}
+.navbarlinks a {
+  text-decoration: none;
+  color: #fff;
+  width: 100%;
+  /* height: 100%; */
+  /* border: 1px solid pink; */
+  line-height: 3.1em;
+  border-bottom: 4px solid rgb(36, 36, 36);
+  padding: 0px 12px 0px 12px;
+}
+
+.navbarlinks a:hover {
+  background-color: #3d3d3d;
+  border-bottom: 4px solid #3d3d3d;
+}
+
+.headerboost {
+  height: 46px;
+}
+
+.headerrow {
+  height: 48px;
+}
+.headericonbox {
+  padding-top: 8px;
+}
+.headericon {
+  height: 1.4em;
+}
+/* .bx--header{
+    background-color: rgb(199, 29, 29);
+    border: 10px solid green;
+} */
+
+.headermain {
+  /* background: #161616; */
+  /* position: fixed; */
+  /* top: 0; */
+  /* width: 100%; */
+  z-index: 5000;
+}
+
+.gitlogo {
+  position: absolute;
+  top: 14px;
+}
+.gitlogotext {
+  margin: 0px 0px 0px 20px;
+}
