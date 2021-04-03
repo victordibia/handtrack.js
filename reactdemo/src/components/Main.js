@@ -8,7 +8,7 @@ import Landing from "./Landing/Landing";
 function Main() {
   return (
     <HashRouter>
-      <div className="flex flex-col   h-screen container-fluid">
+      <div className="flex   flex-col   h-screen ">
         <Header />
         <main className="  w-full flex-grow ">
           <Route exact path="/" render={(props) => <Landing {...props} />} />

@@ -19,6 +19,22 @@ const Icons = ({ icon, color = null, size = 5 }) => {
       </span>
     );
   }
+  if (icon.toLowerCase() === "loading") {
+    return (
+      <span>
+        <svg
+          aria-hidden="true"
+          className="mr-1 inline h-5 w-6 animate-spin  transition duration-100"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm8 12c0 4.418-3.582 8-8 8s-8-3.582-8-8 3.582-8 8-8 8 3.582 8 8zm-19 0c0-6.065 4.935-11 11-11v2c-4.962 0-9 4.038-9 9 0 2.481 1.009 4.731 2.639 6.361l-1.414 1.414.015.014c-2-1.994-3.24-4.749-3.24-7.789z" />
+        </svg>
+      </span>
+    );
+  }
+
   if (icon.toLowerCase() === "check") {
     return (
       <span>
