@@ -53,6 +53,24 @@ const Icons = ({ icon, color = null, size = 5 }) => {
     );
   }
 
+  if (icon.toLowerCase() === "video") {
+    return (
+      <span>
+        <svg
+          aria-hidden="true"
+          className={
+            " mr-1 inline transition duration-100 " + colorClass + sizeClass
+          }
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <path d="M16 16c0 1.104-.896 2-2 2h-12c-1.104 0-2-.896-2-2v-8c0-1.104.896-2 2-2h12c1.104 0 2 .896 2 2v8zm8-10l-6 4.223v3.554l6 4.223v-12z" />
+        </svg>
+      </span>
+    );
+  }
+
   if (icon.toLowerCase() === "github") {
     return (
       <span>

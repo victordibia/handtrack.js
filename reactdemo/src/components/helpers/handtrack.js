@@ -15,14 +15,29 @@ import { loadGraphModel } from "@tensorflow/tfjs-converter";
 const basePath = "webmodel/";
 
 const defaultParams = {
-  flipHorizontal: true,
+  flipHorizontal: false,
   outputStride: 16,
-  imageScaleFactor: 0.7,
+  imageScaleFactor: 1,
   maxNumBoxes: 20,
-  iouThreshold: 0.5,
-  scoreThreshold: 0.99,
+  iouThreshold: 0.2,
+  scoreThreshold: 0.7,
   modelType: "ssd320fpnlite",
-  modelSize: "base",
+  modelSize: "int8",
+};
+
+const labelMap = {
+  1: "open",
+  2: "closed",
+  3: "pinch",
+  4: "point",
+  5: "face",
+  6: "tip",
+  7: "pinchtip",
+};
+const outputMapping = {
+  int8: { classes: 6, boxes: 1, scores: 7 },
+  fp16: { classes: 5, boxes: 0, scores: 6 },
+  base: { classes: 1, boxes: 4, scores: 2 },
 };
 
 export async function load(params) {
@@ -89,27 +104,6 @@ export class ObjectDetection {
     this.fps = 0;
     // this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
     this.model = await loadGraphModel(this.modelPath);
-    // console.log(this.model);
-    // const cat = document.getElementById("pageicon");
-    // console.log(cat);
-    // loadGraphModel(this.modelPath).then((model) => {
-    //   console.log(model);
-    //   console.log(tf.getBackend());
-    //   //   const tfimg = tf.browser.fromPixels(cat).toInt();
-    //   //   const expandedimg = tfimg.transpose([0, 1, 2]).expandDims();
-    //   //   model.executeAsync(expandedimg).then((preds) => {
-    //   //     console.log(preds);
-    //   //   });
-    // });
-
-    // Warmup the model.
-    // tf.engine().startScope();
-    // this.model
-    //   .executeAsync(tf.zeros([1, 300, 300, 3], "int32"))
-    //   .then((predictions) => {
-    //     console.log("model loaded and warmed up");
-    //   });
-    // tf.engine().endScope();
     // Warmup the model.
     const result = await this.model.executeAsync(
       tf.zeros([1, 300, 300, 3], "int32")
@@ -117,7 +111,7 @@ export class ObjectDetection {
     result.map(async (t) => await t.data());
     result.map(async (t) => t.dispose());
     console.log("model loaded and warmed up");
-    console.log(tf.memory());
+    // console.log(tf.memory());
   }
 
   async detect(input) {
@@ -137,63 +131,50 @@ export class ObjectDetection {
     const batched = tf.tidy(() => {
       const imageTensor = tf.browser.fromPixels(input);
       if (this.modelParams.flipHorizontal) {
-        return imageTensor
-          .reverse(1)
-          .resizeBilinear([resizedHeight, resizedWidth])
-          .expandDims(0);
+        return (
+          imageTensor
+            //   .transpose([0, 1, 2])
+            .reverse(1)
+            .resizeBilinear([resizedHeight, resizedWidth])
+            .expandDims(0)
+            .toInt()
+        );
       } else {
-        return imageTensor
-          .resizeBilinear([resizedHeight, resizedWidth])
-          .expandDims(0);
+        return (
+          imageTensor
+            //   .transpose([0, 1, 2])
+            .resizeBilinear([resizedHeight, resizedWidth])
+            .expandDims(0)
+            .toInt()
+        );
       }
     });
-
     // const result = await this.model.executeAsync(batched);
     const self = this;
+    const om = outputMapping[this.modelParams.modelSize];
     return this.model.executeAsync(batched).then(function (result) {
-      const scores = result[0].dataSync();
-      const boxes = result[1].dataSync();
+      const classes = result[om.classes].dataSync();
+      const boxes = result[om.boxes].arraySync();
+      const scores = result[om.scores].arraySync();
 
+      //   console.log(scores.length, boxes.length);
+      //   for (let i = 0; i < result.length; i++) {
+      //     console.log(i, "=>", result[i].shape, result[i].dataSync().slice(0, 2));
+      //   }
+      //   console.log(result);
       // clean the webgl tensors
       batched.dispose();
       tf.dispose(result);
 
-      // console.log("scores result",scores, boxes)
-
-      const [maxScores, classes] = calculateMaxScores(
-        scores,
-        result[0].shape[1],
-        result[0].shape[2]
-      );
-      const prevBackend = tf.getBackend();
-      // run post process in cpu
-      tf.setBackend("cpu");
-      const indexTensor = tf.tidy(() => {
-        const boxes2 = tf.tensor2d(boxes, [
-          result[1].shape[1],
-          result[1].shape[3],
-        ]);
-        return tf.image.nonMaxSuppression(
-          boxes2,
-          scores,
-          self.modelParams.maxNumBoxes, // maxNumBoxes
-          self.modelParams.iouThreshold, // iou_threshold
-          self.modelParams.scoreThreshold // score_threshold
-        );
-      });
-      const indexes = indexTensor.dataSync();
-      indexTensor.dispose();
-      // restore previous backend
-      tf.setBackend(prevBackend);
-
       const predictions = self.buildDetectedObjects(
-        width,
-        height,
-        boxes,
         scores,
-        indexes,
-        classes
+        self.modelParams.scoreThreshold,
+        boxes,
+        classes,
+        width,
+        height
       );
+
       let timeEnd = Date.now();
       self.fps = Math.round(1000 / (timeEnd - timeBegin));
 
@@ -201,29 +182,28 @@ export class ObjectDetection {
     });
   }
 
-  buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
-    const count = indexes.length;
-    const objects = [];
-    for (let i = 0; i < count; i++) {
-      const bbox = [];
-      for (let j = 0; j < 4; j++) {
-        bbox[j] = boxes[indexes[i] * 4 + j];
+  buildDetectedObjects(scores, threshold, boxes, classes, width, height) {
+    const detectionObjects = [];
+    scores[0].forEach((score, i) => {
+      if (score > threshold) {
+        const bbox = [];
+        const minY = boxes[0][i][0] * height;
+        const minX = boxes[0][i][1] * width;
+        const maxY = boxes[0][i][2] * height;
+        const maxX = boxes[0][i][3] * width;
+        bbox[0] = minX;
+        bbox[1] = minY;
+        bbox[2] = maxX - minX;
+        bbox[3] = maxY - minY;
+        detectionObjects.push({
+          class: Math.round(classes[i]),
+          label: labelMap[Math.round(classes[i])],
+          score: score.toFixed(4),
+          bbox: bbox,
+        });
       }
-      const minY = bbox[0] * height;
-      const minX = bbox[1] * width;
-      const maxY = bbox[2] * height;
-      const maxX = bbox[3] * width;
-      bbox[0] = minX;
-      bbox[1] = minY;
-      bbox[2] = maxX - minX;
-      bbox[3] = maxY - minY;
-      objects.push({
-        bbox: bbox,
-        class: classes[indexes[i]],
-        score: scores[indexes[i]],
-      });
-    }
-    return objects;
+    });
+    return detectionObjects;
   }
 
   getFPS() {
@@ -257,12 +237,14 @@ export class ObjectDetection {
     for (let i = 0; i < predictions.length; i++) {
       context.beginPath();
       context.fillStyle = "rgba(255, 255, 255, 0.6)";
+
       context.fillRect(
         predictions[i].bbox[0],
         predictions[i].bbox[1] - 17,
         predictions[i].bbox[2],
         17
       );
+      //   context.lineWidth = "10";
       context.rect(...predictions[i].bbox);
 
       // draw a dot at the center of bounding box
@@ -279,15 +261,15 @@ export class ObjectDetection {
 
       context.stroke();
       context.fillText(
-        predictions[i].score.toFixed(3) + " " + " | hand",
+        predictions[i].score + " " + " | " + predictions[i].label,
         predictions[i].bbox[0] + 5,
         predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10
       );
     }
 
     // Write FPS to top left
-    context.font = "bold 12px Arial";
-    context.fillText("[FPS]: " + this.fps, 10, 20);
+    context.font = "bold 16px Arial";
+    // context.fillText("[FPS]: " + this.fps, 10, 20);
   }
 
   dispose() {
