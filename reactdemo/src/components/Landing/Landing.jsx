@@ -6,9 +6,12 @@ import * as handtrack from "../helpers/handtrack";
 
 let vidOn = false;
 const Landing = () => {
-  const [imageWidth, imageHeight] = [450, 450];
+  // const [imageWidth, imageHeight] = [450, 431];
+  const [imageWidth, imageHeight] = [430, 430];
 
   const [model, setModel] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [cameraLoading, setCameraLoading] = useState(false);
   const [canvas, setCanvas] = useState(null);
   const [context, setContext] = useState(null);
   const [video, setVideo] = useState(null);
@@ -28,25 +31,15 @@ const Landing = () => {
 
   useEffect(() => {
     const input = document.getElementById("inputholder");
-    // input.src = e.target.src;
     if (model && context && canvas) {
-      document.getElementById("outputcanvas").style.height = "350px";
-      document.getElementById("videoel").style.height = "350px";
+      // document.getElementById("outputcanvas").style.height = "350px";
+      // document.getElementById("videoel").style.height = "350px";
       detectImage(input);
     }
   }, [model, context, canvas]);
 
-  // useEffect(() => {
-  //   if (isPlaying) {
-  //     runDetection();
-  //   } else {
-  //     window.cancelAnimationFrame(detectAnimFrameId);
-  //     console.log("cancelling anim frame");
-  //   }
-  // }, [isPlaying]);
-
   const imageIdx = [];
-  const maxImages = 22;
+  const maxImages = 10;
   for (let i = 0; i < maxImages; i++) {
     imageIdx.push(i);
   }
@@ -56,6 +49,7 @@ const Landing = () => {
     const input = document.getElementById("inputholder");
     input.src = e.target.src;
     detectImage(input);
+    setSelectedImage(e.target.getAttribute("imageid"));
     // console.log(predictions);
   };
 
@@ -67,16 +61,6 @@ const Landing = () => {
   };
 
   const runDetection = async () => {
-    // if (isPlaying) {
-    //   model.detect(video).then((predictions) => {
-    //     console.log(isPlaying, "Predictions: ", predictions);
-    //     model.renderPredictions(predictions, canvas, context, video);
-    //     if (isPlaying) {
-    //       // detectAnimFrameId = window.requestAnimationFrame(runDetection);
-    //       runDetection();
-    //     }
-    //   });
-    // }
     const predictions = await model.detect(video);
     model.renderPredictions(predictions, canvas, context, video);
     // console.log(vidOn, "Predictions: ", predictions);
@@ -89,8 +73,10 @@ const Landing = () => {
 
   const webcamClick = (e) => {
     if (!isPlaying) {
+      setCameraLoading(true);
       handtrack.startVideo(video).then(function (status) {
         console.log("video started", status);
+        setCameraLoading(false);
         if (status) {
           // updateNote.innerText = "Video started. Now tracking"
           // isVideo = true
@@ -108,6 +94,8 @@ const Landing = () => {
     }
   };
 
+  const poseList = handtrack.colorMap.keys;
+
   const imageList = imageIdx.slice(0, maxImages).map((data, i) => {
     return (
       <div className="inline-block  " key={"imgrow" + i}>
@@ -116,8 +104,11 @@ const Landing = () => {
           alt={"sample of hands"}
           onClick={imageClick}
           className={
-            "rounded shadow transition duration-800 " +
-            (!model ? "grayscale pointer-events-none" : " cursor-pointer  ")
+            "rounded shadow transition duration-800 border-4 border-l-0 border-r-0 border-t-0 border-white " +
+            (!model ? "grayscale pointer-events-none" : " cursor-pointer  ") +
+            (i == selectedImage
+              ? " border-4 border-l-0 border-r-0 border-t-0 border-indigo-500 "
+              : " ")
           }
           style={{ objectFit: "cover", height: "100px", width: "100%" }}
           src={"images/samples/" + i + ".jpg"}
@@ -151,7 +142,8 @@ const Landing = () => {
               <div className="  ">
                 <div className="text-3xl font-semibold">
                   {" "}
-                  Handtrack.js <span className="text-sm">v1.0.0</span>
+                  Handtrack.js{" "}
+                  <span className="text-sm">v{handtrack.version}</span>
                 </div>
                 <div className="mt-2">
                   {" "}
@@ -163,10 +155,17 @@ const Landing = () => {
             <div className="w-96 -mt-2 bg-indigo-800 shadow-xl rounded text-sm p-3 px-5">
               <div>
                 {" "}
-                🧳 <span className="ml-2 font-semibold "> New in v1.0.0</span>
-                <div className="mt-3"> &#x2192; 5 new hand poses added.</div>
+                🧳{" "}
+                <span className="ml-2 font-semibold ">
+                  {" "}
+                  New in v{handtrack.version}
+                </span>
+                <div className="mt-3">
+                  {" "}
+                  &#x2192; 5 new hand pose tags added.
+                </div>
                 <div className="mt-1">
-                  &#x2192; 3 model sizes - small, medium, large.
+                  &#x2192; 3 model accuracy blocks - small, medium, large.
                 </div>
                 <div className="mt-1 mb-2">
                   &#x2192; 3 model sizes - small, medium, large.
@@ -183,11 +182,14 @@ const Landing = () => {
           )}
           {model && (
             <div className="-mt-6">
-              <div
+              <button
                 onClick={webcamClick}
                 className="group  cursor-pointer pr-6 hover:bg-indigo-800 bg-indigo-900 p-2 px-4 rounded-sm inline-block"
               >
-                {!isPlaying && <Icons icon="video" size={4} />}
+                {!isPlaying && !cameraLoading && (
+                  <Icons icon="video" size={4} />
+                )}
+                {cameraLoading && <Icons icon="loading" size={4} />}
                 {isPlaying && (
                   <div className="h-3 w-3 inline-block mr-1">
                     <span className="flex h-3 w-3 relative  ">
@@ -199,43 +201,62 @@ const Landing = () => {
                 <span className="inline-block transition duration-500 agroup-hover:translate-x-2 transform  ml-1 text-sm">
                   Detect hands from Webcam
                 </span>{" "}
-              </div>
+              </button>
+              <span className="block text-xs mt-2">
+                Try it on your own webcam video in realtime!
+              </span>
             </div>
           )}
         </div>
       </div>
-      <div className=" h-64  z-0 w-full   bg-indigo-600  transform skew-y-3"></div>
-      <div className="absolute h-52  z-0 w-full  -mt-24     ">
+      <div className=" h-72  z-0 w-full   bg-indigo-600  transform skew-y-3"></div>
+      <div className="absolute z-0 w-full  -mt-28     ">
+        <div className="container-fluid px-4 text-white pb-3 text-sm">
+          {" "}
+          {/* Or, Select an image below to detect hands */}
+        </div>
         <div className="container-fluid px-4  flex flex-row">
-          <div className=" flex-grow mr-4 bg-indigo-50 p-3   rounded  ">
+          <div className=" flex-grow mr-4 bg-indigo-50 p-3 min-h-content border rounded  ">
             {/* <div className=" text-gray-600  text-sm mb-3">
               {" "}
               Select an image to see predictions.{" "}
             </div> */}
-            <div className="grid grid-cols-6 gap-3">{imageList}</div>
+            <div className="grid grid-cols-5 gap-3 min-h-content  ">
+              {imageList}
+            </div>
           </div>
           <div>
             <div className="transition ease-in duration-700 bg-indigo-50 p-3 rounded relative">
-              {" "}
-              <div className="absolute">
-                <canvas
-                  className=" rounded  transition duration-500 "
-                  style={{ width: "350px", height: "50px" }}
-                  id="outputcanvas"
-                ></canvas>
-              </div>
-              <div className="" style={{ width: "350px" }}>
+              <div
+                className="hidden"
+                style={{
+                  minWidth: imageWidth + "px",
+                  minHeight: "100px",
+                }}
+              >
                 <video
-                  className="  "
-                  style={{ width: "350px", height: "50px" }}
+                  className="rounded  "
+                  style={{
+                    width: imageWidth + "px",
+                    height: imageHeight + "px",
+                  }}
                   autoPlay="autoplay"
                   id="videoel"
                 ></video>
               </div>
+              <div className="z-10 ">
+                <canvas
+                  className=" rounded  transition duration-500 "
+                  style={{
+                    width: imageWidth + "px",
+                    height: imageHeight + "px",
+                  }}
+                  id="outputcanvas"
+                ></canvas>
+              </div>
             </div>
           </div>
         </div>
-
         <img
           id="inputholder"
           alt="hidden holder for larger version of samples."

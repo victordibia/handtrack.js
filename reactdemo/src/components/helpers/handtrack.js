@@ -20,11 +20,21 @@ const defaultParams = {
   imageScaleFactor: 1,
   maxNumBoxes: 20,
   iouThreshold: 0.2,
-  scoreThreshold: 0.7,
+  scoreThreshold: 0.6,
   modelType: "ssd320fpnlite",
-  modelSize: "int8",
+  modelSize: "fp16",
+  bboxLineWidth: "2",
+  fontSize: 14,
 };
-
+export const colorMap = {
+  open: "#374151",
+  closed: "#B91C1C",
+  pinch: "#F59E0B",
+  point: "#10B981",
+  face: "#3B82F6",
+  tip: "#6366F1",
+  pinchtip: "#EC4899",
+};
 const labelMap = {
   1: "open",
   2: "closed",
@@ -40,6 +50,8 @@ const outputMapping = {
   base: { classes: 1, boxes: 4, scores: 2 },
 };
 
+export const version = "0.0.2";
+
 export async function load(params) {
   let modelParams = Object.assign({}, defaultParams, params);
   // console.log(modelParams)
@@ -51,8 +63,11 @@ export async function load(params) {
 export function startVideo(video) {
   // Video must have height and width in order to be used as input for NN
   // Aspect ratio of 3/4 is used to support safari browser.
+
+  const aspectRatio = video.videoWidth / video.videoHeight;
   video.width = video.width || 640;
-  video.height = video.height || video.width * (3 / 4);
+  video.height = video.width * (video.videoHeight / video.videoWidth); //* (3 / 4);
+  video.style.height = "20px";
 
   return new Promise(function (resolve, reject) {
     navigator.mediaDevices
@@ -66,6 +81,11 @@ export function startVideo(video) {
         window.localStream = stream;
         video.srcObject = stream;
         video.onloadedmetadata = () => {
+          video.height = video.width * (video.videoHeight / video.videoWidth); //* (3 / 4);
+          video.style.height =
+            parseInt(video.style.width) *
+              (video.videoHeight / video.videoWidth).toFixed(2) +
+            "px";
           video.play();
           resolve(true);
         };
@@ -198,7 +218,7 @@ export class ObjectDetection {
         detectionObjects.push({
           class: Math.round(classes[i]),
           label: labelMap[Math.round(classes[i])],
-          score: score.toFixed(4),
+          score: score.toFixed(2),
           bbox: bbox,
         });
       }
@@ -218,11 +238,55 @@ export class ObjectDetection {
     return this.modelParams;
   }
 
+  roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+    if (typeof stroke === "undefined") {
+      stroke = true;
+    }
+    if (typeof radius === "undefined") {
+      radius = 5;
+    }
+    if (typeof radius === "number") {
+      radius = { tl: radius, tr: radius, br: radius, bl: radius };
+    } else {
+      var defaultRadius = { tl: 0, tr: 0, br: 0, bl: 0 };
+      for (var side in defaultRadius) {
+        radius[side] = radius[side] || defaultRadius[side];
+      }
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(
+      x + width,
+      y + height,
+      x + width - radius.br,
+      y + height
+    );
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+    if (fill) {
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.stroke();
+    }
+  }
+
   renderPredictions(predictions, canvas, context, mediasource) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
     canvas.height = mediasource.height;
-    // console.log("render", mediasource.width, mediasource.height)
+    console.log("render", mediasource.width, mediasource.height);
+    canvas.style.height =
+      parseInt(canvas.style.width) *
+        (mediasource.height / mediasource.width).toFixed(2) +
+      "px";
+    console.log("render", canvas.style.width, canvas.style.height);
 
     context.save();
     if (this.modelParams.flipHorizontal) {
@@ -231,44 +295,55 @@ export class ObjectDetection {
     }
     context.drawImage(mediasource, 0, 0, mediasource.width, mediasource.height);
     context.restore();
-    context.font = "10px Arial";
+    context.font = "bold " + this.modelParams.fontSize + "px Arial";
 
     // console.log('number of detections: ', predictions.length);
     for (let i = 0; i < predictions.length; i++) {
+      const pred = predictions[i];
       context.beginPath();
       context.fillStyle = "rgba(255, 255, 255, 0.6)";
 
       context.fillRect(
-        predictions[i].bbox[0],
-        predictions[i].bbox[1] - 17,
-        predictions[i].bbox[2],
-        17
+        pred.bbox[0] + 1,
+        pred.bbox[1] + 1,
+        pred.bbox[2] - 1,
+        this.modelParams.fontSize * 1.5
       );
-      //   context.lineWidth = "10";
-      context.rect(...predictions[i].bbox);
+      context.lineWidth = this.modelParams.bboxLineWidth;
+      // context.rect(...pred.bbox);
+      this.roundRect(
+        context,
+        pred.bbox[0],
+        pred.bbox[1],
+        pred.bbox[2],
+        pred.bbox[3],
+        5,
+        false,
+        true
+      );
 
       // draw a dot at the center of bounding box
 
-      context.lineWidth = 1;
-      context.strokeStyle = "#0063FF";
-      context.fillStyle = "#0063FF"; // "rgba(244,247,251,1)";
+      // context.lineWidth = 1;
+      context.strokeStyle = colorMap[pred.label];
+      context.fillStyle = colorMap[pred.label];
       context.fillRect(
-        predictions[i].bbox[0] + predictions[i].bbox[2] / 2,
-        predictions[i].bbox[1] + predictions[i].bbox[3] / 2,
+        pred.bbox[0] + pred.bbox[2] / 2,
+        pred.bbox[1] + pred.bbox[3] / 2,
         5,
         5
       );
 
       context.stroke();
       context.fillText(
-        predictions[i].score + " " + " | " + predictions[i].label,
-        predictions[i].bbox[0] + 5,
-        predictions[i].bbox[1] > 10 ? predictions[i].bbox[1] - 5 : 10
+        pred.score + " | " + pred.label,
+        pred.bbox[0] + 5,
+        pred.bbox[1] + this.modelParams.fontSize * 1.1
       );
     }
 
     // Write FPS to top left
-    context.font = "bold 16px Arial";
+    context.font = "bold " + this.modelParams.fontSize + "px Arial";
     // context.fillText("[FPS]: " + this.fps, 10, 20);
   }
 
