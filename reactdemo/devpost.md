@@ -114,7 +114,7 @@ Handtrack.js frames the task of detecting/tracking hands as an object detection 
 - **Library Design, Testing**: The web models are rolled into a javascript library which is bundled using parcel.js (hosted on [npm](https://www.npmjs.com/package/handtrackjs) and served over a cdn).  A set of tests and [demos](https://victordibia.com/handtrack.js/#/) are then used to rigorously test out the capabilities of library.
 
 
-## Challenges we ran into
+<!-- ## Challenges we ran into -->
 
 ## Accomplishments that we're proud of
 
