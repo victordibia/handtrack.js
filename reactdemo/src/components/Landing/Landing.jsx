@@ -3,7 +3,6 @@ import "./landing.css";
 // import CatalogFeatures from "./CatalogFeatures";
 import Icons from "../helpers/Icons";
 import * as handtrack from "../helpers/handtrack";
-import { div } from "@tensorflow/tfjs-core";
 
 let vidOn = false;
 const Landing = () => {
@@ -20,9 +19,14 @@ const Landing = () => {
 
   const detectImage = (input) => {
     model.detect(input).then((predictions) => {
+      console.log(predictions);
       model.renderPredictions(predictions, canvas, context, input);
     });
   };
+
+  const sampleCode = `  import * as handTrack from 'handtrackjs';  
+  const model = await handTrack.load() 
+  const predictions = await model.detect(img) `;
 
   useEffect(() => {
     handtrack.load().then((model) => {
@@ -207,7 +211,7 @@ const Landing = () => {
                   &#x2192; 3 model accuracy blocks - small, medium, large.
                 </div>
                 <div className="mt-1 mb-2">
-                  &#x2192; Smaller weight files, faster load!
+                  &#x2192; Smaller model weight files, faster load time!
                 </div>
               </div>
             </div>
@@ -259,7 +263,7 @@ const Landing = () => {
           )}
         </div>
       </div>
-      <div className=" h-72  z-0 w-full   bg-indigo-600  transform skew-y-3"></div>
+      <div className=" h-72  z-0 w-full   bg-indigo-600  transform -skew-y-3"></div>
       <div className="absolute z-0 w-full  -mt-28     ">
         <div className="container-fluid px-4 text-white pb-3 text-sm">
           {" "}
@@ -271,8 +275,68 @@ const Landing = () => {
               {" "}
               Select an image to see predictions.{" "}
             </div> */}
-            <div className=" bg-indigo-50 p-3 rounded grid grid-cols-5 gap-3 min-h-content  ">
-              {imageList}
+            {/* <div className=" bg-indigo-50 mb-3 p-3 rounded grid grid-cols-5 gap-3 min-h-content  ">
+              Welcome!
+            </div> */}
+            <div className=" bg-indigo-50 p-3 rounded  min-h-content  ">
+              <div className="mb-2">
+                {/* <div className="  font-semibold text-gray-900">
+                  Detect Hands from Image, Video, Canvas HTML Tags
+                </div> */}
+                <div className="text-gray-600 text-sm">
+                  Select an image below to run live detection.
+                </div>
+              </div>
+              <div className="grid grid-cols-5 gap-3"> {imageList}</div>
+            </div>
+
+            <div className="mt-3 rounded ">
+              <div className=" text-white bg-indigo-800 shadow-xl rounded text-sm p-3 px-5">
+                <div>
+                  {/* 🧳{" "} */}
+                  <span>
+                    <span className=" relative inline-flex mr-1 rounded-full h-3 w-3 bg-red-500"></span>
+                    <span>
+                      <span className="relative inline-flex mr-1 rounded-full h-3 w-3 bg-yellow-500"></span>
+                      <span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                      </span>
+                    </span>
+                  </span>
+                  <span className="ml-2 font-semibold ">
+                    Use Handtrack | 3 lines of code
+                  </span>
+                  <div className="mt-3">
+                    {" "}
+                    <span className="text-yellow-400">import</span> *{" "}
+                    <span className="text-yellow-400">as</span> handTrack{" "}
+                    <span className="text-yellow-400">from</span>{" "}
+                    <span className="text-green-300">'handtrackjs</span>';
+                  </div>
+                  <div className="mt-1">
+                    <span className="text-yellow-400">const</span> model ={" "}
+                    <span className="text-yellow-400">await</span> handTrack.
+                    <span className="text-yellow-400">load</span>()
+                  </div>
+                  <div className="mt-1 mb-2">
+                    <span className="text-yellow-400">const</span> predictions ={" "}
+                    <span className="text-yellow-400">await</span> model.
+                    <span className="text-yellow-400">detect</span>(img)
+                  </div>
+                </div>
+              </div>
+              {/* <span className="block text-sm text-gray-600 mb-2">
+                {" "}
+                Get started in 3 lines of code!{" "}
+              </span>
+              <span className="text-sm block">
+                <CodeBlock
+                  text={sampleCode}
+                  language={"javascript"}
+                  showLineNumbers={false}
+                  theme={nord}
+                />
+              </span> */}
             </div>
           </div>
           <div>
@@ -308,6 +372,12 @@ const Landing = () => {
             </div>
           </div>
         </div>
+        {/* <div className="container-fluid px-4 border">
+          <div className="text-2xl font-semibold text-gray-600">
+            Dead Easy to Use!
+          </div>
+          <div className="h-72"></div>
+        </div> */}
         <img
           id="inputholder"
           alt="hidden holder for larger version of samples."

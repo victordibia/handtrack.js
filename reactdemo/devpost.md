@@ -1,9 +1,70 @@
 ## Handtrack.js
-Existing research suggest that exploring the use of the human body (e.g. hands) as an input device can lead to more natural interaction and increased engagement. However, most systems that implement so called "body as input device" often require custom sensor and SDKs that are challenging to integrate with widely used (but resource constrained) environments like the browser. The focus on the browser, and javascript is particularly important as Javascript continues to be the most accessible and most widely used language according the [2020 github octoverse](https://octoverse.github.com/) survey.
+Existing research suggest that exploring the use of the human body (e.g. hands) as an input device can lead to more natural interaction and increased [engagement](https://dl.acm.org/doi/10.1145/2470654.2470752). However, most systems that implement so called "body as input device" often require custom sensor and SDKs that are challenging to integrate with widely used (but resource constrained) environments like the browser. The focus on the browser, and Javascript is particularly important as Javascript continues to be the most accessible and most widely used language (see the [2020 Github Octoverse](https://octoverse.github.com/) survey).
 
-![handtrack.js demo screenshot](public/images/screen.jpg)
+![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/screen.jpg)
 
-Handtrack.js aims to address this issue by providing a purely javascript library that web developers (or designers) can use in implementing detecting hands within images. It provides as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications without the need to understand the underlying machine learning models. It takes in a html image element (img, video, canvas elements) and returns an array of bounding boxes, class names and confidence scores.
+Handtrack.js aims to address this issue by providing a Javascript library that web developers (or designers) can *easily* use in detecting hands within images. 
+
+```javascript
+import * as handTrack from 'handtrackjs';  
+const model = await handTrack.load() 
+const predictions = await model.detect(img) 
+// img can be a html img, video or canvas tag.
+```
+
+For each prediction, handtrack.js returns a dictionary containing bounding box coordinates, class labels and confidence score for all identified hand poses. 
+
+```javascript
+//predictions
+[
+    {
+        "class": 2,
+        "label": "closed",
+        "score": "0.71",
+        "bbox": [
+            170.54356634616852,
+            68.90409886837006,
+            204.50245141983032,
+            213.6879175901413
+        ]
+    }
+]
+```
+
+Handtrack.js is also  customizable via a parameters argument to update its defaults.
+
+```javascript
+
+const modelParams = {
+  flipHorizontal: false, 
+  imageScaleFactor: 1, 
+  maxNumBoxes: 20, 
+  scoreThreshold: 0.6,   // boxes below this threshold are not rendered
+  modelType: "ssd320fpnlite",
+  modelSize: "fp16",  // base fp16 or int8 ... large, medium, small
+  bboxLineWidth: "2",  // draw box width
+  fontSize: 14,
+};
+const model = await handTrack.load(modelParams) 
+
+```
+
+Handtrack.js also comes with a set of helpful functions. E.g. to capture video content and draw/render predictions as styled bounding boxes on a provided canvas element
+
+```javascript
+handTrack.startVideo(video).then(function (status) {
+    console.log("video started", status); 
+    if (status) { 
+        const predictions = await model.detect(video);
+        model.renderPredictions(predictions, canvas, context, video);  
+    }  
+});
+
+```
+
+
+
+It provides as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications without the need to understand the underlying machine learning models. It takes in a html image element (img, video, canvas elements) and returns an array of bounding boxes, class names and confidence scores.
 
 The library also provides some useful functions (e.g renderPredictions to draw bounding boxes on a canvas element, startVideo to initialize video capture in the browser), and customizable model parameters. 
 
@@ -27,13 +88,14 @@ Below are a key list of updates that have been implemented as part of this hacka
   - Point: Index finger is extended in a pointing gesture. 
   - Face: To help disambiguate between the face and hands, and to also enable face tracking applications in the same library, a face label is also added. 
 - **Reduced Model size**: In this version, experiments are conducted with multiple object detection model architectures (SSD FPN lite, CenterNets, EfficientDet) and with multiple input image sizes. Currently an SSD MobileNet v2, FPN lite model with input size 320x320px is being used and results in a model size of 12MB. Further, this model has been fp16 and int8 quantized with comparable results yield model sizes of  7MB and 3MB respectively. This results in an overall faster load time and better user experience.
-- **Accuracy**: Early testing shows the new model to be more accurate for the front facing web cam viewpoint detection.
+- **Model Accuracy**: Early testing shows the new model to be more accurate for the front facing web cam viewpoint detection. The inclusion of face labels also reduces the earlier face misclassifications 
+- **Javascript Library**: The handtrack.js library has been updated fix issues with correct input image resolutions, upgrade the underlying tensorflowjs models, provide more customization options (e.g. use of small medium or large base models)
 
 
 ## Azure ML
 
 Azure Machine Learning is used to enable the handtrack.js workflow in the following ways: 
-![handtrack.js demo screenshot](public/images/mllabel.jpg)
+![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/mllabel.jpg)
 
 - **ML Assisted Data Labeling**:  The Azure ML data labeling tool is used to label > 2000 images.
 - **Azure AutoML**: This feature is is used to rapidly train an early version of the model which is used in prelabelling images and also used in finetuning the data collection process.
@@ -41,20 +103,22 @@ Azure Machine Learning is used to enable the handtrack.js workflow in the follow
 
 ## How we built it
 
-Handtrack.js frames the task of detecting/tracking hands as an object detection problem (for a given image, predict a the bounding box location of objects and their class names).  Consequently, object detection models are explored in solving the task. The high level overview of the process is structured as follows:
+Handtrack.js frames the task of detecting/tracking hands as an object detection problem (for a given image, predict the bounding box location of objects and their class names).  Consequently, object detection models are explored in solving the task. The high level overview of the process is structured as follows:
 
-- Data Collection: Processes for data collection and annotation. 
-- Model Training: Pipeline for training a set of object detection model architectures (e.g. ).
-- Model Evaluation: Pipeline for comparatively evaluating all of the trained model architectures 
-- Model Export: Pipeline to export each model first export the trained model checkpoints to the Tensorflow Saved Model Format (Python) and then to quantize the models and export to  Tensorflow.js web model format. 
-- Library Design, Testing: The model is rolled into a javascript library which is bundled using parcel.js.  A set of tests and [demos](https://victordibia.com/handtrack.js/#/) are then used to rigorously test out the capabilities of library.
+- **Data Collection and Annotation**: The goal here was to collect data that supports a set of hand pose requirements (defined above). In addition, there was a focus on collecting data that mirrors the envisioned use case scenario (user facing a webcam under varied lighting conditions). 
+- **Model Training**: Pipeline for training a set of object detection model architectures ( ssdMobileNet320fpnlite, ssdMobileNet640fipnlite, efficientdet512d0, and CenterNetMobileNet512). The Tensorflow Object Detection API was used to bootstrap these experiments, starting with pretrained model check points which were then finetuned on our custom data. 
+
+- **Model Evaluation**: Pipeline for comparatively evaluating all of the trained model architectures on a test subset of the annotated data. 
+  
+- **Model Export**: Multi stage pipeline to export each trained model. First export the trained model checkpoints to the Tensorflow Saved Model Format (Python) and then to quantize the models and export to  Tensorflow.js web model format. 
+- **Library Design, Testing**: The web models are rolled into a javascript library which is bundled using parcel.js (hosted on [npm](https://www.npmjs.com/package/handtrackjs) and served over a cdn).  A set of tests and [demos](https://victordibia.com/handtrack.js/#/) are then used to rigorously test out the capabilities of library.
 
 
 ## Challenges we ran into
 
 ## Accomplishments that we're proud of
 
-- Solving Tensorflow API versionissues required to successfully convert object detection models from checkpoints to javascript web model format.
+- Solving Tensorflow API version issues required to successfully convert object detection models from checkpoints to javascript web model format.
 - Creating an automated pipeline to enable low touch model retraining.  
     - New videos are added to a storage bucket
     - Train sample generator. Converts videos into videos at 2 frames per second. 
@@ -66,12 +130,30 @@ Handtrack.js frames the task of detecting/tracking hands as an object detection 
     - Model training scripts use these output files to automatically train multiple model sizes . Currently the focus is on ssdMobileNet320fpnlite, ssdMobileNet640fipnlite, efficientdet512d0, and CenterNetMobileNet512.
     - Automatic eval script evaluates the produced checkpoints 
     - Model export .. converts each of these saved model files to Tensorflow.js compatible models which can be used in the browser.
+  Overall, this pipeline has been extremely useful in achieving substantial improvements to and iterations over the model within a short amount of time:
+    - Automated export of web model which are imported into test/demo code
+    - Multiple images, videos and live videos are used to test the model
+    - New data (videos) covering failure modes are curated/collected. They are then converted to image frames and uploaded to azure blob storage where they are automatically prelabelled and then finetuned
+    - Model is retrained with new data and exported.
 - Creating a complete new dataset to to support a new set of hand poses. Currently this includes  … .Data collection will be continuous (and possible due to the automated pipeline above) with the goal of addressing observed deficits in tracking as the model is used. 
-
+- Completely redesigned the handtrack.js demo page
+  - Improved user experience to ensure image and video aspect ratio is maintainedd
+  - Rewrite the demo to use React hooks
+  
 
 ## What we learned
 
-## What's next for Handtrack.js 1.0 : Real Time Handtracking in the Browser
+- Writing ML pipelines for automating ML processes
+- Working with the Azure ML Assisted Lebeling tool 
+- Rebuilding the front end demo for improved user experience. I used React, React Hooks, Tailwindcss for layout and parcel.js. 
+
+## What's next for Handtrack.js : Real Time Handtracking in the Browser
 - Further model optimization. The current best performing model in the benchmark (ssd mobilenet fpnlite 320) is still not fast enough. While usable at ~10 FPS on a 2018 macbook pro, a 30 FPS frame rate is the current target. To achieve this, a few things are being done
   - Revise the current model graph e.g. extract non max suppression ops from the model graph and perform that on CPU backend instead of GPU shaders
   - Explore CenterNets - an anchor free object detection model model architecture which is faster. 
+- Library Documentation: 
+  - Create additional example apps that demonstrate "body as input device" interaction e.g. with applications in accessible interfaces for individuals with impairments.
+  - Community blog post series that covers the end to end experience building and optimizing an object detection model for a custom use case. The following posts are currently being worked on:
+    - Data collection and annotation with Azure ML Labeling
+    - Transfer learning for Object Detection with the Tensorflow Object Detection API
+    - Optimizing Tensorflow models (quantization, pruning)
