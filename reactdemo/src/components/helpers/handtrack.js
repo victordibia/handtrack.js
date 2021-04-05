@@ -64,7 +64,6 @@ export function startVideo(video) {
   // Video must have height and width in order to be used as input for NN
   // Aspect ratio of 3/4 is used to support safari browser.
 
-  const aspectRatio = video.videoWidth / video.videoHeight;
   video.width = video.width || 640;
   video.height = video.width * (video.videoHeight / video.videoWidth); //* (3 / 4);
   video.style.height = "20px";
@@ -281,12 +280,12 @@ export class ObjectDetection {
     context.clearRect(0, 0, canvas.width, canvas.height);
     canvas.width = mediasource.width;
     canvas.height = mediasource.height;
-    console.log("render", mediasource.width, mediasource.height);
+    // console.log("render", mediasource.width, mediasource.height);
     canvas.style.height =
       parseInt(canvas.style.width) *
         (mediasource.height / mediasource.width).toFixed(2) +
       "px";
-    console.log("render", canvas.style.width, canvas.style.height);
+    // console.log("render", canvas.style.width, canvas.style.height);
 
     context.save();
     if (this.modelParams.flipHorizontal) {
@@ -365,21 +364,21 @@ function getInputTensorDimensions(input) {
     : [input.height, input.width];
 }
 
-function calculateMaxScores(scores, numBoxes, numClasses) {
-  const maxes = [];
-  const classes = [];
-  for (let i = 0; i < numBoxes; i++) {
-    let max = Number.MIN_VALUE;
-    let index = -1;
-    for (let j = 0; j < numClasses; j++) {
-      if (scores[i * numClasses + j] > max) {
-        max = scores[i * numClasses + j];
-        index = j;
-      }
-    }
-    maxes[i] = max;
-    classes[i] = index;
-  }
-  // console.log([maxes, classes])
-  return [maxes, classes];
-}
+// function calculateMaxScores(scores, numBoxes, numClasses) {
+//   const maxes = [];
+//   const classes = [];
+//   for (let i = 0; i < numBoxes; i++) {
+//     let max = Number.MIN_VALUE;
+//     let index = -1;
+//     for (let j = 0; j < numClasses; j++) {
+//       if (scores[i * numClasses + j] > max) {
+//         max = scores[i * numClasses + j];
+//         index = j;
+//       }
+//     }
+//     maxes[i] = max;
+//     classes[i] = index;
+//   }
+//   // console.log([maxes, classes])
+//   return [maxes, classes];
+// }

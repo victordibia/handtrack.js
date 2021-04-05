@@ -7,6 +7,7 @@ module.exports = {
   variants: {
     extend: {
       translate: ["active", "group-hover"],
+      backgroundColor: ["active"],
     },
   },
   plugins: [],

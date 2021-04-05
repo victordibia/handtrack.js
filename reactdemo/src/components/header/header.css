@@ -1,23 +1,13 @@
 .navbarlinks a.active:hover,
 .navbarlinks a.active,
-.navbarlinks.selected {
-  border-bottom: 4px #F66303 solid;
+.navbarlinks.selected { 
+  @apply bg-indigo-900 text-white p-2  px-3 ;
 }
 .navbarlinks a {
-  text-decoration: none;
-  color: #fff;
-  width: 100%;
-  /* height: 100%; */
-  /* border: 1px solid pink; */
-  line-height: 3.1em;
-  border-bottom: 4px solid rgb(36, 36, 36);
-  padding: 0px 12px 0px 12px;
+  text-decoration: none; 
+  @apply p-2 px-3 rounded hover:bg-indigo-800  
 }
-
-.navbarlinks a:hover {
-  background-color: #3d3d3d;
-  border-bottom: 4px solid #3d3d3d;
-}
+ 
 
 .headerboost {
   height: 46px;
@@ -38,10 +28,6 @@
 } */
 
 .headermain {
-  /* background: #161616; */
-  /* position: fixed; */
-  /* top: 0; */
-  /* width: 100%; */
   z-index: 5000;
 }
 

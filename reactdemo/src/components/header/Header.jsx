@@ -14,6 +14,26 @@ import "./header.css";
 const Header = () => {
   const appName = "Handtrack.js";
   const appDescription = "Handtracking in Javascript.";
+  const navlinks = [
+    { label: "demo", url: "/" },
+    { label: "docs", url: "/docs" },
+    // { label: "docs", url: "/docs" },
+  ];
+
+  const navList = navlinks.map((data, i) => {
+    return (
+      <div
+        key={"navrow" + i}
+        className="navbarlinks h-full flex flex-col mr-3  text-sm justify-center "
+      >
+        <span className="text-white cursor-pointer font-semibold rounded   ">
+          <NavLink exact to={data.url}>
+            {data.label}
+          </NavLink>
+        </span>
+      </div>
+    );
+  });
   return (
     <div className="h-52 -mb-20 bg-indigo-600 related">
       <div className="absolute w-full bg-indigo-700">
@@ -38,23 +58,7 @@ const Header = () => {
                   {appName}{" "}
                 </div>
               </div>
-              <div className="h-full flex flex-col   text-sm justify-center ">
-                <span className="  text-white p-2 px-4 font-semibold rounded bg-indigo-900">
-                  <NavLink exact to="/">
-                    Demo
-                  </NavLink>
-                </span>
-              </div>
-              {/* <div className="h100   flex flexjustifycenter  navbarlinks ">
-              <NavLink exact to="/embeddings">
-                Embeddings{" "}
-              </NavLink>
-            </div>
-            <div className="h100   flex flexjustifycenter  navbarlinks ">
-              <NavLink exact to="/livesearch">
-                Live Search{" "}
-              </NavLink>
-            </div> */}
+              {navList}
             </div>
           </div>
         </div>
