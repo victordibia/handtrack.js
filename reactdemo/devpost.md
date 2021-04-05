@@ -1,4 +1,4 @@
-## Handtrack.js
+## Handtrack.js: A library for prototyping hand detection/tracking applications
 Existing research suggest that exploring the use of the human body (e.g. hands) as an input device can lead to more natural interaction and increased [engagement](https://dl.acm.org/doi/10.1145/2470654.2470752). However, most systems that implement so called "body as input device" often require custom sensor and SDKs that are challenging to integrate with widely used (but resource constrained) environments like the browser. The focus on the browser, and Javascript is particularly important as Javascript continues to be the most accessible and most widely used language (see the [2020 Github Octoverse](https://octoverse.github.com/) survey).
 
 ![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/screen.jpg)
@@ -63,7 +63,8 @@ handTrack.startVideo(video).then(function (status) {
 ```
 
 
-#### Other Helper Methods Provided by Handtrack.js
+A complete list of helper methods provided by handtrack.js are listed below:
+
 
 - `model.getFPS()` : get FPS calculated as number of detections per second.
 - `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas. `predictions` are an array of results from the `detect()` method. `canvas` is a reference to a html canvas object where the predictions should be rendered, `context` is the canvas 2D context object, `mediasource` a reference to the input frame (img, video, canvas etc) used in the prediction (it is first rendered, and the bounding boxes drawn on top of it).
@@ -80,7 +81,7 @@ It provides as a useful wrapper to allow you prototype hand/gesture based intera
 
 ### Impact and Use Cases
 
-Handtrack.js goes beyond training/optimizing a set of models for object detection, to providing a clean set of abstracts to enable developers prototype hand detection/tracking use case. Some of these use cases include:
+Handtrack.js goes beyond training/optimizing a set of models for object detection, to providing a clean set of abstracts to **enable developers** prototype hand detection/tracking use case. Some of these use cases include:
 
 ![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/demo/images/doodle.gif)
  
@@ -88,7 +89,7 @@ Handtrack.js goes beyond training/optimizing a set of models for object detectio
 
 - Hand as Input Device: Game controls: map hand position to game controls
 - Accessiblity: detect hands with handtrack.js and subsequently match each hand to sign language poses
-- Behaviour tracking:
+- Behaviour tracking: E.g. measuring/tracking the effective use of hands as  presenters deliver presentations on stage, or tracking handss to notify users when they touch their face (covid related behaviour tracking.)
 
 
 So far, the library has [2400 stars](https://github.com/victordibia/handtrack.js/stargazers) on github, is used by > [154 projects](https://github.com/victordibia/handtrack.js/network/dependents?package_id=UGFja2FnZS0zMjUxNDk0NDk%3D) on Github and has been downloaded over [15,400 times](https://npm-stat.com/charts.html?package=handtrackjs&from=2018-01-01).
@@ -131,6 +132,7 @@ Azure Machine Learning is used to enable the handtrack.js workflow in the follow
 
 ## How we built it
 
+![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/architecture.png)
 Handtrack.js frames the task of detecting/tracking hands as an object detection problem (for a given image, predict the bounding box location of objects and their class names).  Consequently, object detection models are explored in solving the task. The high level overview of the process is structured as follows:
 
 - **Data Collection and Annotation**: The goal here was to collect data that supports a set of hand pose requirements (defined above). In addition, there was a focus on collecting data that mirrors the envisioned use case scenario (user facing a webcam under varied lighting conditions). 
