@@ -63,6 +63,17 @@ handTrack.startVideo(video).then(function (status) {
 ```
 
 
+#### Other Helper Methods Provided by Handtrack.js
+
+- `model.getFPS()` : get FPS calculated as number of detections per second.
+- `model.renderPredictions(predictions, canvas, context, mediasource)`:  draw bounding box (and the input mediasource image) on the specified canvas. `predictions` are an array of results from the `detect()` method. `canvas` is a reference to a html canvas object where the predictions should be rendered, `context` is the canvas 2D context object, `mediasource` a reference to the input frame (img, video, canvas etc) used in the prediction (it is first rendered, and the bounding boxes drawn on top of it).
+- `model.getModelParameters()`: returns model parameters.
+- `model.setModelParameters(modelParams)`: updates model parameters with [`modelParams`](#loading-the-model-handtrackload)
+- `dispose()` : delete model instance
+- `startVideo(video)` : start webcam video stream on given video element. Returns a promise that can be used to validate if user provided video permission.
+- `stopVideo(video)` : stop video stream.
+
+
 
 It provides as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications without the need to understand the underlying machine learning models. It takes in a html image element (img, video, canvas elements) and returns an array of bounding boxes, class names and confidence scores.
 
