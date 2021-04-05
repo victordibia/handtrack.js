@@ -75,9 +75,26 @@ handTrack.startVideo(video).then(function (status) {
 
 
 
-It provides as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications without the need to understand the underlying machine learning models. It takes in a html image element (img, video, canvas elements) and returns an array of bounding boxes, class names and confidence scores.
+It provides as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications without the need to understand the underlying machine learning models. 
 
-The library also provides some useful functions (e.g renderPredictions to draw bounding boxes on a canvas element, startVideo to initialize video capture in the browser), and customizable model parameters. 
+
+### Impact and Use Cases
+
+Handtrack.js goes beyond training/optimizing a set of models for object detection, to providing a clean set of abstracts to enable developers prototype hand detection/tracking use case. Some of these use cases include:
+
+![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/demo/images/doodle.gif)
+ 
+
+
+- Hand as Input Device: Game controls: map hand position to game controls
+- Accessiblity: detect hands with handtrack.js and subsequently match each hand to sign language poses
+- Behaviour tracking:
+
+
+So far, the library has [2400 stars](https://github.com/victordibia/handtrack.js/stargazers) on github, is used by > [154 projects](https://github.com/victordibia/handtrack.js/network/dependents?package_id=UGFja2FnZS0zMjUxNDk0NDk%3D) on Github and has been downloaded over [15,400 times](https://npm-stat.com/charts.html?package=handtrackjs&from=2018-01-01).
+
+Handtrack.js will be continuously improved with advances in deep learning models and make these advances available to a wide set of developers.
+ 
 
 ### New Version of Handtrack.js - What is New?
 
