@@ -4,6 +4,7 @@ import { Route, HashRouter } from "react-router-dom";
 import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import Landing from "./Landing/Landing";
+import SimpleDemo from "./SimpleDemo/SimpleDemo";
 
 function Main() {
   return (
@@ -12,6 +13,11 @@ function Main() {
         <Header />
         <main className="  w-full flex-grow ">
           <Route exact path="/" render={(props) => <Landing {...props} />} />
+          <Route
+            exact
+            path="/simple"
+            render={(props) => <SimpleDemo {...props} />}
+          />
         </main>
         <Footer />
       </div>

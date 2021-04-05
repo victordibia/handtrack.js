@@ -108,7 +108,7 @@ Below are some limitations of the previous version which have now been addressed
 
 Below are a key list of updates that have been implemented as part of this hackathon:
 
-- **New dataset curation**: A completely new dataset (~2000 images, 6000 labels) has been curated. The current version is focused on the viewpoint of a user facing a webcam. Details on data collection are listed below. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII).
+- **New dataset curation**: A completely new dataset (~2000 images, 6000 labels) has been curated. The current version is focused on the viewpoint of a user facing a webcam. Details on data collection are listed below. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII). In the meantime, the project can be reproduced using the [egohands](http://vision.soic.indiana.edu/projects/egohands/) dataset which is public. 
 - **New labels**: Following extensive review of the usecases for an earlier version of handtrack.js (e.g. game controls, detect face touching to minimize covid spread etc), a new set of hand pose labels have been curated:
   - Open:  All fingers are extended in an open palm position.  This represents an open hand which can be the drop mode of a drag and drop operation.  
   - Closed: All fingers are contracted in a ball in a closed fist position. The closed hand is similar to the drag mode for a drag and drop operation.
@@ -186,9 +186,10 @@ Handtrack.js frames the task of detecting/tracking hands as an object detection 
     - Transfer learning for Object Detection with the Tensorflow Object Detection API
     - Optimizing Tensorflow models (quantization, pruning)
 
+
 ## Running the App
 
-In the project directory, you can run:
+Clone the handtrack.js [repo](https://github.com/victordibia/handtrack.js/tree/master/reactdemo) , navigate to the reactdemo folder.
 
   `yarn install && yarn start`
 
