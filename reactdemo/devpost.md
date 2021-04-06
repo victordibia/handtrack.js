@@ -124,6 +124,7 @@ Below are a key list of updates that have been implemented as part of this hacka
 ## Azure ML
 
 Azure Machine Learning is used to enable the handtrack.js workflow in the following ways: 
+
 ![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/mllabel.jpg)
 
 - **ML Assisted Data Labeling**:  The Azure ML data labeling tool is used to label > 2000 images.
@@ -133,6 +134,8 @@ Azure Machine Learning is used to enable the handtrack.js workflow in the follow
 ## How we built it
 
 ![handtrack.js demo screenshot](https://raw.githubusercontent.com/victordibia/handtrack.js/master/reactdemo/public/images/architecture.png)
+
+
 Handtrack.js frames the task of detecting/tracking hands as an object detection problem (for a given image, predict the bounding box location of objects and their class names).  Consequently, object detection models are explored in solving the task. The high level overview of the process is structured as follows:
 
 - **Data Collection and Annotation**: The goal here was to collect data that supports a set of hand pose requirements (defined above). In addition, there was a focus on collecting data that mirrors the envisioned use case scenario (user facing a webcam under varied lighting conditions). 
@@ -150,7 +153,7 @@ Handtrack.js frames the task of detecting/tracking hands as an object detection 
 
 - Solving Tensorflow API version issues required to successfully convert object detection models from checkpoints to javascript web model format.
 - Creating an automated pipeline to enable low touch model retraining.  
-    - New videos are added to a storage bucket
+    - New videos (of participants with various hand poses) are added to a storage bucket.
     - Train sample generator. Converts videos into videos at 2 frames per second. 
         - Each frame is then written to an azure bucket 
     - Azure labeller automatically monitors this bucket for new data points and survaces them for labelling 
@@ -186,4 +189,4 @@ Handtrack.js frames the task of detecting/tracking hands as an object detection 
   - Community blog post series that covers the end to end experience building and optimizing an object detection model for a custom use case. The following posts are currently being worked on:
     - Data collection and annotation with Azure ML Labeling
     - Transfer learning for Object Detection with the Tensorflow Object Detection API
-    - Optimizing Tensorflow models (quantization, pruning)
+    - Optimizing Tensorflow models ()
