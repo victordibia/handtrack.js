@@ -1,5 +1,5 @@
 {
-  "name": "reactdemo",
+  "name": "Handtrack.js",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://victordibia.github.io/handtrack.js/",
@@ -10,10 +10,10 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "dotenv": "^8.2.0",
     "react": "^17.0.2",
     "react-code-blocks": "^0.0.8",
     "react-dom": "^17.0.2",
-    "react-ga": "^3.3.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"

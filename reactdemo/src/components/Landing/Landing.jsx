@@ -3,6 +3,9 @@ import "./landing.css";
 // import CatalogFeatures from "./CatalogFeatures";
 import Icons from "../helpers/Icons";
 import * as handtrack from "../helpers/handtrack";
+import CameraDetect from "./CameraDetect";
+import WhatsNew from "./WhatsNew";
+import Usage from "./Usage";
 
 let vidOn = false;
 const Landing = () => {
@@ -12,6 +15,7 @@ const Landing = () => {
   const [model, setModel] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [cameraLoading, setCameraLoading] = useState(false);
+  const [webCamError, setWebCamError] = useState(null);
   const [canvas, setCanvas] = useState(null);
   const [context, setContext] = useState(null);
   const [video, setVideo] = useState(null);
@@ -19,14 +23,10 @@ const Landing = () => {
 
   const detectImage = (input) => {
     model.detect(input).then((predictions) => {
-      console.log(predictions);
+      // console.log(predictions);
       model.renderPredictions(predictions, canvas, context, input);
     });
   };
-
-  const sampleCode = `  import * as handTrack from 'handtrackjs';  
-  const model = await handTrack.load() 
-  const predictions = await model.detect(img) `;
 
   useEffect(() => {
     handtrack.load().then((model) => {
@@ -91,7 +91,8 @@ const Landing = () => {
       handtrack.startVideo(video).then(function (status) {
         console.log("video started", status);
         setCameraLoading(false);
-        if (status) {
+        if (status.status) {
+          setWebCamError(status);
           // updateNote.innerText = "Video started. Now tracking"
           // isVideo = true
           vidOn = true;
@@ -99,6 +100,7 @@ const Landing = () => {
           runDetection();
         } else {
           // updateNote.innerText = "Please enable video";
+          setWebCamError(status);
         }
       });
     } else {
@@ -123,11 +125,25 @@ const Landing = () => {
       <div className="text-xs inline  " key={"poserow" + i}>
         <span
           style={{ borderBottom: "3px solid " + handtrack.colorMap[data] }}
-          className="p-1 inline-block mb-1 font-semibold bg-white rounded rounded-b-none    px-2"
+          className="p-1 inline-block mb-1 text-gray-600 font-semibold bg-white rounded rounded-b-none    px-2"
         >
           {" "}
           {data}
         </span>{" "}
+      </div>
+    );
+  });
+
+  const poseListSmall = Object.keys(handtrack.colorMap).map((data, i) => {
+    return (
+      <div className="text-sm inline   " key={"poserow" + i}>
+        <div className=" items-center inline-flex">
+          <div
+            style={{ backgroundColor: handtrack.colorMap[data] }}
+            className="inline-block w-2 h-3 mr-1 rounded "
+          ></div>
+          <span className=" pt-1 inline-block mb-1  px-1"> {data}</span>{" "}
+        </div>
       </div>
     );
   });
@@ -154,237 +170,130 @@ const Landing = () => {
   });
 
   return (
-    <div className="-mb-10   relative">
-      <div className="absolute w-full   z-10 ">
-        <div className="container-fluid px-4  text-white">
-          <div className="flex flex-row">
-            <div className="flex-grow  flex flex-row  mr-3">
-              <div className="h-20  mr-4">
-                {/* <a href={process.env.PUBLIC_URL + "/#"}> */}
-                <img
-                  className="min-h-content  w-20"
-                  src={process.env.PUBLIC_URL + "/images/logo.png"}
-                  alt={"logo"}
-                />
-
-                {/* <img
-                  id="pageicon"
-                  style={{ width: "200px", height: "200px" }}
-                  src={process.env.PUBLIC_URL + "/images/logo.png"}
-                  alt={"logo"}
-                /> */}
-                {/* </a>{" "} */}
+    <div className="relative">
+      <div className="w-full absolute  grid grid-rows-1 grid-flow-col  ">
+        <div className="row-start-1 bg-indigo-600 col-start-1 h-32 "></div>
+        <div className="row-start-1 h-96 col-start-1 w-full  bg-indigo-600 transform -skew-y-3 e"></div>
+      </div>
+      <div className="w-full absolute  z-10">
+        <div className="container-fluid px-4   text-white">
+          {/* hero row */}
+          <div className="flex flex-row  mt-10   mb-4">
+            <div className="flex-grow  ">
+              <div className="flex flex-row  mr-3">
+                <div className="h-20  mr-4">
+                  <img
+                    className="min-h-content  w-20"
+                    src={process.env.PUBLIC_URL + "/images/logo.png"}
+                    alt={"logo"}
+                  />
+                </div>
+                <div className="  ">
+                  <div className="text-3xl font-semibold">
+                    {" "}
+                    Handtrack.js{" "}
+                    <span className="text-sm">v{handtrack.version}</span>
+                  </div>
+                  {/* <div className="mt-2">
+                    {" "}
+                    A library for prototyping hand tracking in Javascript.{" "}
+                  </div> */}
+                  <div className="mt-0 mb-1">
+                    {" "}
+                    Detect and track 6 hand positions in Javascript. In the
+                    browser.{" "}
+                  </div>
+                  <div className="mb-3  bg-indipgo-800 rounded inline-block">
+                    {poseListSmall}
+                  </div>
+                </div>
               </div>
-              <div className="  ">
-                <div className="text-3xl font-semibold">
-                  {" "}
-                  Handtrack.js{" "}
-                  <span className="text-sm">v{handtrack.version}</span>
-                </div>
-                <div className="mt-2">
-                  {" "}
-                  A library for prototyping hand tracking in Javascript. In the
-                  browser.{" "}
-                </div>
+
+              <div className="mt-4">
+                <CameraDetect
+                  cameraLoading={cameraLoading}
+                  webcamClick={webcamClick}
+                  model={model}
+                  isPlaying={isPlaying}
+                  webCamError={webCamError}
+                />
               </div>
             </div>
-            <div className="w-96 -mt-2 bg-indigo-800 shadow-xl rounded text-sm p-3 px-5">
-              <div>
-                {/* 🧳{" "} */}
-                <span>
-                  <span className=" relative inline-flex mr-1 rounded-full h-3 w-3 bg-red-500"></span>
-                  <span>
-                    <span className="relative inline-flex mr-1 rounded-full h-3 w-3 bg-yellow-500"></span>
-                    <span>
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                    </span>
-                  </span>
-                </span>
-                <span className="ml-2 font-semibold ">
-                  New in v{handtrack.version}
-                </span>
-                <div className="mt-3">
-                  {" "}
-                  &#x2192; 6 new hand pose tags added (open, closed, ..).
-                </div>
-                <div className="mt-1">
-                  &#x2192; 3 model accuracy blocks - small, medium, large.
-                </div>
-                <div className="mt-1 mb-2">
-                  &#x2192; Smaller model weight files, faster load time!
-                </div>
-              </div>
+            <div className="pb-2 ">
+              <Usage />
             </div>
           </div>
-          {!model && (
-            <div className="">
-              {" "}
-              <Icons icon="loading" />{" "}
-              <span className="text-sm">loading handtrack model ..</span>{" "}
-            </div>
-          )}
-          {model && (
-            <div className="-mt-6">
-              <button
-                disabled={cameraLoading}
-                onClick={webcamClick}
-                className={
-                  (isPlaying ? " ring-4 " : " ") +
-                  " shadow-2xl  transition duration-500 group  cursor-pointer  hover:bg-green-500 bg-green-400   rounded  inline-block"
-                }
-              >
-                <div
-                  className={
-                    (isPlaying ? "bg-white  " : " bg-indigo-800 ") +
-                    " inline-block transition duration-1000  p-2   pl-3 border-opacity-70 border-indigo-200 rounded-r-none border rounded "
-                  }
-                >
-                  {!isPlaying && !cameraLoading && (
-                    <Icons icon="video" size={4} />
-                  )}
-                  {cameraLoading && <Icons icon="loading" size={4} />}
-                  {isPlaying && (
-                    <div className="h-3 w-3 inline-block mr-1">
-                      <span className="flex h-3 w-3 relative  ">
-                        <span className="animate-ping absolute  inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <span className="p-2  pr-4 inline-block transition duration-500 agroup-hover:translate-x-2 transform  ml-1 text-sm">
-                  Detect hands from Webcam
-                </span>{" "}
-              </button>
-              <span className="block text-xs mt-2">
-                Try it on your own webcam video in realtime!
-              </span>
-            </div>
-          )}
-        </div>
-      </div>
-      <div className=" h-72  z-0 w-full   bg-indigo-600  transform -skew-y-3"></div>
-      <div className="absolute z-0 w-full  -mt-28     ">
-        <div className="container-fluid px-4 text-white pb-3 text-sm">
-          {" "}
-          {/* Or, Select an image below to detect hands */}
-        </div>
-        <div className="container-fluid px-4  flex flex-row">
-          <div className=" flex-grow mr-4 rounded  ">
-            {/* <div className=" text-gray-600  text-sm mb-3">
-              {" "}
-              Select an image to see predictions.{" "}
-            </div> */}
-            {/* <div className=" bg-indigo-50 mb-3 p-3 rounded grid grid-cols-5 gap-3 min-h-content  ">
-              Welcome!
-            </div> */}
-            <div className=" bg-indigo-50 p-3 rounded  min-h-content  ">
-              <div className="mb-2">
-                {/* <div className="  font-semibold text-gray-900">
+
+          {/* load camera row */}
+
+          {/* gallery row  */}
+
+          <div className="container-fluid  md:flex flex-row">
+            <div className="mb-3 md:pb-0 flex-grow md:mr-4 rounded  ">
+              <div className=" bg-indigo-50 p-3 rounded  min-h-content  ">
+                <div className="mb-2">
+                  {/* <div className="  font-semibold text-gray-900">
                   Detect Hands from Image, Video, Canvas HTML Tags
                 </div> */}
-                <div className="text-gray-600 text-sm">
-                  Select an image below to run live detection.
+                  <div className="text-gray-600 text-sm">
+                    Select an image below to run live detection.
+                  </div>
                 </div>
+                <div className="grid grid-cols-5 gap-3"> {imageList}</div>
               </div>
-              <div className="grid grid-cols-5 gap-3"> {imageList}</div>
             </div>
+            <div>
+              <div className="transition ease-in duration-700 bg-indigo-50 p-3 rounded relative">
+                <div className="  mb-2 rounded-sm  ">{poseList}</div>
 
-            <div className="mt-3 rounded ">
-              <div className=" text-white bg-indigo-800 shadow-xl rounded text-sm p-3 px-5">
-                <div>
-                  {/* 🧳{" "} */}
-                  <span>
-                    <span className=" relative inline-flex mr-1 rounded-full h-3 w-3 bg-red-500"></span>
-                    <span>
-                      <span className="relative inline-flex mr-1 rounded-full h-3 w-3 bg-yellow-500"></span>
-                      <span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                      </span>
-                    </span>
-                  </span>
-                  <span className="ml-2 font-semibold ">
-                    Use Handtrack | 3 lines of code
-                  </span>
-                  <div className="mt-3">
-                    {" "}
-                    <span className="text-yellow-400">import</span> *{" "}
-                    <span className="text-yellow-400">as</span> handTrack{" "}
-                    <span className="text-yellow-400">from</span>{" "}
-                    <span className="text-green-300">'handtrackjs</span>';
-                  </div>
-                  <div className="mt-1">
-                    <span className="text-yellow-400">const</span> model ={" "}
-                    <span className="text-yellow-400">await</span> handTrack.
-                    <span className="text-yellow-400">load</span>()
-                  </div>
-                  <div className="mt-1 mb-2">
-                    <span className="text-yellow-400">const</span> predictions ={" "}
-                    <span className="text-yellow-400">await</span> model.
-                    <span className="text-yellow-400">detect</span>(img)
-                  </div>
+                <div
+                  className="hidden"
+                  style={{
+                    minWidth: imageWidth + "px",
+                    minHeight: "100px",
+                  }}
+                >
+                  <video
+                    className="rounded  "
+                    style={{
+                      width: imageWidth + "px",
+                      height: imageHeight + "px",
+                    }}
+                    autoPlay="autoplay"
+                    id="videoel"
+                  ></video>
+                </div>
+                <div className="z-10 relative">
+                  {!model && (
+                    <div className="text-gray-600 text-sm absolute border w-full h-full   flex justify-center items-center">
+                      {" "}
+                      <div className="px-4">
+                        {" "}
+                        <Icons icon="loading" /> loading handtrack model ..{" "}
+                      </div>
+                    </div>
+                  )}
+                  <canvas
+                    className=" rounded  transition duration-500 "
+                    style={{
+                      width: imageWidth + "px",
+                      height: imageHeight + "px",
+                    }}
+                    id="outputcanvas"
+                  ></canvas>
                 </div>
               </div>
-              {/* <span className="block text-sm text-gray-600 mb-2">
-                {" "}
-                Get started in 3 lines of code!{" "}
-              </span>
-              <span className="text-sm block">
-                <CodeBlock
-                  text={sampleCode}
-                  language={"javascript"}
-                  showLineNumbers={false}
-                  theme={nord}
-                />
-              </span> */}
             </div>
           </div>
-          <div>
-            <div className="transition ease-in duration-700 bg-indigo-50 p-3 rounded relative">
-              <div className="  mb-2 rounded-sm  ">{poseList}</div>
-              <div
-                className="hidden"
-                style={{
-                  minWidth: imageWidth + "px",
-                  minHeight: "100px",
-                }}
-              >
-                <video
-                  className="rounded  "
-                  style={{
-                    width: imageWidth + "px",
-                    height: imageHeight + "px",
-                  }}
-                  autoPlay="autoplay"
-                  id="videoel"
-                ></video>
-              </div>
-              <div className="z-10 ">
-                <canvas
-                  className=" rounded  transition duration-500 "
-                  style={{
-                    width: imageWidth + "px",
-                    height: imageHeight + "px",
-                  }}
-                  id="outputcanvas"
-                ></canvas>
-              </div>
-            </div>
-          </div>
+
+          <img
+            id="inputholder"
+            alt="hidden holder for larger version of samples."
+            src="images/samples/0.jpg"
+            className="hidden"
+            style={{ width: imageWidth + "px", height: imageHeight + "px" }}
+          />
         </div>
-        {/* <div className="container-fluid px-4 border">
-          <div className="text-2xl font-semibold text-gray-600">
-            Dead Easy to Use!
-          </div>
-          <div className="h-72"></div>
-        </div> */}
-        <img
-          id="inputholder"
-          alt="hidden holder for larger version of samples."
-          src="images/samples/0.jpg"
-          className="hidden"
-          style={{ width: imageWidth + "px", height: imageHeight + "px" }}
-        />
       </div>
     </div>
   );

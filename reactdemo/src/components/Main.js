@@ -5,10 +5,7 @@ import Footer from "./footer/Footer";
 import Header from "./header/Header";
 import Landing from "./Landing/Landing";
 import SimpleDemo from "./SimpleDemo/SimpleDemo";
-import ReactGA from "react-ga";
-
-ReactGA.initialize("UA-000000-01");
-ReactGA.pageview(window.location.pathname + window.location.search);
+import Docs from "./Docs/Docs";
 
 function Main() {
   return (
@@ -22,6 +19,7 @@ function Main() {
             path="/simple"
             render={(props) => <SimpleDemo {...props} />}
           />
+          <Route exact path="/docs" render={(props) => <Docs {...props} />} />
         </main>
         <Footer />
       </div>

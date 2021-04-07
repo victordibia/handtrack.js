@@ -35,8 +35,8 @@ const Header = () => {
     );
   });
   return (
-    <div className="h-52 -mb-20 bg-indigo-600 related">
-      <div className="absolute w-full bg-indigo-700">
+    <div className=" bg-indigo-600 z-50 ">
+      <div className="  w-full bg-indigo-700">
         <div
           className="headermain  w-full container-fluid   border-l-0 border-r-0 border-t-0 border-gray-100 border-opacity-20 pt-2 pb-1 "
           aria-label={appDescription}
@@ -63,7 +63,6 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="headerboost"> </div>
     </div>
   );
 };

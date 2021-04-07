@@ -1,6 +1,7 @@
 import { shuffle } from "lodash";
 import ReactGA from "react-ga";
 
+require("dotenv").config();
 ReactGA.initialize(process.env.REACT_APP_GA_ID);
 
 export function abbreviateString(value, maxLength) {
@@ -16,7 +17,7 @@ export function GaPageView() {
   const pagePath =
     window.location.host + window.location.pathname + window.location.search;
   ReactGA.pageview(pagePath);
-  // console.log(pagePath);
+  // console.log(pagePath, process.env.REACT_APP_GA_ID);
 }
 
 export function boundWidth(widthVal) {

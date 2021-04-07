@@ -1,0 +1,11 @@
+
+.grayscale {
+   
+    filter: gray; /* IE6-9 */
+    -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+}
+  
+.normalimage {
+    filter: none;
+    -webkit-filter: grayscale(0%);
+}

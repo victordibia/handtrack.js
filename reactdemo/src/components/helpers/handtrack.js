@@ -22,7 +22,7 @@ const defaultParams = {
   iouThreshold: 0.2,
   scoreThreshold: 0.6,
   modelType: "ssd320fpnlite",
-  modelSize: "fp16",
+  modelSize: "base",
   bboxLineWidth: "2",
   fontSize: 14,
 };
@@ -44,11 +44,11 @@ const labelMap = {
   6: "tip",
   7: "pinchtip",
 };
-const outputMapping = {
-  int8: { classes: 6, boxes: 1, scores: 7 },
-  fp16: { classes: 5, boxes: 0, scores: 6 },
-  base: { classes: 1, boxes: 4, scores: 2 },
-};
+const modelOutputNodes = [
+  "StatefulPartitionedCall/Postprocessor/Slice",
+  // "StatefulPartitionedCall/Postprocessor/convert_scores",
+  "StatefulPartitionedCall/Postprocessor/ExpandDims_1",
+];
 
 export const version = "0.0.2";
 
@@ -86,11 +86,11 @@ export function startVideo(video) {
               (video.videoHeight / video.videoWidth).toFixed(2) +
             "px";
           video.play();
-          resolve(true);
+          resolve({ status: true, msg: "webcam successfully initiated." });
         };
       })
       .catch(function (err) {
-        resolve(false);
+        resolve({ status: false, msg: err });
       });
   });
 }
@@ -127,9 +127,10 @@ export class ObjectDetection {
     const result = await this.model.executeAsync(
       tf.zeros([1, 300, 300, 3], "int32")
     );
+
     result.map(async (t) => await t.data());
     result.map(async (t) => t.dispose());
-    console.log("model loaded and warmed up");
+    console.log("model loaded and warmed up.");
     // console.log(tf.memory());
   }
 
@@ -170,59 +171,80 @@ export class ObjectDetection {
     });
     // const result = await this.model.executeAsync(batched);
     const self = this;
-    const om = outputMapping[this.modelParams.modelSize];
-    return this.model.executeAsync(batched).then(function (result) {
-      const classes = result[om.classes].dataSync();
-      const boxes = result[om.boxes].arraySync();
-      const scores = result[om.scores].arraySync();
+    return this.model
+      .executeAsync(batched, modelOutputNodes)
+      .then(function (result) {
+        const scores = result[0].dataSync();
+        const boxes = result[1].dataSync();
 
-      //   console.log(scores.length, boxes.length);
-      //   for (let i = 0; i < result.length; i++) {
-      //     console.log(i, "=>", result[i].shape, result[i].dataSync().slice(0, 2));
-      //   }
-      //   console.log(result);
-      // clean the webgl tensors
-      batched.dispose();
-      tf.dispose(result);
+        // clean the webgl tensors
+        batched.dispose();
+        tf.dispose(result);
 
-      const predictions = self.buildDetectedObjects(
-        scores,
-        self.modelParams.scoreThreshold,
-        boxes,
-        classes,
-        width,
-        height
-      );
-
-      let timeEnd = Date.now();
-      self.fps = Math.round(1000 / (timeEnd - timeBegin));
-
-      return predictions;
-    });
+        const [maxScores, classes] = calculateMaxScores(
+          scores,
+          result[0].shape[1],
+          result[0].shape[2]
+        );
+        const prevBackend = tf.getBackend();
+        // run post process in cpu
+        tf.setBackend("cpu");
+        const indexTensor = tf.tidy(() => {
+          const boxes2 = tf.tensor2d(boxes, [
+            result[1].shape[1],
+            result[1].shape[3],
+          ]);
+          return tf.image.nonMaxSuppression(
+            boxes2,
+            maxScores,
+            self.modelParams.maxNumBoxes, // maxNumBoxes
+            self.modelParams.iouThreshold, // iou_threshold
+            self.modelParams.scoreThreshold // score_threshold
+          );
+        });
+        const indexes = indexTensor.dataSync();
+        indexTensor.dispose();
+        // // restore previous backend
+        tf.setBackend(prevBackend);
+        const predictions = self.buildDetectedObjects(
+          width,
+          height,
+          boxes,
+          maxScores,
+          indexes,
+          classes
+        );
+        let timeEnd = Date.now();
+        self.fps = Math.round(1000 / (timeEnd - timeBegin));
+        return predictions;
+      });
   }
 
-  buildDetectedObjects(scores, threshold, boxes, classes, width, height) {
-    const detectionObjects = [];
-    scores[0].forEach((score, i) => {
-      if (score > threshold) {
-        const bbox = [];
-        const minY = boxes[0][i][0] * height;
-        const minX = boxes[0][i][1] * width;
-        const maxY = boxes[0][i][2] * height;
-        const maxX = boxes[0][i][3] * width;
-        bbox[0] = minX;
-        bbox[1] = minY;
-        bbox[2] = maxX - minX;
-        bbox[3] = maxY - minY;
-        detectionObjects.push({
-          class: Math.round(classes[i]),
-          label: labelMap[Math.round(classes[i])],
-          score: score.toFixed(2),
-          bbox: bbox,
-        });
+  buildDetectedObjects(width, height, boxes, scores, indexes, classes) {
+    const count = indexes.length;
+    const objects = [];
+    for (let i = 0; i < count; i++) {
+      const bbox = [];
+      for (let j = 0; j < 4; j++) {
+        bbox[j] = boxes[indexes[i] * 4 + j];
       }
-    });
-    return detectionObjects;
+      const minY = bbox[0] * height;
+      const minX = bbox[1] * width;
+      const maxY = bbox[2] * height;
+      const maxX = bbox[3] * width;
+      bbox[0] = minX;
+      bbox[1] = minY;
+      bbox[2] = maxX - minX;
+      bbox[3] = maxY - minY;
+      const detectionClass = Math.round(classes[indexes[i]]) + 1;
+      objects.push({
+        bbox: bbox,
+        class: detectionClass,
+        label: labelMap[detectionClass],
+        score: scores[indexes[i]].toFixed(2),
+      });
+    }
+    return objects;
   }
 
   getFPS() {
@@ -343,7 +365,7 @@ export class ObjectDetection {
 
     // Write FPS to top left
     context.font = "bold " + this.modelParams.fontSize + "px Arial";
-    // context.fillText("[FPS]: " + this.fps, 10, 20);
+    context.fillText("[FPS]: " + this.fps, 10, 20);
   }
 
   dispose() {
@@ -364,21 +386,20 @@ function getInputTensorDimensions(input) {
     : [input.height, input.width];
 }
 
-// function calculateMaxScores(scores, numBoxes, numClasses) {
-//   const maxes = [];
-//   const classes = [];
-//   for (let i = 0; i < numBoxes; i++) {
-//     let max = Number.MIN_VALUE;
-//     let index = -1;
-//     for (let j = 0; j < numClasses; j++) {
-//       if (scores[i * numClasses + j] > max) {
-//         max = scores[i * numClasses + j];
-//         index = j;
-//       }
-//     }
-//     maxes[i] = max;
-//     classes[i] = index;
-//   }
-//   // console.log([maxes, classes])
-//   return [maxes, classes];
-// }
+function calculateMaxScores(scores, numBoxes, numClasses) {
+  const maxes = [];
+  const classes = [];
+  for (let i = 0; i < numBoxes; i++) {
+    let max = Number.MIN_VALUE;
+    let index = -1;
+    for (let j = 0; j < numClasses; j++) {
+      if (scores[i * numClasses + j] > max) {
+        max = scores[i * numClasses + j];
+        index = j;
+      }
+    }
+    maxes[i] = max;
+    classes[i] = index;
+  }
+  return [maxes, classes];
+}
