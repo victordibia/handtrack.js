@@ -24,7 +24,7 @@ const defaultParams = {
   modelType: "ssd320fpnlite",
   modelSize: "base",
   bboxLineWidth: "2",
-  fontSize: 14,
+  fontSize: 17,
 };
 export const colorMap = {
   open: "#374151",
@@ -363,9 +363,26 @@ export class ObjectDetection {
       );
     }
 
+    // FPS background
+    context.fillStyle = "rgba(255, 255, 255, 0.6)";
+
+    // context.fillRect(5, 5, 80, 24);
+    this.roundRect(
+      context,
+      10,
+      10,
+      this.modelParams.fontSize * 4.6,
+      this.modelParams.fontSize + 8,
+      5,
+      true,
+      false
+    );
     // Write FPS to top left
+    // context.stroke();
+    context.strokeStyle = "#374151";
+    context.fillStyle = "#374151";
     context.font = "bold " + this.modelParams.fontSize + "px Arial";
-    context.fillText("[FPS]: " + this.fps, 10, 20);
+    context.fillText("FPS: " + this.fps, 18, this.modelParams.fontSize + 12);
   }
 
   dispose() {

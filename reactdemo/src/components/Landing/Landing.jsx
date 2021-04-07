@@ -6,11 +6,25 @@ import * as handtrack from "../helpers/handtrack";
 import CameraDetect from "./CameraDetect";
 import WhatsNew from "./WhatsNew";
 import Usage from "./Usage";
+import ModelConfig from "./ModelConfig";
 
 let vidOn = false;
 const Landing = () => {
   // const [imageWidth, imageHeight] = [450, 431];
   const [imageWidth, imageHeight] = [400, 350];
+
+  const defaultParams = {
+    flipHorizontal: false,
+    outputStride: 16,
+    imageScaleFactor: 1,
+    maxNumBoxes: 20,
+    iouThreshold: 0.4, // 0.4 for nms iou > 60% is dropped
+    scoreThreshold: 0.6,
+    modelType: "ssd320fpnlite",
+    modelSize: "base",
+    bboxLineWidth: "2",
+    fontSize: 17,
+  };
 
   const [model, setModel] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -29,7 +43,7 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    handtrack.load().then((model) => {
+    handtrack.load(defaultParams).then((model) => {
       setModel(model);
       // console.log(model);
     });
@@ -120,23 +134,9 @@ const Landing = () => {
     }
   };
 
-  const poseList = Object.keys(handtrack.colorMap).map((data, i) => {
-    return (
-      <div className="text-xs inline  " key={"poserow" + i}>
-        <span
-          style={{ borderBottom: "3px solid " + handtrack.colorMap[data] }}
-          className="p-1 inline-block mb-1 text-gray-600 font-semibold bg-white rounded rounded-b-none    px-2"
-        >
-          {" "}
-          {data}
-        </span>{" "}
-      </div>
-    );
-  });
-
   const poseListSmall = Object.keys(handtrack.colorMap).map((data, i) => {
     return (
-      <div className="text-sm inline   " key={"poserow" + i}>
+      <div className="inline   " key={"poserow" + i}>
         <div className=" items-center inline-flex">
           <div
             style={{ backgroundColor: handtrack.colorMap[data] }}
@@ -178,8 +178,8 @@ const Landing = () => {
       <div className="w-full absolute  z-10">
         <div className="container-fluid px-4   text-white">
           {/* hero row */}
-          <div className="flex flex-row  mt-10   mb-4">
-            <div className="flex-grow  ">
+          <div className="md:flex flex-row  mt-10   mb-1">
+            <div className="flex-grow mr-7">
               <div className="flex flex-row  mr-3">
                 <div className="h-20  mr-4">
                   <img
@@ -188,7 +188,7 @@ const Landing = () => {
                     alt={"logo"}
                   />
                 </div>
-                <div className="  ">
+                <div className=" ">
                   <div className="text-3xl font-semibold">
                     {" "}
                     Handtrack.js{" "}
@@ -203,13 +203,13 @@ const Landing = () => {
                     Detect and track 6 hand positions in Javascript. In the
                     browser.{" "}
                   </div>
-                  <div className="mb-3  bg-indipgo-800 rounded inline-block">
-                    {poseListSmall}
+                  <div className="mb-3 text-sm  bg-indipgo-800 rounded inline-block">
+                    {/* {poseListSmall} */}
                   </div>
                 </div>
               </div>
 
-              <div className="mt-4">
+              <div className="mt-6 ">
                 <CameraDetect
                   cameraLoading={cameraLoading}
                   webcamClick={webcamClick}
@@ -224,12 +224,15 @@ const Landing = () => {
             </div>
           </div>
 
-          {/* load camera row */}
-
           {/* gallery row  */}
 
           <div className="container-fluid  md:flex flex-row">
             <div className="mb-3 md:pb-0 flex-grow md:mr-4 rounded  ">
+              {/* model config row */}
+              <div className="mb-4">
+                <ModelConfig />
+              </div>
+
               <div className=" bg-indigo-50 p-3 rounded  min-h-content  ">
                 <div className="mb-2">
                   {/* <div className="  font-semibold text-gray-900">
@@ -244,7 +247,9 @@ const Landing = () => {
             </div>
             <div>
               <div className="transition ease-in duration-700 bg-indigo-50 p-3 rounded relative">
-                <div className="  mb-2 rounded-sm  ">{poseList}</div>
+                {/* <div className="text-gray-800  mb-2 text-sm bg-indigo-200 rounded px-2  ">
+                  {poseListSmall}
+                </div> */}
 
                 <div
                   className="hidden"
@@ -265,7 +270,7 @@ const Landing = () => {
                 </div>
                 <div className="z-10 relative">
                   {!model && (
-                    <div className="text-gray-600 text-sm absolute border w-full h-full   flex justify-center items-center">
+                    <div className="text-gray-600 text-sm absolute   w-full h-full   flex justify-center items-center">
                       {" "}
                       <div className="px-4">
                         {" "}

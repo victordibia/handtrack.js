@@ -9,7 +9,7 @@ const CameraDetect = ({
   webCamError,
 }) => {
   return (
-    <div className="  mb-4">
+    <div className="  mb-4 ">
       {!model && (
         <div className="">
           {" "}
@@ -24,9 +24,14 @@ const CameraDetect = ({
             onClick={webcamClick}
             className={
               (isPlaying ? " ring-4 " : " ") +
-              " shadow-2xl  transition duration-500 group  cursor-pointer  hover:bg-green-500 bg-green-400   rounded  inline-block"
+              "   whitespace-nowrap  transition relative duration-500 group  cursor-pointer  hover:bg-green-500 bg-green-400   rounded  inline-block"
             }
           >
+            {!isPlaying && (
+              <span className="absolute -right-5 -top-7  opacity-80">
+                <Icons icon="tryme" />
+              </span>
+            )}
             <div
               className={
                 (isPlaying ? "bg-white  " : " bg-indigo-800 ") +
@@ -44,12 +49,12 @@ const CameraDetect = ({
                 </div>
               )}
             </div>
-            <span className="p-2  pr-4 inline-block transition duration-500 agroup-hover:translate-x-2 transform  ml-1 text-sm">
-              Detect hands from Webcam
+            <span className="p-2  whitespace-nowrap pr-4 inline-block transition duration-500 agroup-hover:translate-x-2 transform  ml-1 text-sm">
+              Detect hands from <span className="font-semiboldo">webcam</span>
             </span>{" "}
           </button>
           <span className="block text-xs mt-2">
-            Try it on your own webcam video in realtime!
+            {/* Try it on your own webcam video in realtime! */}
             {webCamError && !webCamError.status && (
               <span className=" block text-red-500 mt-1 ">
                 {JSON.stringify(webCamError.msg.message)}. Please ensure you

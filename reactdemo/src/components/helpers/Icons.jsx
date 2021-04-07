@@ -71,6 +71,44 @@ const Icons = ({ icon, color = null, size = 5 }) => {
     );
   }
 
+  if (icon.toLowerCase() === "tryme") {
+    return (
+      <span>
+        <svg width="60px" height="44px" viewBox="0 0 60 44" version="1.1">
+          <title>tryme</title>
+          <g
+            id="Handtrack.js"
+            stroke="none"
+            strokeWidth="1"
+            fill="none"
+            fillRule="evenodd"
+          >
+            <g id="tryme" transform="translate(0.275948, 0.000000)">
+              <text
+                id="Try-me!"
+                fontFamily="NeuePlakText-Regular, Neue Plak Text"
+                fontSize="13"
+                fontWeight="normal"
+                letterSpacing="-0.291836735"
+                fill="currentColor"
+              >
+                <tspan x="0.724052146" y="16">
+                  Try me!
+                </tspan>
+              </text>
+              <path
+                id="Path-2"
+                d="M43.8953457,10.8356184 C55.4105703,15.0346888 59.6549322,21.2658601 58.4940597,28.729525 C57.8790266,32.6837923 55.498061,36.1881019 51.3806918,39.2353098 L51.363,39.247 L53.3395129,42.7928399 L43.2872997,43.2434078 L48.9581733,34.9312965 L50.873442,38.3663871 C54.7377106,35.4825308 56.9389315,32.2213393 57.5059403,28.5758364 C58.5743183,21.7068522 54.7483085,15.9758458 43.9984372,11.9400052 L43.5527586,11.7751044 L43.8953457,10.8356184 Z"
+                fill="currentColor"
+                fillRule="nonzero"
+              ></path>
+            </g>
+          </g>
+        </svg>
+      </span>
+    );
+  }
+
   if (icon.toLowerCase() === "github") {
     return (
       <span>
