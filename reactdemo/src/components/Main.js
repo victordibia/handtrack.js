@@ -10,9 +10,9 @@ import Docs from "./Docs/Docs";
 function Main() {
   return (
     <HashRouter>
-      <div className="flex   flex-col   h-screen ">
+      <div className="flex   flex-col h-screen ">
         <Header />
-        <main className="  w-full flex-grow ">
+        <main className="  w-full flexp-grow ">
           <Route exact path="/" render={(props) => <Landing {...props} />} />
           <Route
             exact

@@ -24,7 +24,9 @@ const Icons = ({ icon, color = null, size = 5 }) => {
       <span>
         <svg
           aria-hidden="true"
-          className="mr-1 inline h-5 w-6 animate-spin  transition duration-100"
+          className={
+            "mr-1 inline   animate-spin  transition duration-100" + sizeClass
+          }
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -85,8 +87,8 @@ const Icons = ({ icon, color = null, size = 5 }) => {
           >
             <g id="tryme" transform="translate(0.275948, 0.000000)">
               <text
-                id="Try-me!"
-                fontFamily="NeuePlakText-Regular, Neue Plak Text"
+                id="Try-me! "
+                // fontFamily="NeuePlakText-Regular, Neue Plak Text"
                 fontSize="13"
                 fontWeight="normal"
                 letterSpacing="-0.291836735"

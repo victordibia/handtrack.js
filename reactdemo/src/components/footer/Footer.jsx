@@ -15,7 +15,7 @@ const Footer = () => {
     <div className="border-gray-200 text-gray-600   text-sm border-l-0 border-r-0 border-b-0  border w-full">
       <div style={{ zIndex: 999000 }} className=" container-fluid   w-full p-2">
         Made with <span className="pr-2">❤️</span> by{" "}
-        <a href="https://www.victordibia.com/" target="blank">
+        <a rel="noreferrer" href="https://victordibia.com/" target="_blank">
           Victor Dibia
         </a>{" "}
       </div>

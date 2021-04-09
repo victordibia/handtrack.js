@@ -9,6 +9,7 @@
 
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Icons from "../helpers/Icons";
 import "./header.css";
 
 const Header = () => {
@@ -24,7 +25,7 @@ const Header = () => {
     return (
       <div
         key={"navrow" + i}
-        className="navbarlinks h-full flex flex-col mr-3  text-sm justify-center "
+        className="navbarlinks h-full flex flex-col mr-2  text-sm justify-center "
       >
         <span className="text-white cursor-pointer font-semibold rounded   ">
           <NavLink exact to={data.url}>
@@ -41,7 +42,7 @@ const Header = () => {
           className="headermain  w-full container-fluid   border-l-0 border-r-0 border-t-0 border-gray-100 border-opacity-20 pt-2 pb-1 "
           aria-label={appDescription}
         >
-          <div className="  w-full  container-fluid   headerrow  ">
+          <div className="   w-full  container-fluid   headerrow  ">
             <div className="flex  h-full">
               <div className="h-full   flex flex-col justify-center mr-2 ml-2  ">
                 <a href={process.env.PUBLIC_URL + "/#"}>
@@ -58,7 +59,21 @@ const Header = () => {
                   {appName}{" "}
                 </div>
               </div>
-              {navList}
+              <div className="flex flex-grow">{navList}</div>
+              <div className="  text-white flex flex-col justify-center  mr-1">
+                <div>
+                  <a
+                    rel="noreferrer"
+                    href="https://github.com/victordibia/handtrack.js/"
+                    target="_blank"
+                    className=" -mt-2 inline-block   transition duration-1000 hover:text-yellow-200"
+                  >
+                    {" "}
+                    <span className="text-xs mr-2"> code! </span>
+                    <Icons icon="github" size={6} />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

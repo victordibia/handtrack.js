@@ -11,7 +11,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "dotenv": "^8.2.0",
-    "react": "^17.0.2",
+    "react": "^17.0ploy.2",
     "react-code-blocks": "^0.0.8",
     "react-dom": "^17.0.2",
     "react-router-dom": "^5.2.0",

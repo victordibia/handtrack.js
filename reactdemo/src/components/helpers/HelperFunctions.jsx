@@ -1,8 +1,8 @@
 import { shuffle } from "lodash";
-import ReactGA from "react-ga";
+// import ReactGA from "react-ga";
 
 require("dotenv").config();
-ReactGA.initialize(process.env.REACT_APP_GA_ID);
+// ReactGA.initialize(process.env.REACT_APP_GA_ID);
 
 export function abbreviateString(value, maxLength) {
   if (value.length <= maxLength) {
@@ -13,10 +13,30 @@ export function abbreviateString(value, maxLength) {
   }
 }
 
+export function getScrollHeight() {
+  const body = document.body,
+    html = document.documentElement;
+
+  const height = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight
+  );
+  return height;
+}
+
 export function GaPageView() {
   const pagePath =
     window.location.host + window.location.pathname + window.location.search;
-  ReactGA.pageview(pagePath);
+  if (!pagePath.includes("localhost")) {
+    window.gtag("config", process.env.REACT_APP_GA_ID, {
+      page_title: document.title,
+      page_path: pagePath,
+    });
+  }
+
   // console.log(pagePath, process.env.REACT_APP_GA_ID);
 }
 

@@ -16,10 +16,11 @@
     appearance: none;
     width: 100%; /* Full-width */
     height: 5px; /* Specified height */
-    @apply bg-white;
+    @apply bg-indigo-800 rounded;
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
+    min-width: 40px;
   }
   
   /* Mouse-over effects */

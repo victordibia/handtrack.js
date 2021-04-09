@@ -2,7 +2,7 @@ import React from "react";
 
 const Usage = ({ version }) => {
   return (
-    <div className="mt-3 rounded ">
+    <div className="mt-3 rounded  ">
       <div className=" text-white bg-indigo-800 shadow-xl rounded text-sm p-3 px-5">
         <div>
           {/* 🧳{" "} */}

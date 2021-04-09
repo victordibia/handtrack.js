@@ -22,9 +22,15 @@ const defaultParams = {
   iouThreshold: 0.2,
   scoreThreshold: 0.6,
   modelType: "ssd320fpnlite",
-  modelSize: "base",
+  modelSize: "large",
   bboxLineWidth: "2",
   fontSize: 17,
+};
+
+const modelSizeMap = {
+  large: "base",
+  medium: "fp16",
+  small: "int8",
 };
 export const colorMap = {
   open: "#374151",
@@ -112,7 +118,7 @@ export class ObjectDetection {
       basePath +
       modelParams.modelType +
       "/" +
-      modelParams.modelSize +
+      (modelSizeMap[modelParams.modelSize] || "base") +
       "/model.json ";
     // this.weightPath =
     //   basePath + modelParams.modelType + "/weights_manifest.json";
@@ -122,15 +128,20 @@ export class ObjectDetection {
   async load() {
     this.fps = 0;
     // this.model = await tf.loadFrozenModel(this.modelPath, this.weightPath);
+    if (this.model) {
+      console.log("model existis ....");
+    }
     this.model = await loadGraphModel(this.modelPath);
     // Warmup the model.
-    const result = await this.model.executeAsync(
-      tf.zeros([1, 300, 300, 3], "int32")
-    );
-
+    const dummyInput = tf.zeros([1, 300, 300, 3], "int32");
+    // this.model.executeAsync(dummyInput).then((result) => {
+    //   tf.dispose(result);
+    //   tf.dispose(dummyInput);
+    // });
+    const result = await this.model.executeAsync(dummyInput);
     result.map(async (t) => await t.data());
     result.map(async (t) => t.dispose());
-    console.log("model loaded and warmed up.");
+    tf.dispose(dummyInput);
     // console.log(tf.memory());
   }
 
