@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/handtrack.js/static/css/main.b9f1fb36.chunk.css",
-    "main.js": "/handtrack.js/static/js/main.3a0658cc.chunk.js",
-    "main.js.map": "/handtrack.js/static/js/main.3a0658cc.chunk.js.map",
+    "main.css": "/handtrack.js/static/css/main.44ee2ac1.chunk.css",
+    "main.js": "/handtrack.js/static/js/main.ad550b0b.chunk.js",
+    "main.js.map": "/handtrack.js/static/js/main.ad550b0b.chunk.js.map",
     "runtime-main.js": "/handtrack.js/static/js/runtime-main.b6a8bd64.js",
     "runtime-main.js.map": "/handtrack.js/static/js/runtime-main.b6a8bd64.js.map",
     "static/js/2.9e34a63a.chunk.js": "/handtrack.js/static/js/2.9e34a63a.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.cf1be786.chunk.js": "/handtrack.js/static/js/3.cf1be786.chunk.js",
     "static/js/3.cf1be786.chunk.js.map": "/handtrack.js/static/js/3.cf1be786.chunk.js.map",
     "index.html": "/handtrack.js/index.html",
-    "static/css/main.b9f1fb36.chunk.css.map": "/handtrack.js/static/css/main.b9f1fb36.chunk.css.map",
+    "static/css/main.44ee2ac1.chunk.css.map": "/handtrack.js/static/css/main.44ee2ac1.chunk.css.map",
     "static/js/2.9e34a63a.chunk.js.LICENSE.txt": "/handtrack.js/static/js/2.9e34a63a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b6a8bd64.js",
     "static/js/2.9e34a63a.chunk.js",
-    "static/css/main.b9f1fb36.chunk.css",
-    "static/js/main.3a0658cc.chunk.js"
+    "static/css/main.44ee2ac1.chunk.css",
+    "static/js/main.ad550b0b.chunk.js"
   ]
 }
