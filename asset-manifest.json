@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/handtrack.js/static/css/main.cea5d086.chunk.css",
-    "main.js": "/handtrack.js/static/js/main.34469a99.chunk.js",
-    "main.js.map": "/handtrack.js/static/js/main.34469a99.chunk.js.map",
+    "main.js": "/handtrack.js/static/js/main.1b46bb21.chunk.js",
+    "main.js.map": "/handtrack.js/static/js/main.1b46bb21.chunk.js.map",
     "runtime-main.js": "/handtrack.js/static/js/runtime-main.b6a8bd64.js",
     "runtime-main.js.map": "/handtrack.js/static/js/runtime-main.b6a8bd64.js.map",
     "static/js/2.9e34a63a.chunk.js": "/handtrack.js/static/js/2.9e34a63a.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b6a8bd64.js",
     "static/js/2.9e34a63a.chunk.js",
     "static/css/main.cea5d086.chunk.css",
-    "static/js/main.34469a99.chunk.js"
+    "static/js/main.1b46bb21.chunk.js"
   ]
 }
