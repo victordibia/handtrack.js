@@ -17,8 +17,7 @@ Handtrack.js is a library for prototyping realtime hand detection (bounding box)
 
 Handtrack.js is currently being updated (mostly around optimizations for speed/accuracy and functionality). Here is a list of recent changes:
 
-- **New dataset curation**: A  new dataset (~2000 images, 6000 labels) has been curated. The current version is focused on the viewpoint of a user facing a webcam. Details on data collection are listed below. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII). In the meantime, the project can be reproduced using the [egohands](http://vision.soic.indiana.edu/projects/egohands/) dataset which is public.
--  
+- **New dataset curation**: A  new dataset (~2000 images, 6000 labels) has been curated. The current version is focused on the viewpoint of a user facing a webcam. Details on data collection are listed below. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII). In the meantime, the project can be reproduced using the [egohands](http://vision.soic.indiana.edu/projects/egohands/) dataset which is public. 
 - **New Classes**: Following a review of the use cases that developers have created so far with handtrack.js (e.g. game controls, detect face touching to minimize covid spread, air guitar etc), a new set of hand pose labels have been curated:
   - Open:  All fingers are extended in an open palm position.  This represents an open hand which can be the drop mode of a drag and drop operation.  
   - Closed: All fingers are contracted in a ball in a closed fist position. The closed hand is similar to the drag mode for a drag and drop operation.
@@ -39,7 +38,7 @@ The underlying models are trained using the tensorflow object detection api ([se
 
 | FPS | Image Size | Device                             | Browser                  | Comments |
 |-----|------------|------------------------------------|--------------------------|----------|
-| 21  | 450 * 380  | Macbook Pro (i7, 2.2GHz, 2018)     | Chrome Version 72.0.3626 |  --      |
+| 26  | 450 * 380  | Macbook Pro (i7, 2.2GHz, 2018)     | Chrome Version 72.0.3626 |  --      |
 | 14  | 450 * 380  | Macbook Pro (i7, 2.2GHz, mid 2014) | Chrome Version 72.0.3626 |  --      |
 
 
