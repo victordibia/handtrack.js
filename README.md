@@ -54,7 +54,7 @@ For details on documentation, please see the project documentation page here.
 [<img src="demo/images/docs.jpg" width="100%">](https://victordibia.github.io/handtrack.js/)
 
 ## How does this work?
-<img src="demo/images/architecture.jpg" width="100%">
+<!-- <img src="demo/images/architecture.jpg" width="100%"> -->
 
 - Trained using a dataset of annotated hand poses (open, closed, pointing, pinch ..) mostly captured from a user webcam viewpoint. This is also augmented with samples from other viewpoints (round table discussion participants, egocentric viewpoints) and varied lighting conditions. An earlier version of handtrack.js was trained with the egohands dataset.
 - Trained model is converted to the Tensorflowjs webmodel format
@@ -229,9 +229,9 @@ Victor Dibia, HandTrack: A Library For Prototyping Real-time Hand TrackingInterf
 
 ## TODO (ideas welcome)
 
-[ ] Optimization: This thing is still compute heavy (your fans may spin after while). This is mainly because of the neural net operations needed to predict bounding boxes. I am currently exploring CenterNets (an anchor free object detection model) as one way to minimize compute requirements.
+- [ ] Optimization: This thing is still compute heavy (your fans may spin after while). This is mainly because of the neural net operations needed to predict bounding boxes. I am currently exploring CenterNets (an anchor free object detection model) as one way to minimize compute requirements.
 
-[ ] Tracking id's across frames. Perhaps some nifty methods that assigns ids to each had as they enter a frame and tracks them (e.g based on naive euclidean distance).
+- [ ] Tracking id's across frames. Perhaps some nifty methods that assigns ids to each had as they enter a frame and tracks them (e.g based on naive euclidean distance).
 
-[x] Add some discrete poses (e.g. instead of just hand, detect open hand, fist).
+- [x] Add some discrete poses (e.g. instead of just hand, detect open hand, closed, ).
 
