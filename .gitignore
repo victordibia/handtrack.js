@@ -5,7 +5,11 @@ srcdist
 react
 build
 demoreact
+reactdemo
+reactdemox
 # models
+
+.DS_Store   
 
 # Logs
 logs
