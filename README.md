@@ -25,7 +25,9 @@ Handtrack.js is currently being updated (mostly around optimizations for speed/a
   - Point: Index finger is extended in a pointing gesture. 
   - Face: To help disambiguate between the face and hands, and to also enable face tracking applications in the same library, a face label is also added. 
   
-- **Reduced Model size**: Handtrack.js now supports multiple models (e.g. ssd320fpnlite, ssd640fpnlite) with multiple sizes (large, medium and small). The large model is the FP32 version of the each model while medium and small are fp16 and Int8 quantized versions respectively. In my experiments, the small version yields comparable accuracy but with a much  small model weight size. Note that smaller models don't translate to faster - all three sizes yield about the same FPS. 
+- **Reduced Model size**: Handtrack.js now supports multiple models (e.g. ssd320fpnlite, ssd640fpnlite) with multiple sizes (large, medium and small). The large size is the default fp32 version of the each model while medium and small are fp16 and Int8 quantized versions respectively. In my experiments, the small version yields comparable accuracy but with a much  smaller model weight size. Note that smaller models don't translate to faster - all three sizes yield about the same FPS. For example, ssd320fpnlite sizes (large -> 12MB, medium -> 6MB, small -> 3MB!)
+
+
  
 - **Model Accuracy**: Early testing shows the new model to be more accurate for the front facing web cam viewpoint detection. The inclusion of face labels also reduces the earlier face misclassifications 
 - **Javascript Library**: The handtrack.js library has been updated to fix issues with correct input image resolutions, upgrade the underlying tensorflowjs models, provide more customization options (e.g. use of small medium or large base models etc) 
@@ -50,11 +52,12 @@ The underlying models are trained using the tensorflow object detection api ([se
 
 Handtrack.js is provided as a useful wrapper to allow you prototype hand/gesture based interactions in your web applications. without the need to understand machine learning. It takes in a html image element (`img`, `video`, `canvas` elements, for example) and returns an array of bounding boxes, class names and confidence scores. 
 
-### Add Handtrack.js to Project
+### Import the Handtrack.js Library
 
 > Note that the current version of the handtrack.js library is designed to work in the browser (frontend Javascript) and not Node.js. 
 > 
-You can use the library by importing it either via  a javacript  `script tag` or imported as an `npm module`.
+Handtrack.js can be imported into your application either via a  `script tag` or via `npm`.
+Once imported, handtrack.js provides an asynchronous `load(`) method which returns a promise for a object detection `model` object.
 
 #### Import via Script Tag
 
@@ -89,7 +92,7 @@ const model =  await handTrack.load();
 const predictions = await model.detect(img); 
 ```
 
-Please see the project documentation page for more details on the API and examples. 
+Handtrack.js also proivdes a set of library helper methods (e.g. to start and stop video playback on a video element) and some model methods (e.g. `detect`, `getFPS` etc). Please see the project documentation page for more details on the API and examples. 
 
 [<img src="demo/images/docs.jpg" width="100%">](https://victordibia.github.io/handtrack.js/)
 
