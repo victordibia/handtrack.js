@@ -126,8 +126,10 @@ Some (not all) relevant scenarios are listed below: 
 
 Commands below runs the demo example in the `demo` folder.
 
-`npm install`
-`npm run start`
+```javascript 
+npm install
+npm run start
+```
 
 The start script launches a simple `python3` webserver from the demo folder using `http.server`. You should be able to view it in your browser at [http://localhost:3005/](http://localhost:3005/). You can also view the pong game control demo on same link [http://localhost:3005/pong.html](http://localhost:3005/pong.html)
 
