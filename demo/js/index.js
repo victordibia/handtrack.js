@@ -57,7 +57,9 @@ function nextImage() {
   imgindex++;
   handimg.src = "images/" + (imgindex % 9) + ".jpg";
   // alert(handimg.src)
-  runDetectionImage(handimg);
+  setTimeout(() => {
+    runDetectionImage(handimg);
+  }, 500);
 }
 
 function runDetection() {
