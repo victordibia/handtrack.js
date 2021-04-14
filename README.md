@@ -65,7 +65,7 @@ Once imported, handtrack.js provides an asynchronous `load(`) method which retur
 ```html
 
 <!-- Load the handtrackjs model. -->
-<script src="https://cdn.jsdelivr.net/npm/handtrackjs@latest/dist/handtrack.min.js"> </script>
+<script src="https://cdn.jsdelivr.net/npm/handtrackjs@0.0.13/dist/handtrack.min.js"> </script>
 
 <!-- Replace this with your image. Make sure CORS settings allow reading the image! -->
 <img id="img" src="hand.jpg"/>  

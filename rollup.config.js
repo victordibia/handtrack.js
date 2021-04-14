@@ -51,7 +51,7 @@ export default {
   ],
   plugins: [
     resolve(),
-    terser(),
+    // terser(),
     copyPlugin({
       src: "reactdemo/src/components/helpers/handtrack.js",
       targ: "src/index.js",
