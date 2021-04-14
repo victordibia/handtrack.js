@@ -11,6 +11,9 @@
 
 [<img src="demo/images/screen.jpg" width="100%">](https://victordibia.github.io/handtrack.js/)
 
+> Note: 
+Version `0.0.13` is the old version of handtrack.js which tracks only hands and was trained on the egohands dataset. It is slightly more stable than the recent version v `0.1.x` which is trained on a new dataset (still in active development) and supports more classes (open, closed, pinch, point, zoom etc.). You might see some issues with the new version (feel free to downgrade to `0.0.13` as needed) and also report the issues you see.
+
 Handtrack.js is a library for prototyping realtime hand detection (bounding box), directly in the browser. It frames handtracking as an object detection problem, and uses a trained convolutional neural network to predict bounding boxes for the location of hands in an image. 
 
 ## Whats New? v0.1.x
