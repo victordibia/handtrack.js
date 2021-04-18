@@ -1,4 +1,5 @@
-import resolve from "rollup-plugin-node-resolve";
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import fs from "fs";
 import path from "path";
 import copy from "rollup-plugin-copy";
@@ -16,25 +17,33 @@ const copyPlugin = function (options) {
   };
 };
 
-// export default {
-//   input: 'src/index.js',
-//   output: [{
-//     file: 'dist/handtrack.min.js',
-//     format: 'umd',
-//     name: 'handTrack',
-//   }, {
-//     file: 'demo/handtrack.min.js',
-//     format: 'umd',
-//     name: 'handTrack',
-//   }],
-//   plugins: [resolve(), minify()]
-//   // plugins: [resolve()]
-//   // plugins: [resolve(), copyPlugin({
-//   //   src: 'src/index.js',
-//   //   targ: 'demoreact/node_modules/handtrackjs/src/index.js'
-//   // })]
-// }
+export default {
+  input: 'src/index.js',
+  output: [{
+    file: 'dist/handtrack.min.js',
+    format: 'umd',
+    name: 'handTrack',
+  }, {
+    file: 'demo/handtrack.min.js',
+    format: 'umd',
+    name: 'handTrack',
+  }],
+  plugins: [
+    resolve({
+        browser: true
+    }),
+    commonjs(),
+    resolve(),
+    terser()
+  ]
+  // plugins: [resolve()]
+  // plugins: [resolve(), copyPlugin({
+  //   src: 'src/index.js',
+  //   targ: 'demoreact/node_modules/handtrackjs/src/index.js'
+  // })]
+}
 
+/*
 export default {
   input: "reactdemo/src/components/helpers/handtrack.js",
   output: [
@@ -68,3 +77,4 @@ export default {
   //   targ: 'demoreact/node_modules/handtrackjs/src/index.js'
   // })]
 };
+*/
