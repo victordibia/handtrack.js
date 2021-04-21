@@ -16,6 +16,16 @@ const basePath =
   "https://cdn.jsdelivr.net/npm/handtrackjs@latest/models/webmodel/";
 // const basePath = "webmodel/";
 
+const labelMap = {
+  1: "open",
+  2: "closed",
+  3: "pinch",
+  4: "point",
+  5: "face",
+  6: "tip",
+  7: "pinchtip",
+};
+
 const defaultParams = {
   flipHorizontal: false,
   outputStride: 16,
@@ -27,6 +37,8 @@ const defaultParams = {
   modelSize: "large",
   bboxLineWidth: "2",
   fontSize: 17,
+  basePath: basePath,
+  labelMap: labelMap,
 };
 
 const modelSizeMap = {
@@ -43,15 +55,7 @@ export const colorMap = {
   tip: "#6366F1",
   pinchtip: "#EC4899",
 };
-const labelMap = {
-  1: "open",
-  2: "closed",
-  3: "pinch",
-  4: "point",
-  5: "face",
-  6: "tip",
-  7: "pinchtip",
-};
+
 const modelOutputNodes = [
   "StatefulPartitionedCall/Postprocessor/Slice",
   // "StatefulPartitionedCall/Postprocessor/convert_scores",
@@ -119,7 +123,7 @@ export async function stopVideo() {
 export class ObjectDetection {
   constructor(modelParams) {
     this.modelPath =
-      basePath +
+      modelParams.basePath +
       modelParams.modelType +
       "/" +
       (modelSizeMap[modelParams.modelSize] || "base") +
@@ -255,7 +259,7 @@ export class ObjectDetection {
       objects.push({
         bbox: bbox,
         class: detectionClass,
-        label: labelMap[detectionClass],
+        label: this.modelParams.labelMap[detectionClass],
         score: scores[indexes[i]].toFixed(2),
       });
     }
