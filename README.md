@@ -20,13 +20,13 @@ Handtrack.js is a library for prototyping realtime hand detection (bounding box)
 
 Handtrack.js is currently being updated (mostly around optimizations for speed/accuracy and functionality). Here is a list of recent changes:
 
-- **New dataset curation**: A  new dataset (~2000 images, 6000 labels) has been curated. The current version is focused on the viewpoint of a user facing a webcam. Details on data collection are listed below. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII). In the meantime, the project can be reproduced using the [egohands](http://vision.soic.indiana.edu/projects/egohands/) dataset which is public. 
+- **New dataset curation**: A  new dataset (~2000 images, 6000 labels) has been curated to cover new hand poses (discussed below) and focuses on the viewpoint of a user facing a webcam. Note that the dataset is not released (mostly because it contains personal information on the participants and effort is still underway to extract a subset that is free of PII). In the meantime, the project can still be reproduced using the [egohands](http://vision.soic.indiana.edu/projects/egohands/) dataset which is public. 
 - **New Classes**: Following a review of the use cases that developers have created so far with handtrack.js (e.g. game controls, detect face touching to minimize covid spread, air guitar etc), a new set of hand pose labels have been curated:
   - Open:  All fingers are extended in an open palm position.  This represents an open hand which can be the drop mode of a drag and drop operation.  
   - Closed: All fingers are contracted in a ball in a closed fist position. The closed hand is similar to the drag mode for a drag and drop operation.
   - Pinch: The thumb and index finger are are together in an picking gesture.  This can also double as a grab or drag mode in a drag and drop operation.
   - Point: Index finger is extended in a pointing gesture. 
-  - Face: To help disambiguate between the face and hands, and to also enable face tracking applications in the same library, a face label is also added. 
+  - Face: To help disambiguate between the face and hands (a failure point for the previous version of handtrack.js), and to also enable face tracking applications in the same library, a face label has been added. 
   
 - **Reduced Model size**: Handtrack.js now supports multiple models (e.g. ssd320fpnlite, ssd640fpnlite) with multiple sizes (large, medium and small). The large size is the default fp32 version of the each model while medium and small are fp16 and Int8 quantized versions respectively. In my experiments, the small version yields comparable accuracy but with a much  smaller model weight size. Note that smaller models don't translate to faster - all three sizes yield about the same FPS. For example, ssd320fpnlite sizes (large -> 12MB, medium -> 6MB, small -> 3MB!)
 
@@ -47,7 +47,7 @@ The underlying models are trained using the tensorflow object detection api ([se
 | 14  | 450 * 380  | Macbook Pro (i7, 2.2GHz, mid 2014) | Chrome Version 72.0.3626 |  --      |
 
 
-> This work is based on the [the coco-ssd tensorflowjs](https://github.com/tensorflow/tfjs-models/tree/master/coco-ssd) sample. Definitely check it out if you are interested in detecting/tracking any of the 90 classes in the coco dataset.
+> Note: Handtrack.js has not been extensively tested on mobile browsers. There have been some known inconsistencies still being investigated.
 
  
 
@@ -109,11 +109,8 @@ Handtrack.js also proivdes a set of library helper methods (e.g. to start and st
 ## When Should I Use Handtrack.js
  
 
-If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The usser does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
-
-<img src="demo/images/pong.gif" width="100%">
-
-> Code examples for the pong game control shown above is in the [ `demo` folder](/demo).
+If you are interested in prototyping gesture based (body as input) interactive experiences, Handtrack.js can be useful. The user does not need to attach any additional sensors or hardware but can immediately take advantage of engagement benefits that result from gesture based and body-as-input interactions.
+ 
 
 Some (not all) relevant scenarios are listed below: 
 
@@ -123,7 +120,10 @@ Some (not all) relevant scenarios are listed below: 
 - You want an accessible demonstration that anyone can easily run or tryout with minimal setup.
 - You are interested in usecases that have offline, realtime, privacy requirements.
 
- 
+
+### Limitations
+
+The main limitation currently is that handtrack.js is still a fairly heavy model and there have been some inconsistent results when run on mobile.
 
 ## Run Demo 
 
