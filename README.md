@@ -28,8 +28,9 @@ Handtrack.js is currently being updated (mostly around optimizations for speed/a
   - Point: Index finger is extended in a pointing gesture. 
   - Face: To help disambiguate between the face and hands (a failure point for the previous version of handtrack.js), and to also enable face tracking applications in the same library, a face label has been added. 
   
-- **Reduced Model size**: Handtrack.js now supports multiple models (e.g. ssd320fpnlite, ssd640fpnlite) with multiple sizes (large, medium and small). The large size is the default fp32 version of the each model while medium and small are fp16 and Int8 quantized versions respectively. In my experiments, the small version yields comparable accuracy but with a much  smaller model weight size. Note that smaller models don't translate to faster - all three sizes yield about the same FPS. For example, ssd320fpnlite sizes (large -> 12MB, medium -> 6MB, small -> 3MB!)
+- **Reduced Model size**: Handtrack.js now supports multiple models (e.g. ssd320fpnlite, ssd640fpnlite) with multiple sizes (large, medium and small). The large size is the default fp32 version of the each model while medium and small are fp16 and Int8 quantized versions respectively. In my experiments, the small version yields comparable accuracy but with a much  smaller model weight size.  For example, ssd320fpnlite sizes (large -> 12MB, medium -> 6MB, small -> 3MB!)
 
+> Note that smaller models don't translate to faster inference speed - all three sizes yield about the same FPS.
 
  
 - **Model Accuracy**: Early testing shows the new model to be more accurate for the front facing web cam viewpoint detection. The inclusion of face labels also reduces the earlier face misclassifications 
